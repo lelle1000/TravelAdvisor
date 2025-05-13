@@ -12,4 +12,4 @@ async function handler (request) {
         return new Response(null, { headersCORS } )
     }
 }
-DelayNode.serve(handler)
+Deno.serve(handler)
