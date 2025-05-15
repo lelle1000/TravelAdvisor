@@ -9,3 +9,40 @@ header {
     height: 100px;
     margin: 10px;
 }
+
+footer{
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    border-top: 1px solid grey;
+    padding-top: 70px;
+}
+
+footer li{
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+footer a{
+    color: grey;
+    text-decoration: none;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}
+
+footer #bold{
+    color: black;
+    font-weight: 600;
+}
+
+#footerInfo{
+    width: 200px;
+}
+
+#medias{
+    display: flex;
+    gap: 5px;
+    max-width: 10%;
+}
