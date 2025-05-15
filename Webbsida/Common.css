@@ -1,13 +1,102 @@
-header {
+body {
+    margin: 0px;
+}
+
+:root {
+    --SmallText: 12px;
+    --MediumText: 14px;
+    --LargeText: 16px;
+    --XXLText: 18px;
+    --MegaText: 60px;
+    --W: white;
+    --B: black;
+    --BOLD: bold;
+}
+
+.NavigationHeader {
     display: flex;
-    justify-content: space-between;
-    background-color: transparent;
+    
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
+
     height: 100px;
-    margin: 10px;
+    margin: 0px 15px;
+
+    border: 1px solid black;
+    padding: 20px;
+
+    justify-content: space-between;
+
+}
+
+#HeaderLogoContainer {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#HeaderLogoContainer img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+#HeaderButtonContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+
+    width: 200px;
+}
+
+.button {
+    padding: 20px;
+
+    color: var(--W);
+    font-weight: var(--BOLD);
+    font-size: var(--LargeText);
+    background-color: black;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    border-top: 1px solid grey;
+    padding-top: 70px;
+}
+
+footer li{
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+footer a{
+    color: grey;
+    text-decoration: none;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}
+
+footer #bold{
+    color: black;
+    font-weight: 600;
+}
+
+#footerInfo{
+    width: 200px;
+}
+
+#medias{
+    display: flex;
+    gap: 5px;
+    max-width: 10%;
 }
 
 main {
