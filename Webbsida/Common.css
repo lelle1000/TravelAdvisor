@@ -9,3 +9,60 @@ header {
     height: 100px;
     margin: 10px;
 }
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#popup-main {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 200px;
+    border: 2px solid black;
+    position: absolute;
+    z-index: 1;
+    padding: 50px;
+    background-color: beige;
+    gap: 25px;
+}
+
+.popup-input {
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+span {
+    border-bottom: 1px solid blue;
+}
+
+h2 {
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
+#grid-place-destination {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 100px;
+    margin-top: 50px;
+}
+
+.desitnation-info-pic {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    border: 2px solid black;
+    width: 200px;
+    height: 200px;
+}
+
+.top-image {
+    border-bottom: 2px solid black;
+}
