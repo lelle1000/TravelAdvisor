@@ -13,7 +13,18 @@ body {
     --BOLD: bold;
 }
 
-/* Header Css 16-110 */
+.button {
+    color: rgb(71, 71, 71);
+    font-size: var(--XXLText);
+}
+
+
+.VECTOR {
+    height: 30px;
+    width: 30px;
+}
+
+/* Header Css 39-110 */
 
 .NavigationHeader {
     display: flex;
@@ -23,18 +34,22 @@ body {
     right: 0;
     left: 0;
 
-    height: 60px;
+    height: 50px;
 
-    border: 1px solid black;
-    padding: 20px;
+    
+    background-color: var(--W);
+    border-bottom: 1px solid var(--B);
+    padding: 0px 20px;
 
     justify-content: space-between;
+
+    z-index: 100000;
 
 }
 
 #HeaderLogoContainer {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     overflow: hidden;
     border-radius: 50%;
 }
@@ -47,46 +62,19 @@ body {
 
 #HeaderButtonContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     
-    height: 60px;
-    width: 200px;
+    height: 50px;
+    width: 150px;
     gap: 20px;
 
 }
 
-.button {
-    color: var(--W);
-    font-weight: var(--BOLD);
-    font-size: var(--LargeText);
-    background-color: black;
-    border: 0;
-
-    height: 50%;
-    width: 210px;
+#HeaderButtonContainer:hover {
+    cursor: pointer;
+    background-color: rgb(173, 173, 173);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
