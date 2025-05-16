@@ -13,43 +13,28 @@ body {
     --BOLD: bold;
 }
 
-.button {
-    color: rgb(71, 71, 71);
-    font-size: var(--XXLText);
-}
-
-
-.VECTOR {
-    height: 30px;
-    width: 30px;
-}
-
-/* Header Css 39-110 */
+/* Header Css 16-110 */
 
 .NavigationHeader {
     display: flex;
-    
+
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
 
-    height: 50px;
+    height: 60px;
 
-    
-    background-color: var(--W);
-    border-bottom: 1px solid var(--B);
-    padding: 0px 20px;
+    border: 1px solid black;
+    padding: 20px;
 
     justify-content: space-between;
-
-    z-index: 100000;
 
 }
 
 #HeaderLogoContainer {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     overflow: hidden;
     border-radius: 50%;
 }
@@ -62,19 +47,46 @@ body {
 
 #HeaderButtonContainer {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    
-    height: 50px;
-    width: 150px;
+
+    height: 60px;
+    width: 200px;
     gap: 20px;
 
 }
 
-#HeaderButtonContainer:hover {
-    cursor: pointer;
-    background-color: rgb(173, 173, 173);
+.button {
+    color: var(--W);
+    font-weight: var(--BOLD);
+    font-size: var(--LargeText);
+    background-color: black;
+    border: 0;
+
+    height: 50%;
+    width: 210px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -239,7 +251,7 @@ h2 {
 
 
 /* Footer Css 250-X */
-footer{
+footer {
     display: flex;
     justify-content: center;
     gap: 70px;
@@ -247,32 +259,75 @@ footer{
     padding-top: 70px;
 }
 
-footer li{
+footer li {
     margin-bottom: 10px;
     list-style: none;
 }
 
-footer a{
+footer a {
     color: grey;
     text-decoration: none;
 }
 
-footer a:hover{
+footer a:hover {
     text-decoration: underline;
 }
 
-footer #bold{
+footer #bold {
     color: black;
     font-weight: 600;
 }
 
-#footerInfo{
+#footerInfo {
     width: 200px;
 }
 
-#medias{
+#medias {
     display: flex;
     gap: 5px;
     max-width: 10%;
 }
 
+
+
+
+
+/* SearchPage CSS */
+
+#searchPage {
+    display: flex;
+    align-items: center;
+    margin-top: 150px;
+    flex-direction: column;
+
+}
+
+#location-search {
+    border-radius: 10px;
+}
+
+#all-locations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 30px;
+    gap: 30px;
+    width: 100%;
+}
+
+.box-around {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid black;
+    height: 250px;
+}
+
+.text-box {
+    justify-self: end;
+    align-self: end;
+}
+
+.location-image-box {
+    border-right: 2px solid black;
+}
