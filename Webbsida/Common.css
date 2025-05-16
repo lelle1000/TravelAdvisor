@@ -17,7 +17,7 @@ body {
 
 .NavigationHeader {
     display: flex;
-    
+
     position: fixed;
     top: 0;
     right: 0;
@@ -49,7 +49,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     height: 60px;
     width: 200px;
     gap: 20px;
@@ -251,7 +251,7 @@ h2 {
 
 
 /* Footer Css 250-X */
-footer{
+footer {
     display: flex;
     justify-content: center;
     gap: 70px;
@@ -259,32 +259,75 @@ footer{
     padding-top: 70px;
 }
 
-footer li{
+footer li {
     margin-bottom: 10px;
     list-style: none;
 }
 
-footer a{
+footer a {
     color: grey;
     text-decoration: none;
 }
 
-footer a:hover{
+footer a:hover {
     text-decoration: underline;
 }
 
-footer #bold{
+footer #bold {
     color: black;
     font-weight: 600;
 }
 
-#footerInfo{
+#footerInfo {
     width: 200px;
 }
 
-#medias{
+#medias {
     display: flex;
     gap: 5px;
     max-width: 10%;
 }
 
+
+
+
+
+/* SearchPage CSS */
+
+#searchPage {
+    display: flex;
+    align-items: center;
+    margin-top: 150px;
+    flex-direction: column;
+
+}
+
+#location-search {
+    border-radius: 10px;
+}
+
+#all-locations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 30px;
+    gap: 30px;
+    width: 100%;
+}
+
+.box-around {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid black;
+    height: 250px;
+}
+
+.text-box {
+    justify-self: end;
+    align-self: end;
+}
+
+.location-image-box {
+    border-right: 2px solid black;
+}
