@@ -3,13 +3,18 @@ body {
 }
 
 :root {
+    /* Text Size */
     --SmallText: 12px;
     --MediumText: 14px;
     --LargeText: 16px;
     --XXLText: 18px;
     --MegaText: 60px;
+
+    /* Colors */
     --W: white;
     --B: black;
+
+    /* Font Sizes */
     --BOLD: bold;
 }
 
@@ -47,6 +52,19 @@ body {
 
 }
 
+.NavContainer {
+    height: 100%;
+    display: flex;
+}
+
+#NavLeftContainer {
+    gap: 5px;
+}
+
+#NavRightContainer {
+    gap: 5px;
+}
+
 #HeaderLogoContainer {
     width: 50px;
     height: 50px;
@@ -60,18 +78,18 @@ body {
     width: 100%;
 }
 
-#HeaderButtonContainer {
+.HeaderButtonContainer {
     display: flex;
     justify-content: center;
     align-items: center;
 
     height: 50px;
-    width: 150px;
-    gap: 20px;
+    width: 140px;
+    gap: 15px;
 
 }
 
-#HeaderButtonContainer:hover {
+.HeaderButtonContainer:hover {
     cursor: pointer;
     background-color: rgb(173, 173, 173);
 }
