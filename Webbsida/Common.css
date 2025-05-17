@@ -1,5 +1,5 @@
 body {
-    margin: 0px;
+    margin: auto 20px;
 }
 
 :root {
@@ -142,6 +142,10 @@ body {
 
 
 /* Main Css 110-250 */
+.PageContainer {
+    max-width: 1200px;
+    margin: 100px auto 0px;
+}
 
 main {
     display: flex;
