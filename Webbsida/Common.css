@@ -1,5 +1,7 @@
 body {
     margin: auto 20px;
+    background-color: rgb(12, 26, 79)
+    
 }
 
 :root {
@@ -163,6 +165,11 @@ main {
     flex-direction: column;
 
     background-color: rgb(28, 61, 102);
+
+    margin-top: 50px;
+    border-radius: 15px;
+
+    padding: 40px;
 }
 
 #popup-main {
