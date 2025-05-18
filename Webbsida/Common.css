@@ -152,7 +152,6 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
 }
 
 #popup-main {
@@ -362,4 +361,36 @@ footer #bold {
 
 .location-image-box {
     border-right: 2px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* InformationPage CSS */
+
+#infoPage {
+    display: grid;
+    grid-template-rows: 1.7fr 1fr;
+}
+
+#image-box {
+    border: 2px solid black;
+}
+
+#text-box {
+    border: 2px solid black;
+    padding: 20px;
 }
