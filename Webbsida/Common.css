@@ -91,7 +91,6 @@ body {
 }
 
 
-
 .HeaderButtonContainer {
     display: flex;
     justify-content: center;
@@ -105,8 +104,41 @@ body {
 
 .HeaderButtonContainer:hover {
     cursor: pointer;
-    background-color: rgba(17, 120, 255, 0.637);
+    background-color: #b3ccdd;
+    border-bottom: 1px solid rgb(12, 26, 79);
 }
+
+.HeaderButtonContainer:hover .button {
+    color: black;
+}
+
+.HeaderButtonContainer:hover .iconwhite {
+    display: none;
+}
+
+.HeaderButtonContainer:hover .iconblack {
+    display: block;
+}
+
+.IconStack {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.IconStack .iconwhite,
+.IconStack .iconblack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.IconStack .iconblack {
+    display: none;
+}
+
 
 
 
@@ -169,24 +201,6 @@ main {
     border-radius: 15px;
 
     padding: 40px;
-}
-
-#popup-main {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: 200px;
-    border: 2px solid black;
-    position: absolute;
-    z-index: 1;
-    padding: 50px;
-    background-color: beige;
-    gap: 25px;
-}
-
-.popup-input {
-    border: none;
-    border-bottom: 1px solid black;
 }
 
 
