@@ -1,0 +1,24 @@
+#infoPage {
+    display: grid;
+    grid-template-rows: 400px 200px;
+    background-color: #b3ccdd;
+    border-radius: 20px;
+    margin-top: 100px;
+    padding: 75px;
+}
+
+#image-box {
+    border: 2px solid black;
+}
+
+#image-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+#text-box {
+    border: 2px solid black;
+    padding: 20px;
+}
