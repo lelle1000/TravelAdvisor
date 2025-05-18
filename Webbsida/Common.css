@@ -8,6 +8,7 @@ body {
     --MediumText: 14px;
     --LargeText: 16px;
     --XXLText: 18px;
+    --XXXLText: 20px;
     --MegaText: 60px;
 
     /* Colors */
@@ -19,8 +20,8 @@ body {
 }
 
 .button {
-    color: rgb(71, 71, 71);
-    font-size: var(--XXLText);
+    color: rgb(255, 255, 255);
+    font-size: var(--XXXLText);
 }
 
 
@@ -43,12 +44,13 @@ body {
     height: 50px;
 
     background-color: var(--W);
-    border-bottom: 1px solid var(--B);
     padding: 0px 20px;
 
     justify-content: space-between;
 
     z-index: 100000;
+
+    background-color: rgb(12, 26, 79)
 
 }
 
@@ -60,23 +62,34 @@ body {
 #NavLeftContainer {
     gap: 5px;
 }
+#NavLeftContainer:hover {
+    cursor: pointer;
+}
 
 #NavRightContainer {
     gap: 5px;
 }
 
 #HeaderLogoContainer {
-    width: 50px;
+    display: flex;
+    width: 230px;
     height: 50px;
-    overflow: hidden;
-    border-radius: 50%;
+
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: var(--XXXLText);
+
+    color: var(--W);
+
 }
 
 #HeaderLogoContainer img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
+    height: 80%;
+    width: 40%;
 }
+
+
 
 .HeaderButtonContainer {
     display: flex;
@@ -91,7 +104,7 @@ body {
 
 .HeaderButtonContainer:hover {
     cursor: pointer;
-    background-color: rgb(173, 173, 173);
+    background-color: rgba(17, 120, 255, 0.637);
 }
 
 
@@ -142,16 +155,14 @@ body {
 
 
 /* Main Css 110-250 */
-.PageContainer {
-    max-width: 1200px;
-    margin: 100px auto 0px;
-}
 
 main {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    background-color: rgb(28, 61, 102);
 }
 
 #popup-main {
@@ -287,7 +298,12 @@ footer {
     justify-content: center;
     gap: 70px;
     border-top: 1px solid grey;
+    background-color: rgb(12, 26, 79);
     padding-top: 70px;
+}
+
+footer p {
+    color: var(--W);
 }
 
 footer li {
@@ -296,7 +312,7 @@ footer li {
 }
 
 footer a {
-    color: grey;
+    color: var(--W);
     text-decoration: none;
 }
 
@@ -305,12 +321,16 @@ footer a:hover {
 }
 
 footer #bold {
-    color: black;
+    color: var(--W);
     font-weight: 600;
 }
 
 #footerInfo {
     width: 200px;
+}
+
+#footerInfo h2 {
+    color: var(--W);
 }
 
 #medias {
