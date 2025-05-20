@@ -1,17 +1,51 @@
-#popup-main {
+.popup-main {
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 200px;
+    height: 280px;
     border: 2px solid black;
+    border-radius: 10px;
     position: absolute;
     z-index: 1;
     padding: 50px;
-    background-color: beige;
+    background-color: white;
     gap: 25px;
 }
 
+.logIn {
+    text-align: center;
+    font-size: var(--XXXLText);
+    font-weight: var(--BOLD);
+    margin: 0;
+}
+
 .popup-input {
+    padding: 10px;
+}
+
+.logIn-button {
+    background-color: black;
+    color: white;
     border: none;
-    border-bottom: 1px solid black;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.logIn-button:hover {
+    background-color: #b3ccdd;
+    cursor: pointer;
+}
+
+#signInLink {
+    color: rgb(117, 241, 241);
+    text-decoration: underline;
+}
+
+#signInLink:hover {
+    color: rgb(113, 166, 207);
+    cursor: pointer;
+}
+
+#popupLogIn-main {
+    margin-top: 800px;
 }
