@@ -11,19 +11,84 @@ class LogIn {
     }
 
     static HighestId() {
-    if (LogIn.AllUsers.length > 0) {
-        let HighestNum = 0;
-        for (let i = 0; i < LogIn.AllUsers.length; i++) {
-            if (LogIn.AllUsers[i].id > HighestNum) {
-                HighestNum = LogIn.AllUsers[i].id
+        if (LogIn.AllUsers.length > 0) {
+            let HighestNum = 0;
+            for (let i = 0; i < LogIn.AllUsers.length; i++) {
+                if (LogIn.AllUsers[i].id > HighestNum) {
+                    HighestNum = LogIn.AllUsers[i].id
+                }
             }
+            return HighestNum + 1
+        } else {
+            return 1;
         }
-        return HighestNum + 1
-    } else {
-        return 1;
     }
+
+    set newUserName(value) {
+        const forbiddenValues = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '/', '\\', '+', '=', '<', '>', ',', '.', ':', ';'];
+        if (forbiddenValues.some(forbidden => forbidden.includes(value))) {
+            return true;
+        } else {
+            this.username = value;
+        }
     }
+
+    get newUserName() {
+        return this.username;
+    }
+
+    set newPassword(value) {
+        if (value.length < 8) {
+            return true;
+        } else {
+            this.password = value;
+        }
+    }
+
+    get newPassword() {
+        return this.password;
+    }
+
+    set newGmail(value) {
+        const hasToHave = ["@"];
+        if (value.includes(hasToHave)) {
+            this.newGmail = value;
+        } else {
+            return true;
+        }
+    }
+
+    get newGmail() {
+        return this.gmail;
+    }
+
 }
 
 
+class WishList extends LogIn {
 
+    constructor(username, password, gmail) {
+        super(username, password, gmail);
+        this.wishlist = [];
+    }
+
+    addDestinationToList(destination) {
+        if (!this.wishlist.includes(destination)) {
+            this.wishlist.push(destination);
+        }
+    }
+
+}
+
+// Denna klass kan kanske istället extenda från Login klassen
+class BookingDataLog {
+
+    static logArray = [];
+
+    constructor(username, gmail) {
+        this.username = username;
+        this.gail = gmail;
+        this.bookingNumber = BookingDataLog.logArray.length++
+    }
+
+}
