@@ -13,3 +13,5 @@ async function handler (request) {
     }
 }
 Deno.serve(handler)
+
+https://restcountries.com/v3.1/all
