@@ -12,6 +12,9 @@ async function handler (request) {
         return new Response(null, { headersCORS } )
     }
 }
+
+
+
 Deno.serve(handler)
 
 https://restcountries.com/v3.1/all
