@@ -16,11 +16,11 @@ async function fetchCountryAndPhoto() { // skriver ut staden baserat på land oc
     const CountryData = await CountryResponse.json()
 
     if (CountryData.length > 0) {
-        const capital = countries[0].capital[0]
+        const capital = CountryData[0].capital[0]
         const PhotoUrl = await getCapitalPhoto(capital)
 
         if (PhotoUrl) {
-            return capital, PhotoUrl
+            return { capital: capital, photoUrl: PhotoUrl }
         } else {
             return null
         }
