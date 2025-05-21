@@ -10,7 +10,6 @@ async function getCapitalPhoto (capitalName) { // hämtar en bild till staden
     return null;
     
 }
-getCapitalPhoto("Stockholm")
 
 async function fetchCountryAndPhoto() { // skriver ut staden baserat på land och en url med en bild på staden.
     const CountryResponse = await fetch("https://restcountries.com/v3.1/capital/stockholm")
