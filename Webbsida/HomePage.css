@@ -34,6 +34,7 @@
 .logIn-button:hover {
     background-color: #b3ccdd;
     cursor: pointer;
+    color: black;
 }
 
 #signInLink {
