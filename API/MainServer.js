@@ -29,11 +29,33 @@ async function handler(request) {
     }
 
     if (homePageSigninMatch) {
-
+        if (request.method === "POST") {
+            const contentType = request.headers.get("content-type");
+            if (contentType === "application/json") {
+                const requestData = await request.json();
+                if (!requestData.name || !requestData.password || !requestData.email) {
+                    return new Response(JSON.stringify(
+                        { error: "Both inputs need to be filled in" }),
+                        { headers: headersCORS, status: 409 }
+                    )
+                }
+            }
+        }
     }
 
     if (homePageLoginMatch) {
-
+        if (request.method === "GET") {
+            const contentType = request.headers.get("content-type");
+            if (contentType === "application/json") {
+                const requestData = await request.json();
+                if (!requestData.name || !requestData.password) {
+                    return new Response(JSON.stringify(
+                        { error: "Both inputs need to be filled in" }),
+                        { headers: headersCORS, status: 409 }
+                    )
+                }
+            }
+        }
     }
 
     if (searchPageMatch) {
