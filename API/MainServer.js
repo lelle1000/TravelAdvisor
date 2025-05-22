@@ -1,3 +1,4 @@
+import { LogIn } from "./Classes.js";
 const Countries = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria",
     "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
@@ -46,6 +47,8 @@ async function handler(request) {
         return new Response(null, { status: 204, headers: headersCORS })
     }
 
+    console.log("Request received at:", url.pathname);
+
 
     if (homePageMatch) {
         if (request.method === "GET") {
@@ -92,7 +95,7 @@ async function handler(request) {
 
     if (homePageSigninMatch) {
         if (request.method === "POST") {
-            const contentType = request.headers.get("content-type");
+            const contentType = request.headers.get("Content-Type");
             if (contentType === "application/json") {
                 const requestData = await request.json();
                 if (!requestData.name || !requestData.password || !requestData.email) {
@@ -100,6 +103,25 @@ async function handler(request) {
                         { error: "Both inputs need to be filled in" }),
                         { headers: headersCORS, status: 409 }
                     )
+                }
+                else {
+                    const userJson = await Deno.readTextFile("./user.json");
+                    const userArray = JSON.parse(userJson);
+                    if (userArray.some(objekt => {
+                        let name = objekt.username == requestData.name;
+                        let pass = objekt.password == requestData.password;
+                        let mail = objekt.gmail == requestData.email;
+                        return name && pass && mail;
+                    })) {
+                        return new Response(JSON.stringify(
+                            { error: "Account already exists!" }),
+                            { headers: headersCORS, status: 409 }
+                        )
+                    } else {
+                        userArray.push(new LogIn(requestData.name, requestData.password, requestData.email));
+                        await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
+                        return new Response("Success!", { headers: headersCORS });
+                    }
                 }
             }
         }

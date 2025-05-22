@@ -38,7 +38,7 @@ logInButton.addEventListener("click", () => {
         const response = await fetch("http://localhost:8000/homepage/loggedoin", {
             method: "GET",
             body: JSON.stringify({ name: logInNameInput.value, password: logInPasswordInput.value }),
-            headers: { "content-type": "application/json" } 
+            headers: { "content-type": "application/json" }
         })
         const resourceBody = await response.json();
         return { status: response.status, ok: response.ok, body: resourceBody };
@@ -60,10 +60,10 @@ const signInEmailInput = document.querySelector("#signInEmailInput");
 
 signInButton.addEventListener("click", () => {
     async function signIn() {
-        const response = await fetch("http://localhost:8000/homepage/loggedoin", {
+        const response = await fetch("http://localhost:8000/homepage/signin", {
             method: "POST",
             body: JSON.stringify({ name: signInNameInput.value, password: signInPasswordInput.value, email: signInEmailInput.value }),
-            headers: { "content-type": "application/json" } 
+            headers: { "Content-Type": "application/json" }
         })
         const resourceBody = await response.json();
         return { status: response.status, ok: response.ok, body: resourceBody };

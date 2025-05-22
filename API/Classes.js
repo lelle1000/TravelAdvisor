@@ -1,5 +1,4 @@
-
-class LogIn {
+export class LogIn {
     static AllUsers = [];
     constructor(username, password, gmail) {
 
