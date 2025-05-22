@@ -54,7 +54,7 @@ async function fetchCountryAndPhoto(Country) { // skriver ut staden baserat på 
                         <img src="${PhotoUrl}" alt="Picture of ${capital}">
                     </div>
                     <div class="bottom-info">
-                    Flyg till ${capital}</div>`;
+                    Flyg till ${capital} (${Country})</div>`;
                 UiCardGrid.append(DestinationCard)
             
         } else {
@@ -65,7 +65,7 @@ async function fetchCountryAndPhoto(Country) { // skriver ut staden baserat på 
 
 
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 8; i++) {
     let RandomCountry = Countries[Math.floor(Countries.length * Math.random())]
     fetchCountryAndPhoto(RandomCountry)
 }
