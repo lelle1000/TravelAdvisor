@@ -200,7 +200,7 @@ main {
     margin-top: 50px;
     border-radius: 15px;
 
-    padding: 40px;
+    padding: 50px 300px 50px 300px;
 }
 
 
@@ -219,6 +219,7 @@ h2 {
     grid-template-columns: repeat(4, 1fr);
     gap: 100px;
     margin-top: 50px;
+    width: 100%;
 }
 
 .destination-info-pic {
@@ -336,11 +337,11 @@ h2 {
 /* Footer Css 250-X */
 footer {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 70px;
     border-top: 1px solid grey;
     background-color: rgb(12, 26, 79);
-    padding-top: 70px;
+    padding: 50px 300px 0px 300px
 }
 
 footer p {
