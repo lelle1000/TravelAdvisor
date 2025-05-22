@@ -21,54 +21,35 @@ const Countries = [
   "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ]
 
+
+
 const UiCardGrid = document.getElementById("grid-place-destination")
 
+async function getImages() {
+    const data = await fetch("http://localhost:8000/homepage")
+    const response = await data.json();
 
-const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
+    let DestinationCard = document.createElement("div")
+    DestinationCard.classList.add("destination-info-pic")
 
-async function getCapitalPhoto (capitalName) { // hämtar en bild till staden
-    const response = await fetch(`https://api.unsplash.com/search/photos?query=${capitalName}&client_id=${UnsplashKey}`)
-    const data = await response.json()
-
-    if(data.results && data.results.length > 0) {
-        return data.results[0].urls.small;
-    }
-    return null;
-    
+    DestinationCard.innerHTML = `
+                         <div class="top-image">
+                             <img src="${response.url}" alt="Picture of ${response.countryname}">
+                         </div>
+                         <div class="bottom-info">
+                         Flyg till ${response.countryname}</div>`;
+    UiCardGrid.append(DestinationCard)
 }
 
-async function fetchCountryAndPhoto(Country) { // skriver ut staden baserat på land och en url med en bild på staden.
-    const CountryResponse = await fetch(`https://restcountries.com/v3.1/name/${Country}`)
-    const CountryData = await CountryResponse.json()
-
-    if (CountryData.length > 0) {
-        const capital = CountryData[0].capital[0]
-        const PhotoUrl = await getCapitalPhoto(capital)
-
-        if (PhotoUrl) {
-            let DestinationCard = document.createElement("div")
-                DestinationCard.classList.add("destination-info-pic")
-
-                DestinationCard.innerHTML = `
-                    <div class="top-image">
-                        <img src="${PhotoUrl}" alt="Picture of ${capital}">
-                    </div>
-                    <div class="bottom-info">
-                    Flyg till ${capital} (${Country})</div>`;
-                UiCardGrid.append(DestinationCard)
-            
-        } else {
-            return null
-        }
-    }
+async function getAllImages() {
+    const image1 = await getImages();
+    const image2 = await getImages();
+    const image3 = await getImages();
+    const image4 = await getImages();
 }
 
+getAllImages();
 
-
-for (let i = 0; i < 8; i++) {
-    let RandomCountry = Countries[Math.floor(Countries.length * Math.random())]
-    fetchCountryAndPhoto(RandomCountry)
-}
 
 
 const logInButton = document.querySelector("#logInButton");
