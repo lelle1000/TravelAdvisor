@@ -221,18 +221,39 @@ h2 {
     margin-top: 50px;
 }
 
-.desitnation-info-pic {
+.destination-info-pic {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 75% 25%;
     border: 2px solid black;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
+    background-color: var(--W);
+    overflow: hidden;
+    border-radius: 15px;
+
 }
 
 .top-image {
-    border-bottom: 2px solid black;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
+.top-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.bottom-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--W);
+    border-top: 2px solid black;
+    font-size: var(--XXXLText);
+}
 
 
 
