@@ -33,11 +33,12 @@ async function getImages() {
     DestinationCard.classList.add("destination-info-pic")
 
     DestinationCard.innerHTML = `
-                         <div class="top-image">
-                             <img src="${response.url}" alt="Picture of ${response.countryname}">
-                         </div>
-                         <div class="bottom-info">
-                         Flyg till ${response.countryname}</div>`;
+        <div class="top-image">
+            <img src="${response.url}" alt="Picture of ${response.countryname}">
+        </div>
+        <div class="bottom-info">
+            Flyg till ${response.countryname}
+        </div>`;
     UiCardGrid.append(DestinationCard)
 }
 
