@@ -25,7 +25,7 @@ const Countries = [
 
 const homePageRoute = new URLPattern({ pathname: "/homepage" });
 const homePageSigninRoute = new URLPattern({ pathname: "/homepage/signin" });
-const homePageLoginRoute = new URLPattern({ pathname: "/homepage/loggedoin" });
+const homePageLoginRoute = new URLPattern({ pathname: "/homepage/loggedin" });
 const searchPageRoute = new URLPattern({ pathname: "/searchpage/loggedin" })
 const informationPageRoute = new URLPattern({ pathname: "/informationpage/loggedin" })
 
@@ -120,7 +120,7 @@ async function handler(request) {
                     } else {
                         userArray.push(new LogIn(requestData.name, requestData.password, requestData.email));
                         await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-                        return new Response("Success!", { headers: headersCORS });
+                        return new Response(JSON.stringify("Success!"), { headers: headersCORS });
                     }
                 }
             }
@@ -128,8 +128,8 @@ async function handler(request) {
     }
 
     if (homePageLoginMatch) {
-        if (request.method === "GET") {
-            const contentType = request.headers.get("content-type");
+        if (request.method === "POST") {
+            const contentType = request.headers.get("Content-Type");
             if (contentType === "application/json") {
                 const requestData = await request.json();
                 if (!requestData.name || !requestData.password) {
@@ -137,6 +137,19 @@ async function handler(request) {
                         { error: "Both inputs need to be filled in" }),
                         { headers: headersCORS, status: 409 }
                     )
+                } else {
+                    const userJson = await Deno.readTextFile("./user.json");
+                    const userArray = JSON.parse(userJson);
+                    if (userArray.some(objekt => {
+                        let name = objekt.username == requestData.name;
+                        let pass = objekt.password == requestData.password;
+                        return name && pass;
+                    })) {
+                        return new Response(JSON.stringify("Login succes!"), {
+                            status: 200,
+                            headers: headersCORS
+                        })
+                    }
                 }
             }
         }
@@ -147,16 +160,16 @@ async function handler(request) {
             const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
             let results = [];
             const searchfield = url.searchParams.get("searchfield")
-            
+
             if (!searchfield) {
                 return new Response(JSON.stringify(
-                    { error: "Searchfield needs to be used" }), 
+                    { error: "Searchfield needs to be used" }),
                     { headers: headersCORS, status: 400 }
-                )  
+                )
             }
 
             if (searchfield) {
-                
+
                 const CountriesResponse = await fetch("https://restcountries.com/v3.1/all")
                 const CountryData = await CountriesResponse.json()
 
@@ -168,13 +181,13 @@ async function handler(request) {
                         const CapitalData = await countryPictureResponse.json()
 
                         if (CapitalData.results && CapitalData.results.length > 0) {
-                            results.push( { country: country, imageURL: CapitalData.results[0].urls.regular}) 
-                        }  
+                            results.push({ country: country, imageURL: CapitalData.results[0].urls.regular })
+                        }
                     }
                 }
-                return new Response(JSON.stringify(results, ),
+                return new Response(JSON.stringify(results,),
                     { headers: headersCORS, status: 200 }
-                )   
+                )
             }
         }
     }

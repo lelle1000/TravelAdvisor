@@ -35,10 +35,10 @@ const logInPasswordInput = document.querySelector("#logInPasswordInput");
 
 logInButton.addEventListener("click", () => {
     async function logIn() {
-        const response = await fetch("http://localhost:8000/homepage/loggedoin", {
-            method: "GET",
+        const response = await fetch("http://localhost:8000/homepage/loggedin", {
+            method: "POST",
             body: JSON.stringify({ name: logInNameInput.value, password: logInPasswordInput.value }),
-            headers: { "content-type": "application/json" }
+            headers: { "Content-Type": "application/json" }
         })
         const resourceBody = await response.json();
         return { status: response.status, ok: response.ok, body: resourceBody };
@@ -85,29 +85,29 @@ const LocationContainer = document.getElementById("all-locations")
 
 SearchButton.addEventListener("click", async () => {
 
-        const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
-        const CountriesData = await response.json()
+    const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
+    const CountriesData = await response.json()
 
-        LocationContainer.innerHTML = ""
+    LocationContainer.innerHTML = ""
 
-        for (let country of CountriesData) {
-            const boxAround = document.createElement("div")
-            boxAround.classList.add("box-around")
-            LocationContainer.append(boxAround)
+    for (let country of CountriesData) {
+        const boxAround = document.createElement("div")
+        boxAround.classList.add("box-around")
+        LocationContainer.append(boxAround)
 
-            const locationImageBox = document.createElement("div")
-            locationImageBox.classList.add("location-image-box")
-            locationImageBox.innerHTML = `<img src="${country.ImageURL}" alt="${country.country.capital[0]}">`
-            boxAround.append(locationImageBox)
+        const locationImageBox = document.createElement("div")
+        locationImageBox.classList.add("location-image-box")
+        locationImageBox.innerHTML = `<img src="${country.ImageURL}" alt="${country.country.capital[0]}">`
+        boxAround.append(locationImageBox)
 
-            const textBoxContainer = document.createElement("div")
-            textBoxContainer.classList.add("textBoxContainer")
-            textBoxContainer.innerHTML = `
+        const textBoxContainer = document.createElement("div")
+        textBoxContainer.classList.add("textBoxContainer")
+        textBoxContainer.innerHTML = `
                 <div class="textBoxInformationContainer"> <p class="textBoxInformation"> Travel to ${country.country.capital[0]} in ${country.country.name.common} for a relaxing trip with family and friends!</p> </div>
                 <div class="textBoxButtonContainer"> <button class="button">Book now</button> <button class="button">Read more</button> </div>
             `
-            boxAround.append(textBoxContainer)
+        boxAround.append(textBoxContainer)
 
-        }
-    
+    }
+
 })
