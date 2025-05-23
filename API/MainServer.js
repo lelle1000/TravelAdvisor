@@ -143,7 +143,7 @@ async function handler(request) {
     }
 
     if (searchPageMatch) {
-        if (url.pathname == "/searchpage/search" && request.method == "GET") {
+        if (url.pathname == "/searchpage" && request.method == "GET") {
             let results = [];
             const searchfield = url.searchParams.get("searchfield")
             

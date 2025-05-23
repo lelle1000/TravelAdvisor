@@ -77,3 +77,21 @@ signInButton.addEventListener("click", () => {
         }
     }
 })
+
+
+const SearchButton = document.getElementById("SearchButton")
+const SearchLocation = document.getElementById("location-search")
+
+SearchButton.addEventListener("click", () => {
+
+    const ProperCity = new Request()
+
+    async function SearchedCountries () {
+        const response = await fetch(`http://localhost:8000/searchpage/?searchfield=${SearchLocation.value}`)
+        const CountriesData = await response.json()
+
+        for (let country of CountriesData) {
+            
+        }
+    }
+})
