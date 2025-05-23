@@ -143,7 +143,32 @@ async function handler(request) {
     }
 
     if (searchPageMatch) {
+        if (url.pathname == "/searchpage/search" && request.method == "GET") {
+            let results = [];
+            const searchfield = url.searchParams.get("searchfield")
+            
+            if (!searchfield) {
+                return new Response(JSON.stringify(
+                    { error: "Searchfield needs to be used" }), 
+                    { headers: headersCORS, status: 400 }
+                )  
+            }
 
+            if (searchfield) {
+                
+                const CountriesResponse = await fetch("https://restcountries.com/v3.1/all")
+                const CountryData = await CountriesResponse.json()
+
+                for (let country of CountryData) {
+                    if (country.name.common.toLocaleLowerCase().includes(searchfield.toLocaleLowerCase())) {
+                        results.push(country)
+                    }
+                }
+                return new Response(JSON.stringify(results),
+                    { headers: headersCORS, status: 200 }
+                )   
+            }
+        }
     }
 
     if (infoPageMatch) {
