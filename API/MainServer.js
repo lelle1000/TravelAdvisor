@@ -143,7 +143,8 @@ async function handler(request) {
     }
 
     if (searchPageMatch) {
-        if (url.pathname == "/searchpage" && request.method == "GET") {
+        if (url.pathname == "/searchpage/loggedin" && request.method == "GET") {
+            const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
             let results = [];
             const searchfield = url.searchParams.get("searchfield")
             
@@ -161,10 +162,17 @@ async function handler(request) {
 
                 for (let country of CountryData) {
                     if (country.name.common.toLocaleLowerCase().includes(searchfield.toLocaleLowerCase())) {
-                        results.push(country)
+
+                        let countryCapital = country.capital[0]
+                        const countryPictureResponse = await fetch(`https://api.unsplash.com/search/photos?query=${countryCapital}&client_id=${UnsplashKey}`)
+                        const CapitalData = await countryPictureResponse.json()
+
+                        if (CapitalData.results && CapitalData.results.length > 0) {
+                            results.push( { country: country, imageURL: CapitalData.results[0].urls.regular}) 
+                        }  
                     }
                 }
-                return new Response(JSON.stringify(results),
+                return new Response(JSON.stringify(results, ),
                     { headers: headersCORS, status: 200 }
                 )   
             }
