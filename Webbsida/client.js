@@ -23,6 +23,14 @@ async function getAllImages() {
     const image2 = await getImages();
     const image3 = await getImages();
     const image4 = await getImages();
+    const image5 = await getImages();
+    const image6 = await getImages();
+    const image7 = await getImages();
+    const image8 = await getImages();
+    const image9 = await getImages();
+    const image10 = await getImages();
+    const image11 = await getImages();
+    const image12 = await getImages();
 }
 
 getAllImages();
@@ -107,7 +115,6 @@ SearchButton.addEventListener("click", async () => {
                 <div class="textBoxButtonContainer"> <button class="button">Book now</button> <button class="button">Read more</button> </div>
             `
         boxAround.append(textBoxContainer)
-
     }
 
 })
