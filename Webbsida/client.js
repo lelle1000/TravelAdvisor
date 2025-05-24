@@ -1,4 +1,27 @@
 
+const loginButton = document.querySelector("#login-button");
+let loginPopup = document.querySelector("#login-popup");
+const signInPopupLink = document.querySelector("#signInLink");
+let signInPopup = document.querySelector("#signin-popup");
+loginButton.addEventListener("click", () => {
+    loginPopup.style.display = "flex";
+})
+signInPopupLink.addEventListener("click", () => {
+    signInPopup.style.display = "flex";
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 const UiCardGrid = document.getElementById("grid-place-destination")
 
 async function getImages() {
@@ -32,6 +55,7 @@ getAllImages();
 const logInButton = document.querySelector("#logInButton");
 const logInNameInput = document.querySelector("#logInNameInput");
 const logInPasswordInput = document.querySelector("#logInPasswordInput");
+const signInMessage = document.querySelector("#error-message");
 
 logInButton.addEventListener("click", () => {
     async function logIn() {
@@ -47,6 +71,11 @@ logInButton.addEventListener("click", () => {
     function logInCheck(resource) {
         if (resource.ok) {
             console.log("You have logged in!");
+            signInMessage.textContent = "Success, you are logged in!";
+            setTimeout(() => {
+                loginPopup.style.display = "none";
+                loginButton.textContent = "Log out"
+            }, 2000);
         } else {
             console.log("Something went wrong!");
         }
@@ -72,6 +101,12 @@ signInButton.addEventListener("click", () => {
     function signInCheck(resource) {
         if (resource.ok) {
             console.log("You have signed in!");
+            signInMessage.textContent = "Success, account created!";
+            setTimeout(() => {
+                loginPopup.style.display = "none";
+                signInPopup.style.display = "none";
+                loginButton.textContent = "Log out"
+            }, 2000);
         } else {
             console.log("Something went wrong!");
         }
