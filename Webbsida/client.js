@@ -105,7 +105,7 @@ SearchButton.addEventListener("click", async () => {
 
         const locationImageBox = document.createElement("div")
         locationImageBox.classList.add("location-image-box")
-        locationImageBox.innerHTML = `<img src="${country.ImageURL}" alt="${country.country.capital[0]}">`
+        locationImageBox.innerHTML = `<img src="${country.imageURL}" alt="${country.country.capital[0]}">`
         boxAround.append(locationImageBox)
 
         const textBoxContainer = document.createElement("div")
