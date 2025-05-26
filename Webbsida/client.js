@@ -1,17 +1,34 @@
-
-const loginButton = document.querySelector("#login-button");
+let loginStatusGlobal = false;
+let usernameTrack = "";
+let userRate = 0;
+const loginContainer = document.querySelector("#loginContainer");
+let loginButton = document.querySelector("#login-button");
 let loginPopup = document.querySelector("#login-popup");
+let logoutPopup = document.querySelector("#log-out-popup");
+let logoutText = document.querySelector("#logout-p")
 const signInPopupLink = document.querySelector("#signInLink");
 let signInPopup = document.querySelector("#signin-popup");
-loginButton.addEventListener("click", () => {
-    loginPopup.style.display = "flex";
+loginContainer.addEventListener("click", () => {
+    if (!loginStatusGlobal) {
+        loginPopup.style.display = "flex";
+    }
+    else if (loginButton.textContent == "Log out") {
+        logoutPopup.style.display = "flex";
+        logoutText.textContent = `You succesfully loged out ${usernameTrack}!`
+    }
 })
 signInPopupLink.addEventListener("click", () => {
     signInPopup.style.display = "flex";
 })
 
-
-
+const allRates = document.querySelectorAll(".rate")
+for (let rate of allRates) {
+    rate.addEventListener("click", () => {
+        userRate = rate.id;
+        console.log(userRate);
+        logoutPopup.style.display = "none";
+    })
+}
 
 
 
@@ -77,6 +94,9 @@ logInButton.addEventListener("click", () => {
     logIn().then(logInCheck)
     function logInCheck(resource) {
         if (resource.ok) {
+            loginStatusGlobal = true;
+            usernameTrack = logInNameInput.value;
+            console.log(usernameTrack)
             console.log("You have logged in!");
             signInMessage.textContent = "Success, you are logged in!";
             setTimeout(() => {
@@ -107,6 +127,8 @@ signInButton.addEventListener("click", () => {
     signIn().then(signInCheck)
     function signInCheck(resource) {
         if (resource.ok) {
+            loginStatusGlobal = true;
+            usernameTrack = signInNameInput.value;
             console.log("You have signed in!");
             signInMessage.textContent = "Success, account created!";
             setTimeout(() => {

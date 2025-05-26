@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": 1,
+    "username": "philles",
+    "password": "hej",
+    "gmail": "philsterr@.com"
+  }
+]

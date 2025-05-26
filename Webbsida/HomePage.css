@@ -55,3 +55,28 @@
     margin-top: -10px;
     text-align: center;
 }
+
+
+
+#log-out-popup {
+    display: none;
+    justify-content: space-evenly;
+}
+
+
+#rating-divs {
+    display: flex;
+    justify-content: space-between;
+}
+
+#rating-divs div {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+#rating-divs div:hover {
+    background-color: #b3ccdd;
+    ;
+    cursor: pointer;
+}
