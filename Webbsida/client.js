@@ -18,14 +18,10 @@ signInPopupLink.addEventListener("click", () => {
 
 
 
-
-
-
-
 const UiCardGrid = document.getElementById("grid-place-destination")
 
 async function getImages() {
-    const data = await fetch("http://localhost:8000/homepage/country/photos")
+    const data = await fetch("http://localhost:8000/homepage")
     if (data.ok) {
         // window.history.pushState({}, "", "/homepage/country/photos");
     }

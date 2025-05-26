@@ -26,7 +26,6 @@ const Countries = [
 
 
 const homePageRoute = new URLPattern({ pathname: "/homepage" });
-const homePageDestinationRoute = new URLPattern({ pathname: "/homepage/country/photos" });
 const homePageSigninRoute = new URLPattern({ pathname: "/homepage/signin" });
 const homePageLoginRoute = new URLPattern({ pathname: "/homepage/loggedin" });
 const searchPageRoute = new URLPattern({ pathname: "/searchpage/loggedin" })
@@ -37,7 +36,6 @@ async function handler(request) {
     const url = new URL(request.url)
 
     const homePageMatch = homePageRoute.exec(url);
-    const homePageDestinationsMatch = homePageDestinationRoute.exec(url);
     const homePageSigninMatch = homePageSigninRoute.exec(url);
     const homePageLoginMatch = homePageLoginRoute.exec(url);
     const searchPageMatch = searchPageRoute.exec(url);
@@ -55,7 +53,7 @@ async function handler(request) {
 
 
 
-    if (homePageDestinationsMatch) {
+    if (homePageMatch) {
         if (request.method === "GET") {
             const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
 
@@ -200,17 +198,6 @@ async function handler(request) {
     if (infoPageMatch) {
 
     }
-
-    if (url == "/homepage") {
-        return await serveFile(request, "../Webbsida/HomePage.html");
-    }
-
-    // 2. Servera statiska filer som CSS, JS, bilder från ./Webbsida/
-    return serveDir(request, {
-        fsRoot: "../Webbsida",
-        urlRoot: "",
-        showDirListing: false, // valfritt
-    });
 
 }
 

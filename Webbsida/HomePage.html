@@ -7,7 +7,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="Common.css">
     <link rel="stylesheet" href="HomePage.css">
-    <link rel="icon" href="../Images/FaviconLogga.jpg">
+    <link rel="icon" href="Images/FaviconLogga.jpg">
 </head>
 
 <body>
@@ -15,21 +15,21 @@
         <div class="NavContainer" id="NavLeftContainer">
             <div id="HeaderLogoContainer">
                 Travel Advisor
-                <img src="../Images/WHITEAirplanePNG.png" alt="Airplane Logo">
+                <img src="Images/WHITEAirplanePNG.png" alt="Airplane Logo">
             </div>
         </div>
         <div class="NavContainer" id="NavRightContainer">
             <div class="HeaderButtonContainer">
                 <div class="IconStack">
-                    <img class="VECTOR iconwhite" src="../Images/WhiteLogIn.png" alt="Log in Symbol">
-                    <img class="VECTOR iconblack" src="../Images/BlackLogin.png" alt="Log in Symbol">
+                    <img class="VECTOR iconwhite" src="Images/WhiteLogIn.png" alt="Log in Symbol">
+                    <img class="VECTOR iconblack" src="Images/BlackLogin.png" alt="Log in Symbol">
                 </div>
                 <div class="button" id="login-button">Log in</div>
             </div>
             <div class="HeaderButtonContainer">
                 <div class="IconStack">
-                    <img class="VECTOR iconwhite" src="../Images/WhiteHamburger.png" alt="Hamburger Symbol">
-                    <img class="VECTOR iconblack" src="../Images/BlackHamburger.png" alt="Log in Symbol">
+                    <img class="VECTOR iconwhite" src="Images/WhiteHamburger.png" alt="Hamburger Symbol">
+                    <img class="VECTOR iconblack" src="Images/BlackHamburger.png" alt="Log in Symbol">
                 </div>
                 <div class="button">Menu</div>
             </div>
@@ -37,26 +37,48 @@
 
     </header>
     <main>
-        <div class="popup-main" id="login-popup">
-            <p class="logIn">Log into your account</p>
-            <input class="popup-input" id="logInNameInput" placeholder="Username">
-            <input class="popup-input" id="logInPasswordInput" placeholder="Password" type="password">
-            <button class="logIn-button" id="logInButton">Log In</button>
-            <p>No account? Press <a id="signInLink">here</a> to create an acount</p>
+        <div id="homepageContainer">
+            <div class="popup-main" id="login-popup">
+                <p class="logIn">Log into your account</p>
+                <input class="popup-input" id="logInNameInput" placeholder="Username">
+                <input class="popup-input" id="logInPasswordInput" placeholder="Password" type="password">
+                <button class="logIn-button" id="logInButton">Log In</button>
+                <p>No account? Press <a id="signInLink">here</a> to create an acount</p>
+            </div>
+            <div class="popup-main" id="signin-popup">
+                <p class="logIn">Create an account</p>
+                <input id="signInNameInput" class="popup-input" placeholder="Username">
+                <input id="signInPasswordInput" class="popup-input" placeholder="Password" type="password">
+                <input id="signInEmailInput" class="popup-input" placeholder="Email">
+                <button class="logIn-button" id="signInButton">Sign In</button>
+                <p id="error-message"></p>
+            </div>
+            <h1 class="font">Travel Advisor</h1>
+            <IMG>
+            <h2 class="font">Common destinations</h2>
+            <div id="grid-place-destination"></div>
         </div>
-        <div class="popup-main" id="signin-popup">
-            <p class="logIn">Create an account</p>
-            <input id="signInNameInput" class="popup-input" placeholder="Username">
-            <input id="signInPasswordInput" class="popup-input" placeholder="Password" type="password">
-            <input id="signInEmailInput" class="popup-input" placeholder="Email">
-            <button class="logIn-button" id="signInButton">Sign In</button>
-            <p id="error-message"></p>
+
+
+
+
+
+        <div id="searchpageContainer">
+            <div id="search-and-field">
+                <input id="location-search" placeholder="Search Location">
+                <div id="icon-for-search">
+                    <button id="SearchButton">Search</button>
+                    <img src=" ../Images/icons8-search-50.png">
+                </div>
+            </div>
+            <div id="all-locations">
+            </div>
         </div>
-        <h1 class="font">Travel Advisor</h1>
-        <IMG>
-        <h2 class="font">Common destinations</h2>
-        <div id="grid-place-destination"></div>
     </main>
+
+
+
+
     <footer>
         <div id="footerInfo">
             <h2>Travel Advisor</h2>
