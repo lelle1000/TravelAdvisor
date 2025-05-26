@@ -217,7 +217,7 @@ h2 {
 #grid-place-destination {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 0.6fr);
     gap: 30px;
     margin-top: 50px;
     width: 100%;
