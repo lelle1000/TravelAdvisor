@@ -54,7 +54,7 @@ async function handler(request) {
                     const PhotoUrl = await getCapitalPhoto(capital)
 
                     if (PhotoUrl) {
-                        return { url: PhotoUrl, countryname: capital };
+                        return { url: PhotoUrl, countryCapital: capital };
 
                     } else {
                         return null
