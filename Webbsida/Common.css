@@ -20,6 +20,10 @@ body {
     --BOLD: bold;
 }
 
+.hide {
+    display: none;
+}
+
 .button {
     color: rgb(255, 255, 255);
     font-size: var(--XXXLText);
@@ -141,35 +145,45 @@ body {
 
 #menuSubMenu {
     background-color: rgb(170, 219, 252);
-    width: 250px;
+    border-left: 2px solid rgb(103, 156, 190);
+    width: 300px;
     height: 100%;
     position: fixed;
-    top: 0;
     right: 0;
-    z-index: 10000;
+    z-index: 500;
 }
 
 #closeMenuButton {
+    background-color: rgb(103, 156, 190);
+    border: 1px solid black;
+    border-radius: 5px;
     margin: 10px;
-    padding: 10px;
+    padding: 5px 20px;
     cursor: pointer;
+}
+
+#closeMenuButton:hover {
+    background-color: white;
 }
 
 #menuSubMenu ul {
     list-style: none;
+    width: 280px;
+    margin: 20px auto 0;
+    padding: 0;
 }
 
 #menuSubMenu li {
-    background-color: white;
     cursor: pointer;
-    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
     padding: 10px;
-    border: 1px solid lightblue;
-    border-radius: 5px;
+    border-bottom: 1px solid rgb(103, 156, 190);
 }
 
 #menuSubMenu li:hover {
-    border: 1px solid blue;
+    background-color: white;
+    border-radius: 5px;
 }
 
 #menuSubMenu a {
@@ -177,6 +191,9 @@ body {
     color: black;
 }
 
+#menuSubMenu img {
+    width: 15px;
+}
 
 
 

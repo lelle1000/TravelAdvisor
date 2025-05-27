@@ -152,3 +152,44 @@ SearchButton.addEventListener("click", async () => {
     }
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const menuButton = document.querySelector("#mainContainer");
+const menuSubMenu = document.querySelector("#menuSubMenu");
+menuButton.addEventListener("click", () => {
+    if (menuSubMenu.classList.contains("hide")) {
+        menuSubMenu.classList.remove("hide");
+    } else {
+        menuSubMenu.classList.add("hide");
+    }
+})
