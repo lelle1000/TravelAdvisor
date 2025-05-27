@@ -1,3 +1,5 @@
+
+
 let loginStatusGlobal = false;
 let usernameTrack = "";
 let userRate = 0;
@@ -165,7 +167,7 @@ SearchButton.addEventListener("click", async () => {
         const submenuItem = document.createElement("div")
         submenuItem.classList.add("submenuItem")
 
-        submenuItem.innerHTML = `<div><span class="BOLD">${country.country.capital[0]}</span> ${country.country.name.common} ${country.country.continents[0]}</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
+        submenuItem.innerHTML = `<div><span class="BOLD">${country.country.capital[0]}</span> ${country.country.name.common} (${country.country.continents[0]})</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
         submenuContainer.append(submenuItem)
     }
 
