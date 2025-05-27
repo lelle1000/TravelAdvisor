@@ -9,38 +9,6 @@
 
 }
 
-#location-search {
-    width: 600px;
-    border: blue;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-#icon-for-search {
-    position: absolute;
-    left: 580px;
-    right: 0;
-    top: 5px;
-    background-color: #b3ccdd;
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-}
-
-#search-and-field {
-    position: relative;
-}
-
-#search-field {
-    background-color: white;
-    width: 100%;
-    height: auto;
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-}
 
 .field-searchs {
     display: flex;

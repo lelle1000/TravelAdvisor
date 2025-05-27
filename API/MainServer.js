@@ -143,7 +143,7 @@ async function handler(request) {
 
             if (!searchfield) {
                 return new Response(JSON.stringify(
-                    { error: "Searchfield needs to be used" }),
+                    { error: "Searchfield needs to be used or no country matches your" }),
                     { headers: headersCORS, status: 400 }
                 )
             }
@@ -155,17 +155,12 @@ async function handler(request) {
 
                 for (let country of CountryData) {
                     if (country.name.common.toLocaleLowerCase().includes(searchfield.toLocaleLowerCase())) {
-
-                        let countryCapital = country.capital[0]
-                        const countryPictureResponse = await fetch(`https://api.unsplash.com/search/photos?query=${countryCapital}&client_id=${UnsplashKey}`)
-                        const CapitalData = await countryPictureResponse.json()
-
-                        if (CapitalData.results && CapitalData.results.length > 0) {
-                            results.push({ country: country, imageURL: CapitalData.results[0].urls.regular })
-                        }
+                        console.log(country.name.common);
+                        
+                        results.push({ country: country})  
                     }
                 }
-                return new Response(JSON.stringify(results,),
+                return new Response(JSON.stringify(results),
                     { headers: headersCORS, status: 200 }
                 )
             }
