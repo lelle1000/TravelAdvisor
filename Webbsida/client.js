@@ -41,45 +41,47 @@ for (let rate of allRates) {
 
 
 
-
+let onlyOneOfSameCountries = [];
 const UiCardGrid = document.getElementById("grid-place-destination")
 
 async function getImages() {
-    const data = await fetch("http://localhost:8000/homepage")
-    if (data.ok) {
+    const response = await fetch("http://localhost:8000/homepage")
+    if (!response.ok) {
         // window.history.pushState({}, "", "/homepage/country/photos");
     }
-    const response = await data.json();
+    const data = await response.json();
+    if (!onlyOneOfSameCountries.includes(data.countryCapital)) {
+        onlyOneOfSameCountries.push(data.countryCapital)   
+        
+        let DestinationCard = document.createElement("div")
+        DestinationCard.classList.add("destination-info-pic")
 
-    let DestinationCard = document.createElement("div")
-    DestinationCard.classList.add("destination-info-pic")
-
-    DestinationCard.innerHTML = `
-        <div class="top-image">
-            <img src="${response.url}" alt="Picture of ${response.countryCapital}">
-        </div>
-        <div class="bottom-info">
-            Travel to ${response.countryCapital}
-            <img class="star-for-imgcard" id="${[response.url, response.countryCapital]}" src="Images/star-svgrepo-com.svg">
-        </div>`;
-    UiCardGrid.append(DestinationCard)
+        DestinationCard.innerHTML = `
+            <div class="top-image">
+                <img src="${data.url}" alt="Picture of ${data.countryCapital}">
+            </div>
+            <div class="bottom-info">
+                Travel to ${data.countryCapital}
+                <img class="star-for-imgcard" id="${[data.url, data.countryCapital]}" src="Images/star-svgrepo-com.svg">
+            </div>`;
+        UiCardGrid.append(DestinationCard)
+    } else {
+        return null
+    }
+    
 }
 
 
 
 async function getAllImages() {
-    const image1 = await getImages();
-    const image2 = await getImages();
-    const image3 = await getImages();
-    const image4 = await getImages();
-    const image5 = await getImages();
-    const image6 = await getImages();
-    const image7 = await getImages();
-    const image8 = await getImages();
-    const image9 = await getImages();
-    const image10 = await getImages();
-    const image11 = await getImages();
-    const image12 = await getImages();
+    let addedImages = 0;
+
+    while (addedImages < 12) {
+        const result = await getImages()
+        if (result !== null) {
+            addedImages++
+        }
+    }
     wishCheck();
 }
 
