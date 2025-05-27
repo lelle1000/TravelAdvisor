@@ -6,7 +6,7 @@ headerLogoContainer.addEventListener("click", () => {
 })
 
 let loginStatusGlobal = false;
-let usernameTrack = "";
+let userTrackId = 0;
 let userRate = 0;
 const loginContainer = document.querySelector("#loginContainer");
 let popupContainer = document.querySelector(".popup-main")
@@ -22,7 +22,7 @@ loginContainer.addEventListener("click", () => {
     }
     else if (loginButton.textContent == "Log out") {
         logoutPopup.style.display = "flex";
-        logoutText.textContent = `You succesfully loged out ${usernameTrack}!`
+        logoutText.textContent = `You succesfully loged out!`
     }
 })
 signInPopupLink.addEventListener("click", () => {
@@ -35,6 +35,8 @@ for (let rate of allRates) {
         userRate = rate.id;
         console.log(userRate);
         logoutPopup.style.display = "none";
+        loginButton.textContent = "Log in"
+        loginStatusGlobal = false;
     })
 }
 
@@ -96,7 +98,7 @@ getAllImages();
 const logInButton = document.querySelector("#logInButton");
 const logInNameInput = document.querySelector("#logInNameInput");
 const logInPasswordInput = document.querySelector("#logInPasswordInput");
-const signInMessage = document.querySelector("#error-message");
+const loginMessage = document.querySelector("#login-error-message");
 
 logInButton.addEventListener("click", () => {
     async function logIn() {
@@ -112,15 +114,19 @@ logInButton.addEventListener("click", () => {
     function logInCheck(resource) {
         if (resource.ok) {
             loginStatusGlobal = true;
-            usernameTrack = logInNameInput.value;
-            console.log(usernameTrack)
+            console.log(resource.body.id)
             console.log("You have logged in!");
-            signInMessage.textContent = "Success, you are logged in!";
+            loginMessage.textContent = "Success, you are logged in!";
+            loginMessage.style.color = "Green"
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 loginButton.textContent = "Log out"
+                logInNameInput.value = "";
+                logInPasswordInput.value = "";
+                loginMessage.textContent = "";
             }, 2000);
         } else {
+            loginMessage.textContent = resource.body.error
             console.log("Something went wrong!");
         }
     }
@@ -130,6 +136,7 @@ const signInButton = document.querySelector("#signInButton");
 const signInNameInput = document.querySelector("#signInNameInput");
 const signInPasswordInput = document.querySelector("#signInPasswordInput");
 const signInEmailInput = document.querySelector("#signInEmailInput");
+const signinMessage = document.querySelector("#signin-error-message");
 
 signInButton.addEventListener("click", () => {
     async function signIn() {
@@ -145,15 +152,23 @@ signInButton.addEventListener("click", () => {
     function signInCheck(resource) {
         if (resource.ok) {
             loginStatusGlobal = true;
-            usernameTrack = signInNameInput.value;
+            console.log(resource);
+            console.log(resource.body.id)
+            userTrackId = resource.body.id;
             console.log("You have signed in!");
-            signInMessage.textContent = "Success, account created!";
+            signinMessage.textContent = "Success, account created!";
+            signinMessage.style.color = "Green"
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 signInPopup.style.display = "none";
                 loginButton.textContent = "Log out"
+                signInNameInput.value = "";
+                signInPasswordInput.value = "";
+                signInEmailInput.value = "";
+                signinMessage.textContent = "";
             }, 2000);
         } else {
+            signinMessage.textContent = resource.body.error
             console.log("Something went wrong!");
         }
     }
@@ -194,10 +209,18 @@ async function wishCheck() {
             console.log(countryUrl)
             const request = fetch("http://localhost:8000/add/destination/wishlist", {
                 method: "POST",
-                body: JSON.stringify({ countryName: countryName, imgurl: countryUrl }),
+                body: JSON.stringify({ countryName: countryName, imgurl: countryUrl, userId: userTrackId }),
                 headers: { "Content-Type": "application/json" }
             })
-            request.then(response => response.json()).then(response => console.log(response));
+            request.then(response => {
+                if (response.ok) {
+                    wish.style.backgroundColor = "yellow";
+                    return response.json();
+                } else {
+                    console.log("Wish went wrong!");
+                }
+            }).then(response => console.log(response));
+
         })
     }
 }
@@ -210,6 +233,7 @@ window.addEventListener("scroll", () => {
         NavigationHeader.classList.remove("scrolled");
     }
 })
+
 
 
 

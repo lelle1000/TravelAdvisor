@@ -6,6 +6,7 @@ export class LogIn {
         this.username = username;
         this.password = password;
         this.gmail = gmail;
+        this.wishlist = [];
         LogIn.AllUsers.push(this)
     }
 
@@ -20,6 +21,12 @@ export class LogIn {
             return HighestNum + 1
         } else {
             return 1;
+        }
+    }
+
+    addDestinationToList(destination) {
+        if (!this.wishlist.includes(destination)) {
+            this.wishlist.push(destination);
         }
     }
 
@@ -63,21 +70,21 @@ export class LogIn {
 
 }
 
+/////// Denna klass kan vi nog ta bort, men vi väntar lite
+// export class WishList extends LogIn {
 
-class WishList extends LogIn {
+//     constructor(username, password, gmail) {
+//         super(username, password, gmail);
+//         this.wishlist = [];
+//     }
 
-    constructor(username, password, gmail) {
-        super(username, password, gmail);
-        this.wishlist = [];
-    }
+//     addDestinationToList(destination) {
+//         if (!this.wishlist.includes(destination)) {
+//             this.wishlist.push(destination);
+//         }
+//     }
 
-    addDestinationToList(destination) {
-        if (!this.wishlist.includes(destination)) {
-            this.wishlist.push(destination);
-        }
-    }
-
-}
+// }
 
 // Denna klass kan kanske istället extenda från Login klassen
 class BookingDataLog {

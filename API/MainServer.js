@@ -112,9 +112,10 @@ async function handler(request) {
                         )
                     }
                     else {
-                        userArray.push(new LogIn(requestData.name, requestData.password, requestData.email));
+                        const newUser = new LogIn(requestData.name, requestData.password, requestData.email);
+                        userArray.push(newUser);
                         await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-                        return new Response(JSON.stringify("Success!"), { headers: headersCORS });
+                        return new Response(JSON.stringify({ id: newUser.id }), { headers: headersCORS });
                     }
                 }
             }
@@ -134,12 +135,13 @@ async function handler(request) {
                 } else {
                     const userJson = await Deno.readTextFile("./user.json");
                     const userArray = JSON.parse(userJson);
+                    const objektId = userArray.find(objekt => objekt.username == requestData.name);
                     if (userArray.some(objekt => {
                         let name = objekt.username == requestData.name;
                         let pass = objekt.password == requestData.password;
-                        return name && pass;
+                        return name && pass
                     })) {
-                        return new Response(JSON.stringify("Login succes!"), {
+                        return new Response(JSON.stringify({ id: objektId.id }), {
                             status: 200,
                             headers: headersCORS
                         })
@@ -189,7 +191,12 @@ async function handler(request) {
     if (wishListMatch) {
         if (request.method == "POST") {
             const requestData = await request.json();
-            return new Response(console.log(JSON.stringify(requestData)), { status: 200, headers: headersCORS })
+            const userJson = await Deno.readTextFile("./user.json");
+            const userArray = JSON.parse(userJson);
+            const userIndex = userArray.findIndex(objekt => objekt.id == requestData.userId);
+            userArray[userIndex].wishlist.push(requestData);
+            await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
+            return new Response(JSON.stringify("Wish added in list!"), { status: 200, headers: headersCORS });
         }
     }
 
