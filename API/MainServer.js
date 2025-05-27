@@ -5,6 +5,7 @@ const homePageSigninRoute = new URLPattern({ pathname: "/homepage/signin" });
 const homePageLoginRoute = new URLPattern({ pathname: "/homepage/loggedin" });
 const searchPageRoute = new URLPattern({ pathname: "/searchpage/loggedin" })
 const informationPageRoute = new URLPattern({ pathname: "/informationpage/loggedin" })
+const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
 
 async function handler(request) {
 
@@ -15,6 +16,7 @@ async function handler(request) {
     const homePageLoginMatch = homePageLoginRoute.exec(url);
     const searchPageMatch = searchPageRoute.exec(url);
     const infoPageMatch = informationPageRoute.exec(url);
+    const wishListMatch = wishListRoute.exec(url);
 
     const headersCORS = new Headers()
     headersCORS.set("Access-Control-Allow-Origin", "*");
@@ -173,8 +175,8 @@ async function handler(request) {
                 for (let country of CountryData) {
                     if (country.name.common.toLocaleLowerCase().includes(searchfield.toLocaleLowerCase())) {
                         console.log(country.name.common);
-                        
-                        results.push({ country: country})  
+
+                        results.push({ country: country })
                     }
                 }
                 return new Response(JSON.stringify(results),
@@ -183,6 +185,18 @@ async function handler(request) {
             }
         }
     }
+
+    if (wishListMatch) {
+        if (request.method == "POST") {
+            const requestData = await request.json();
+            return new Response(console.log(JSON.stringify(requestData)), { status: 200, headers: headersCORS })
+        }
+    }
+
+
+
+
+
 
     if (infoPageMatch) {
 

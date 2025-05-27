@@ -86,3 +86,14 @@
     ;
     cursor: pointer;
 }
+
+.star-for-imgcard {
+    width: 18px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.star-for-imgcard:active {
+    background-color: yellow;
+}

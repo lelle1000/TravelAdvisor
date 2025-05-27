@@ -59,7 +59,6 @@ body {
     z-index: 1000;
 
     background-color: rgb(12, 26, 79)
-
 }
 
 .NavContainer {
@@ -359,6 +358,7 @@ h2 {
     background-color: var(--W);
     border-top: 2px solid black;
     font-size: var(--XXXLText);
+    gap: 10px;
 }
 
 
