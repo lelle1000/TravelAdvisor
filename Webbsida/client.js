@@ -1,9 +1,14 @@
-
+const headerLogoContainer = document.getElementById("HeaderLogoContainer")
+headerLogoContainer.addEventListener("click", () => {
+    submenuContainer.style.display = "none"
+    popupContainer.style.display = "none"
+})
 
 let loginStatusGlobal = false;
 let usernameTrack = "";
 let userRate = 0;
 const loginContainer = document.querySelector("#loginContainer");
+let popupContainer = document.querySelector(".popup-main")
 let loginButton = document.querySelector("#login-button");
 let loginPopup = document.querySelector("#login-popup");
 let logoutPopup = document.querySelector("#log-out-popup");
@@ -161,8 +166,7 @@ SearchButton.addEventListener("click", async () => {
     const CountriesData = await response.json()
 
     submenuContainer.innerHTML = ""
-    submenuContainer.classList.add("Reveal")
-
+    submenuContainer.style.display = "flex"
     for (let country of CountriesData) {
         const submenuItem = document.createElement("div")
         submenuItem.classList.add("submenuItem")

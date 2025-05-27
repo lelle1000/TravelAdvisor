@@ -15,6 +15,8 @@
     padding: 50px;
     background-color: white;
     gap: 25px;
+
+    z-index: 20000;
 }
 
 .logIn {
