@@ -1,6 +1,7 @@
 const headerLogoContainer = document.getElementById("HeaderLogoContainer")
 headerLogoContainer.addEventListener("click", () => {
     submenuContainer.style.display = "none"
+    SearchLocation.value = ""
     popupContainer.style.display = "none"
 })
 
