@@ -36,6 +36,9 @@ body {
 }
 
 
+
+
+
 /* Header Css 16-110 */
 
 .NavigationHeader {
@@ -49,18 +52,101 @@ body {
     height: 50px;
 
     background-color: var(--W);
-    padding: 0px 20px;
+    padding: 10px 20px;
 
     justify-content: space-between;
 
     z-index: 1000;
 
     background-color: rgb(12, 26, 79)
+
 }
 
 .NavContainer {
     height: 100%;
     display: flex;
+}
+
+#location-search {
+    width: 100%;
+    border: blue;
+    padding: 20px;
+    border-radius: 10px;
+
+    outline: none;
+    border: none;
+}
+
+#icon-for-search {
+    width: 10%;
+    height: 100%;
+    border-radius: 10px 10px 0px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#icon-for-search:hover {
+    cursor: pointer;
+    background-color: rgb(187, 187, 187);
+}
+
+#icon-for-search img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}
+
+#search-and-field {
+    display: flex;
+    background-color: var(--W);
+    border-radius: 10px 10px 0px 0px;
+    width: 600px;
+
+    position: relative;
+}
+
+.BOLD {
+    font-weight: var(--BOLD);
+}
+
+.submenuContainer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--W);
+    border-top: 1px solid rgb(187, 187, 187);
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 5000;
+
+    padding: 5px 0px 5px 0px;
+
+    border-radius: 0px 0px 10px 10px;
+}
+
+.submenuContainer.Reveal {
+    display: flex;
+}
+
+.submenuItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.submenuItem img {
+    width: 4%;
+}
+
+.submenuItem:hover {
+    background-color: rgb(168, 168, 168);
 }
 
 #NavLeftContainer {

@@ -142,36 +142,25 @@ signInButton.addEventListener("click", () => {
     }
 })
 
-
-const SearchButton = document.getElementById("SearchButton")
+const SearchButton = document.getElementById("icon-for-search")
 const SearchLocation = document.getElementById("location-search")
-const LocationContainer = document.getElementById("all-locations")
+const submenuContainer = document.querySelector(".submenuContainer")
 
 SearchButton.addEventListener("click", async () => {
 
     const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
     const CountriesData = await response.json()
-
-    LocationContainer.innerHTML = ""
+    
+    submenuContainer.innerHTML = ""
+    submenuContainer.classList.add("Reveal")
 
     for (let country of CountriesData) {
-        const boxAround = document.createElement("div")
-        boxAround.classList.add("box-around")
-        LocationContainer.append(boxAround)
+        const submenuItem = document.createElement("div")
+        submenuItem.classList.add("submenuItem")
 
-        const locationImageBox = document.createElement("div")
-        locationImageBox.classList.add("location-image-box")
-        locationImageBox.innerHTML = `<img src="${country.imageURL}" alt="${country.country.capital[0]}">`
-        boxAround.append(locationImageBox)
-
-        const textBoxContainer = document.createElement("div")
-        textBoxContainer.classList.add("textBoxContainer")
-        textBoxContainer.innerHTML = `
-                <div class="textBoxInformationContainer"> <p class="textBoxInformation"> Travel to ${country.country.capital[0]} in ${country.country.name.common} for a relaxing trip with family and friends!</p> </div>
-                <div class="textBoxButtonContainer"> <button class="button">Book now</button> <button class="button">Read more</button> </div>
-            `
-        boxAround.append(textBoxContainer)
-    }
+        submenuItem.innerHTML = `<div><span class="BOLD">${country.country.capital[0]}</span> ${country.country.name.common} ${country.country.continents[0]}</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
+        submenuContainer.append(submenuItem)
+}
 
 })
 
