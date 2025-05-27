@@ -153,19 +153,6 @@ body {
     z-index: 500;
 }
 
-#closeMenuButton {
-    background-color: rgb(103, 156, 190);
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 5px 20px;
-    cursor: pointer;
-}
-
-#closeMenuButton:hover {
-    background-color: white;
-}
-
 #menuSubMenu ul {
     list-style: none;
     width: 280px;
