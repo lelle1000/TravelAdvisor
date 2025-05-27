@@ -27,6 +27,8 @@ for (let rate of allRates) {
         userRate = rate.id;
         console.log(userRate);
         logoutPopup.style.display = "none";
+        loginButton.textContent = "Log in"
+        loginStatusGlobal = false;
     })
 }
 
@@ -79,7 +81,7 @@ getAllImages();
 const logInButton = document.querySelector("#logInButton");
 const logInNameInput = document.querySelector("#logInNameInput");
 const logInPasswordInput = document.querySelector("#logInPasswordInput");
-const signInMessage = document.querySelector("#error-message");
+let loginMessageError = document.querySelector("#login-error-message");
 
 logInButton.addEventListener("click", () => {
     async function logIn() {
@@ -98,12 +100,17 @@ logInButton.addEventListener("click", () => {
             usernameTrack = logInNameInput.value;
             console.log(usernameTrack)
             console.log("You have logged in!");
-            signInMessage.textContent = "Success, you are logged in!";
+            loginMessageError.textContent = "Success, you are logged in!";
+            loginMessageError.style.color = "Green"
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 loginButton.textContent = "Log out"
+                logInNameInput.value = "";
+                logInPasswordInput.value = "";
+                loginMessageError.textContent = "";
             }, 2000);
         } else {
+            loginMessageError.textContent = resource.body.error
             console.log("Something went wrong!");
         }
     }
@@ -113,6 +120,7 @@ const signInButton = document.querySelector("#signInButton");
 const signInNameInput = document.querySelector("#signInNameInput");
 const signInPasswordInput = document.querySelector("#signInPasswordInput");
 const signInEmailInput = document.querySelector("#signInEmailInput");
+let signinMessageError = document.querySelector("#signin-error-message");
 
 signInButton.addEventListener("click", () => {
     async function signIn() {
@@ -130,13 +138,21 @@ signInButton.addEventListener("click", () => {
             loginStatusGlobal = true;
             usernameTrack = signInNameInput.value;
             console.log("You have signed in!");
-            signInMessage.textContent = "Success, account created!";
+            signinMessageError.textContent = "Success, account created!";
+            signinMessageError.style.color = "Green"
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 signInPopup.style.display = "none";
                 loginButton.textContent = "Log out"
+                signInNameInput.value = "";
+                signInPasswordInput.value = "";
+                signInEmailInput.value = "";
+                signinMessageError.textContent = "";
             }, 2000);
-        } else {
+        }
+        else {
+            console.log(resource.body)
+            signinMessageError.textContent = resource.body.error
             console.log("Something went wrong!");
         }
     }

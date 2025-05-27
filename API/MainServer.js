@@ -78,6 +78,7 @@ async function handler(request) {
             const contentType = request.headers.get("Content-Type");
             if (contentType === "application/json") {
                 const requestData = await request.json();
+                let passwordCharacters = ["%", "!", "/", "€", "#", "&"];
                 if (!requestData.name || !requestData.password || !requestData.email) {
                     return new Response(JSON.stringify(
                         { error: "Both inputs need to be filled in" }),
@@ -97,7 +98,18 @@ async function handler(request) {
                             { error: "Account already exists!" }),
                             { headers: headersCORS, status: 409 }
                         )
-                    } else {
+                    } else if (!passwordCharacters.some(character => requestData.password.includes(character)) || requestData.password.length < 8) {
+                        return new Response(JSON.stringify(
+                            { error: "Password input is false!" }),
+                            { headers: headersCORS, status: 409 }
+                        )
+                    } else if (!requestData.email.includes("@")) {
+                        return new Response(JSON.stringify(
+                            { error: "Email input is false!" }),
+                            { headers: headersCORS, status: 409 }
+                        )
+                    }
+                    else {
                         userArray.push(new LogIn(requestData.name, requestData.password, requestData.email));
                         await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
                         return new Response(JSON.stringify("Success!"), { headers: headersCORS });
@@ -129,6 +141,11 @@ async function handler(request) {
                             status: 200,
                             headers: headersCORS
                         })
+                    } else {
+                        return new Response(JSON.stringify(
+                            { error: "Wrong input!" }),
+                            { headers: headersCORS, status: 409 }
+                        )
                     }
                 }
             }
