@@ -193,6 +193,14 @@ async function wishCheck() {
     }
 }
 
+window.addEventListener("scroll", () => {
+    const NavigationHeader = document.querySelector("#NavigationHeader");
+    if (window.scrollY > 0) {
+        NavigationHeader.classList.add("scrolled");
+    } else {
+        NavigationHeader.classList.remove("scrolled");
+    }
+})
 
 
 

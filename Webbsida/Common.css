@@ -41,7 +41,7 @@ body {
 
 /* Header Css 16-110 */
 
-.NavigationHeader {
+#NavigationHeader {
     display: flex;
 
     position: fixed;
@@ -58,7 +58,11 @@ body {
 
     z-index: 1000;
 
-    background-color: rgb(12, 26, 79)
+    background-color: rgb(12, 26, 79);
+}
+
+#NavigationHeader.scrolled {
+    border-bottom: 1px solid rgb(103, 156, 190);
 }
 
 .NavContainer {
@@ -314,7 +318,7 @@ h2 {
     border-top: 2px solid black;
     width: 100%;
     text-align: center;
-    padding: 15px;
+    padding: 15px 0;
 }
 
 #grid-place-destination {
