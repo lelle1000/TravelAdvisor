@@ -52,7 +52,7 @@ body {
     height: 50px;
 
     background-color: var(--W);
-    padding: 10px 20px;
+    padding: 20px;
 
     justify-content: space-between;
 
@@ -201,6 +201,7 @@ body {
     cursor: pointer;
     background-color: #b3ccdd;
     border-bottom: 1px solid rgb(12, 26, 79);
+    border-radius: 5px;
 }
 
 .HeaderButtonContainer:hover .button {
@@ -304,8 +305,8 @@ body {
     background-color: #b3ccdd;
 
     margin-top: 50px;
+    padding: 50px 0;
     border-radius: 15px;
-    padding: 50px;
 }
 
 
@@ -318,7 +319,7 @@ body {
 h2 {
     border-bottom: 2px solid black;
     border-top: 2px solid black;
-    width: 100%;
+    width: 70%;
     text-align: center;
     padding: 15px 0;
 }
@@ -329,7 +330,7 @@ h2 {
     grid-template-rows: repeat(3, 0.6fr);
     gap: 30px;
     margin-top: 50px;
-    width: 100%;
+    width: 70%;
 }
 
 .destination-info-pic {
@@ -447,11 +448,12 @@ h2 {
 
 /* Footer Css 250-X */
 footer {
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     gap: 70px;
     background-color: rgb(12, 26, 79);
-    padding: 50px 300px 0px 300px
+    width: 70%;
 }
 
 footer p {
