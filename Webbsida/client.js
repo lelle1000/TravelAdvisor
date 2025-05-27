@@ -59,7 +59,7 @@ async function getImages() {
             <img src="${response.url}" alt="Picture of ${response.countryname}">
         </div>
         <div class="bottom-info">
-            Flyg till ${response.countryname}
+            Travel to ${response.countryname}
             <img class="star-for-imgcard" id="${[response.url, response.countryname]}" src="Images/star-svgrepo-com.svg">
         </div>`;
     UiCardGrid.append(DestinationCard)
