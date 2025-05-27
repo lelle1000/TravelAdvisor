@@ -27,8 +27,6 @@ for (let rate of allRates) {
         userRate = rate.id;
         console.log(userRate);
         logoutPopup.style.display = "none";
-        loginButton.textContent = "Log in"
-        loginStatusGlobal = false;
     })
 }
 
@@ -55,9 +53,12 @@ async function getImages() {
         </div>
         <div class="bottom-info">
             Flyg till ${response.countryname}
+            <img class="star-for-imgcard" id="${[response.url, response.countryname]}" src="Images/star-svgrepo-com.svg">
         </div>`;
     UiCardGrid.append(DestinationCard)
 }
+
+
 
 async function getAllImages() {
     const image1 = await getImages();
@@ -72,16 +73,20 @@ async function getAllImages() {
     const image10 = await getImages();
     const image11 = await getImages();
     const image12 = await getImages();
+    wishCheck();
 }
 
 getAllImages();
 
 
 
+
+
+
 const logInButton = document.querySelector("#logInButton");
 const logInNameInput = document.querySelector("#logInNameInput");
 const logInPasswordInput = document.querySelector("#logInPasswordInput");
-let loginMessageError = document.querySelector("#login-error-message");
+const signInMessage = document.querySelector("#error-message");
 
 logInButton.addEventListener("click", () => {
     async function logIn() {
@@ -100,17 +105,12 @@ logInButton.addEventListener("click", () => {
             usernameTrack = logInNameInput.value;
             console.log(usernameTrack)
             console.log("You have logged in!");
-            loginMessageError.textContent = "Success, you are logged in!";
-            loginMessageError.style.color = "Green"
+            signInMessage.textContent = "Success, you are logged in!";
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 loginButton.textContent = "Log out"
-                logInNameInput.value = "";
-                logInPasswordInput.value = "";
-                loginMessageError.textContent = "";
             }, 2000);
         } else {
-            loginMessageError.textContent = resource.body.error
             console.log("Something went wrong!");
         }
     }
@@ -120,7 +120,6 @@ const signInButton = document.querySelector("#signInButton");
 const signInNameInput = document.querySelector("#signInNameInput");
 const signInPasswordInput = document.querySelector("#signInPasswordInput");
 const signInEmailInput = document.querySelector("#signInEmailInput");
-let signinMessageError = document.querySelector("#signin-error-message");
 
 signInButton.addEventListener("click", () => {
     async function signIn() {
@@ -138,21 +137,13 @@ signInButton.addEventListener("click", () => {
             loginStatusGlobal = true;
             usernameTrack = signInNameInput.value;
             console.log("You have signed in!");
-            signinMessageError.textContent = "Success, account created!";
-            signinMessageError.style.color = "Green"
+            signInMessage.textContent = "Success, account created!";
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 signInPopup.style.display = "none";
                 loginButton.textContent = "Log out"
-                signInNameInput.value = "";
-                signInPasswordInput.value = "";
-                signInEmailInput.value = "";
-                signinMessageError.textContent = "";
             }, 2000);
-        }
-        else {
-            console.log(resource.body)
-            signinMessageError.textContent = resource.body.error
+        } else {
             console.log("Something went wrong!");
         }
     }
@@ -166,7 +157,7 @@ SearchButton.addEventListener("click", async () => {
 
     const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
     const CountriesData = await response.json()
-    
+
     submenuContainer.innerHTML = ""
     submenuContainer.classList.add("Reveal")
 
@@ -176,18 +167,31 @@ SearchButton.addEventListener("click", async () => {
 
         submenuItem.innerHTML = `<div><span class="BOLD">${country.country.capital[0]}</span> ${country.country.name.common} ${country.country.continents[0]}</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
         submenuContainer.append(submenuItem)
-}
+    }
 
 })
 
 
 
 
-
-
-
-
-
+async function wishCheck() {
+    const wishListStar = document.querySelectorAll(".star-for-imgcard");
+    for (let wish of wishListStar) {
+        wish.addEventListener("click", () => {
+            const idSplit = wish.id.split(",");
+            const countryName = idSplit[1];
+            const countryUrl = idSplit[0];
+            console.log(countryName)
+            console.log(countryUrl)
+            const request = fetch("http://localhost:8000/add/destination/wishlist", {
+                method: "POST",
+                body: JSON.stringify({ countryName: countryName, imgurl: countryUrl }),
+                headers: { "Content-Type": "application/json" }
+            })
+            request.then(response => response.json()).then(response => console.log(response));
+        })
+    }
+}
 
 
 
