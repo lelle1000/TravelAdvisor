@@ -20,6 +20,10 @@ body {
     --BOLD: bold;
 }
 
+.hide {
+    display: none;
+}
+
 .button {
     color: rgb(255, 255, 255);
     font-size: var(--XXXLText);
@@ -49,7 +53,7 @@ body {
 
     justify-content: space-between;
 
-    z-index: 100000;
+    z-index: 1000;
 
     background-color: rgb(12, 26, 79)
 }
@@ -139,14 +143,44 @@ body {
     display: none;
 }
 
+#menuSubMenu {
+    background-color: rgb(170, 219, 252);
+    border-left: 2px solid rgb(103, 156, 190);
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    z-index: 500;
+}
 
+#menuSubMenu ul {
+    list-style: none;
+    width: 280px;
+    margin: 20px auto 0;
+    padding: 0;
+}
 
+#menuSubMenu li {
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(103, 156, 190);
+}
 
+#menuSubMenu li:hover {
+    background-color: white;
+    border-radius: 5px;
+}
 
+#menuSubMenu a {
+    text-decoration: none;
+    color: black;
+}
 
-
-
-
+#menuSubMenu img {
+    width: 15px;
+}
 
 
 
