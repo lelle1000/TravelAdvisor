@@ -64,9 +64,9 @@ async function handler(request) {
 
             }
             const countriesJson = await Deno.readTextFile("./countries.json");
-            const countiesArray = JSON.parse(countriesJson);
+            const countriesArray = JSON.parse(countriesJson);
 
-            let RandomCountry = countiesArray[Math.floor(countiesArray.length * Math.random())]
+            let RandomCountry = countriesArray[Math.floor(countriesArray.length * Math.random())]
             const result = await fetchCountryAndPhoto(RandomCountry);
 
             return new Response(JSON.stringify(result), {
