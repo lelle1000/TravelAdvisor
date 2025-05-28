@@ -158,7 +158,6 @@ async function handler(request) {
 
     if (searchPageMatch) {
         if (request.method == "GET") {
-            const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
             let results = [];
             const searchfield = url.searchParams.get("searchfield")
 
@@ -206,7 +205,20 @@ async function handler(request) {
 
 
     if (infoPageMatch) {
+        if(request.method == "POST") {
+            const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
 
+            const requestData = await request.json()
+            const capitalName = requestData.capital
+
+            const response = await fetch(`https://api.unsplash.com/search/photos?query=${capitalName}&client_id=${UnsplashKey}`)
+            if(!response.ok) {
+                 return new Response(JSON.stringify({ error: "Failed to fetch image" }), { status: 500, headers: headersCORS})
+            }
+            const imgUrlData = await response.json()
+            
+            return new Response(JSON.stringify({ imgUrl: imgUrlData.results[0].urls.full }), { status: 200, headers: headersCORS})
+        }
     }
 
 }
@@ -214,5 +226,3 @@ async function handler(request) {
 
 
 Deno.serve(handler)
-
-//https://restcountries.com/v3.1/all

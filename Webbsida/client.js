@@ -191,6 +191,45 @@ SearchButton.addEventListener("click", async () => {
 
         submenuItem.innerHTML = `<div><span class="BOLD">${country.country.capital[0]}</span> ${country.country.name.common} (${country.country.continents[0]})</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
         submenuContainer.append(submenuItem)
+
+        submenuItem.addEventListener("click", async function () {
+            const requestCapital = new Request(`http://localhost:8000/informationpage/loggedin`, {
+                method: "POST",
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify({capital: country.country.capital[0]})
+            })
+
+            const response = await fetch(requestCapital)
+            if (!response.ok) {
+                throw new Error(`Couldn't fetch Capital Data`)
+            }
+
+            const imgData = await response.json()
+
+            let continentText = "";
+            
+            if(country.country.continents[0] == "Europe") {
+                continentText = "a culturally rich part of Europe with many astonishing monuments"
+            } else if (country.country.continents[0] == "Asia") {
+                continentText = "a vast and diverse region in Asia"
+            } else if (country.country.continents[0] == "Africa") {
+                continentText = "a vibrant and historic region in Africa with many beautiful sights"
+            } else if (country.country.continents[0] == "North America") {
+                continentText = "a major area of North America stretching far and wide"
+            } else if (country.country.continents[0] == "South America") {
+                continentText = "a colorful and energetic part of South America"
+            } else if (country.country.continents[0] == "Oceania") {
+                continentText = "an island region in Oceania with many different animals worth to see"
+            } else if (country.country.continents[0] == "Antarctica") {
+                continentText = "an icy region of Antarctica - only adventurers would dare to visit here!"
+            } else {
+                continentText = "a place with an unknown continent that will be difficult to travel too!"
+            }
+
+            document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
+            document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.`
+
+    })
     }
 
 })
