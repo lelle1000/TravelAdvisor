@@ -60,8 +60,8 @@ async function getImages() {
         // window.history.pushState({}, "", "/homepage/country/photos");
     }
     const data = await response.json();
-    if (!onlyOneOfSameCountries.includes(data.countryCapital)) {
-        onlyOneOfSameCountries.push(data.countryCapital)
+    if (!onlyOneOfSameCountries.includes(data.capital)) {
+        onlyOneOfSameCountries.push(data.capital)
 
         let DestinationCard = document.createElement("div")
         DestinationCard.classList.add("destination-info-pic")
