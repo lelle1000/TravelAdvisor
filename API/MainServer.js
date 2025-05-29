@@ -7,6 +7,7 @@ const searchPageRoute = new URLPattern({ pathname: "/searchpage/loggedin" })
 const informationPageRoute = new URLPattern({ pathname: "/informationpage/loggedin" })
 const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
 const friendsListRoute = new URLPattern({ pathname: "/friends/list" })
+const favoritesRoute = new URLPattern({ pathname: "/favorites"})
 
 async function handler(request) {
 
@@ -19,6 +20,7 @@ async function handler(request) {
     const infoPageMatch = informationPageRoute.exec(url);
     const wishListMatch = wishListRoute.exec(url);
     const friendsListMatch = friendsListRoute.exec(url);
+    const favoritesRouteMatch = favoritesRoute.exec(url)
 
     const headersCORS = new Headers()
     headersCORS.set("Access-Control-Allow-Origin", "*");
@@ -231,8 +233,27 @@ async function handler(request) {
         }
     }
 
-}
+    if(favoritesRouteMatch) {
+        if(request.method == "POST") {
+            const requestUserTrackId = await request.json()
 
+            let UserJson = await Deno.readTextFile("./user.json");
+            let UserArray = JSON.parse(UserJson)
+
+            let currentUser = UserArray.find(correctId => correctId.id == requestUserTrackId)
+            
+             if (!currentUser) {
+                return new Response(JSON.stringify({ error: "User does not exist "}), {status: 409, headers: headersCORS })
+            } else if (currentUser.wishlist.length === 0) {
+                return new Response(JSON.stringify({ error: "Users wishlist is empty"}), {status: 400, headers: headersCORS })
+            } else {
+                return new Response(JSON.stringify({ currentUser }), {status: 200, headers: headersCORS})
+            }            
+        }
+
+    }
+
+}
 
 
 Deno.serve(handler)

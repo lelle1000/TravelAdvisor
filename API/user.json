@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": 1,
+    "username": "hasse",
+    "password": "123456789%",
+    "gmail": "lelle@gmail.com",
+    "wishlist": [
+      {
+        "countryName": "Victoria",
+        "imgurl": "https://images.unsplash.com/photo-1601241172077-a7055d23082d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxWaWN0b3JpYXxlbnwwfHx8fDE3NDg1MjI1MDl8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "Port Vila",
+        "imgurl": "https://images.unsplash.com/photo-1676312617665-5095003245da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxQb3J0JTIwVmlsYXxlbnwwfHx8fDE3NDg0Njk1MjJ8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "Suva",
+        "imgurl": "https://images.unsplash.com/photo-1731978242605-f35ada228a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxTdXZhfGVufDB8fHx8MTc0ODQ2OTUyNHww&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      }
+    ],
+    "friendsList": []
+  }
+]

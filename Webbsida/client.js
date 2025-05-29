@@ -13,7 +13,7 @@ headerLogoContainer.addEventListener("click", () => {
 })
 
 let loginStatusGlobal = false;
-let userTrackId = 1;
+let userTrackId = null;
 let userRate = 0;
 const loginContainer = document.querySelector("#loginContainer");
 let popupContainer = document.querySelector(".popup-main")
@@ -29,7 +29,7 @@ loginContainer.addEventListener("click", () => {
     }
     else if (loginButton.textContent == "Log out") {
         logoutPopup.style.display = "flex";
-        logoutText.textContent = `You succesfully loged out!`
+        logoutText.textContent = `You succesfully logged out!`
     }
 })
 signInPopupLink.addEventListener("click", () => {
@@ -148,6 +148,7 @@ logInButton.addEventListener("click", () => {
             loginStatusGlobal = true;
             console.log(resource.body.id)
             console.log("You have logged in!");
+            userTrackId = resource.body.id;
             loginMessage.textContent = "Success, you are logged in!";
             loginMessage.style.color = "Green"
             setTimeout(() => {
@@ -376,4 +377,31 @@ menuButton.addEventListener("click", () => {
     } else {
         menuSubMenu.classList.add("hide");
     }
+})
+
+
+const favoriteSubContainer = document.querySelector("#favoriteSubContainer")
+const favoriteContainer = document.querySelector("#favoriteContainer")
+
+favoriteSubContainer.addEventListener("click", async function () {
+    const response = await fetch("http://localhost:8000/favorites", {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(userTrackId)
+    })
+
+    const userData = await response.json()
+
+    if(!response.ok) {
+        return null
+    }
+    
+    favoriteContainer.innerHTML = ""
+
+    for (let favorite of userData.currentUser.wishlist) {
+        let favoriteDestinationItem = document.createElement("div")
+        favoriteDestinationItem.innerHTML = `<img id="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div id="favoriteTextBox">Your saved destination is the beautiful capital ${favorite.countryName}</div>`
+        favoriteContainer.append(favoriteDestinationItem)
+    }
+
 })
