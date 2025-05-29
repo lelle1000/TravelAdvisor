@@ -7,6 +7,7 @@ export class LogIn {
         this.password = password;
         this.gmail = gmail;
         this.wishlist = [];
+        this.friendsList = [];
         LogIn.AllUsers.push(this)
     }
 

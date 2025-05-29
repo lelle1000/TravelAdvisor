@@ -6,6 +6,7 @@ const homePageLoginRoute = new URLPattern({ pathname: "/homepage/loggedin" });
 const searchPageRoute = new URLPattern({ pathname: "/searchpage/loggedin" })
 const informationPageRoute = new URLPattern({ pathname: "/informationpage/loggedin" })
 const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
+const friendsListRoute = new URLPattern({ pathname: "/friends/list" })
 
 async function handler(request) {
 
@@ -17,6 +18,7 @@ async function handler(request) {
     const searchPageMatch = searchPageRoute.exec(url);
     const infoPageMatch = informationPageRoute.exec(url);
     const wishListMatch = wishListRoute.exec(url);
+    const friendsListMatch = friendsListRoute.exec(url);
 
     const headersCORS = new Headers()
     headersCORS.set("Access-Control-Allow-Origin", "*");
@@ -200,6 +202,13 @@ async function handler(request) {
         }
     }
 
+
+    if (friendsListMatch) {
+        if (request.method == "GET") {
+            const userJson = await Deno.readTextFile("./user.json");
+            return new Response(JSON.stringify(userJson), { headers: headersCORS, status: 200 })
+        }
+    }
 
 
 

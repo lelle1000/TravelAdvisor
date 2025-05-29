@@ -1,12 +1,19 @@
+
+const homePageDisplay = document.querySelector("#homepageContainer");
+const friendsPageDisplay = document.querySelector("#friendsContainer");
+const submenuFriendsButton = document.querySelector("#friends-button");
+
 const headerLogoContainer = document.getElementById("HeaderLogoContainer")
 headerLogoContainer.addEventListener("click", () => {
     submenuContainer.style.display = "none"
     SearchLocation.value = ""
     popupContainer.style.display = "none"
+    homePageDisplay.style.display = "flex";
+    friendsPageDisplay.style.display = "none";
 })
 
 let loginStatusGlobal = false;
-let userTrackId = 0;
+let userTrackId = 1;
 let userRate = 0;
 const loginContainer = document.querySelector("#loginContainer");
 let popupContainer = document.querySelector(".popup-main")
@@ -53,9 +60,9 @@ async function getImages() {
         // window.history.pushState({}, "", "/homepage/country/photos");
     }
     const data = await response.json();
-    if (!onlyOneOfSameCountries.includes(data.capital)) {
-        onlyOneOfSameCountries.push(data.capital)   
-        
+    if (!onlyOneOfSameCountries.includes(data.countryCapital)) {
+        onlyOneOfSameCountries.push(data.countryCapital)
+
         let DestinationCard = document.createElement("div")
         DestinationCard.classList.add("destination-info-pic")
 
@@ -69,11 +76,11 @@ async function getImages() {
             </div>`;
         UiCardGrid.append(DestinationCard)
 
-            DestinationCard.addEventListener("click", async function () {
+        DestinationCard.addEventListener("click", async function () {
 
             let continentText = "";
-            
-            if(data.continent == "Europe") {
+
+            if (data.continent == "Europe") {
                 continentText = "a culturally rich part of Europe with many astonishing monuments"
             } else if (data.continent == "Asia") {
                 continentText = "a vast and diverse region in Asia"
@@ -94,11 +101,11 @@ async function getImages() {
             document.querySelector("#image-box").innerHTML = `<img src="${data.url}" alt="Picture of ${data.capital}">`
             document.querySelector("#text-box").innerHTML = `${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.`
 
-    })
+        })
     } else {
         return null
     }
-    
+
 }
 
 async function getAllImages() {
@@ -220,8 +227,8 @@ SearchButton.addEventListener("click", async () => {
         submenuItem.addEventListener("click", async function () {
             const requestCapital = new Request(`http://localhost:8000/informationpage/loggedin`, {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify({capital: country.country.capital[0]})
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ capital: country.country.capital[0] })
             })
 
             const response = await fetch(requestCapital)
@@ -232,8 +239,8 @@ SearchButton.addEventListener("click", async () => {
             const imgData = await response.json()
 
             let continentText = "";
-            
-            if(country.country.continents[0] == "Europe") {
+
+            if (country.country.continents[0] == "Europe") {
                 continentText = "a culturally rich part of Europe with many astonishing monuments"
             } else if (country.country.continents[0] == "Asia") {
                 continentText = "a vast and diverse region in Asia"
@@ -254,7 +261,7 @@ SearchButton.addEventListener("click", async () => {
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
             document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.`
 
-    })
+        })
     }
 
 })
@@ -300,20 +307,61 @@ window.addEventListener("scroll", () => {
 
 
 
+const searchFriendsInput = document.querySelector("#search-friends-input");
+const friendsDivsFrame = document.querySelector("#grid-friends-page-search");
+
+async function friendsSearch() {
+    const response = await fetch("http://localhost:8000/friends/list")
+    const userArray = await response.json();
+    const userArrayParse = JSON.parse(userArray);
+    const currentUserLoggedInList = userArrayParse.find(objekt => objekt.id == userTrackId);
+    //console.log(userArrayParse)
+    searchFriendsInput.addEventListener("keydown", (e) => {
+        friendsDivsFrame.innerHTML = "";
+        let newArray = [];
+        if (e.target.value.length > 0) {
+            newArray = userArrayParse.filter(objekt => {
+                let username = objekt.username.includes(e.target.value);
+                let email = objekt.gmail.includes(e.target.value);
+                return username || email
+            })
+        }
+        console.log(newArray);
+        for (let arr of newArray) {
+            const sharedWishes = arr.wishlist.filter(item =>
+                currentUserLoggedInList.wishlist.includes(item)
+            ).length;
+            console.log(sharedWishes)
+            const friendDiv = document.createElement("div");
+            friendDiv.classList.add("friend-profiles");
+            friendDiv.innerHTML = `
+            <img src="Images/user-profile-icon-free-vector.jpg">
+            <p>${arr.username},${arr.gmail}</p>Has same destinations in common ${sharedWishes}<p>
+            `
+            friendsDivsFrame.appendChild(friendDiv);
+        }
+    })
+
+}
+
+friendsSearch();
+
+
+const friendsPopupButton = document.querySelector("#add-friends-list");
+const friendsPopup = document.querySelector("#add-friends-popup");
+
+friendsPopupButton.addEventListener("click", () => {
+    friendsPopup.style.display = "flex";
+})
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+submenuFriendsButton.addEventListener("click", () => {
+    homePageDisplay.style.display = "none";
+    friendsPageDisplay.style.display = "block";
+})
 
 
 
