@@ -53,28 +53,53 @@ async function getImages() {
         // window.history.pushState({}, "", "/homepage/country/photos");
     }
     const data = await response.json();
-    if (!onlyOneOfSameCountries.includes(data.countryCapital)) {
-        onlyOneOfSameCountries.push(data.countryCapital)   
+    if (!onlyOneOfSameCountries.includes(data.capital)) {
+        onlyOneOfSameCountries.push(data.capital)   
         
         let DestinationCard = document.createElement("div")
         DestinationCard.classList.add("destination-info-pic")
 
         DestinationCard.innerHTML = `
             <div class="top-image">
-                <img src="${data.url}" alt="Picture of ${data.countryCapital}">
+                <img src="${data.url}" alt="Picture of ${data.capital}">
             </div>
             <div class="bottom-info">
-                Travel to ${data.countryCapital}
-                <img class="star-for-imgcard" id="${[data.url, data.countryCapital]}" src="Images/star-svgrepo-com.svg">
+                Travel to ${data.capital}
+                <img class="star-for-imgcard" id="${[data.url, data.capital]}" src="Images/star-svgrepo-com.svg">
             </div>`;
         UiCardGrid.append(DestinationCard)
+
+            DestinationCard.addEventListener("click", async function () {
+
+            let continentText = "";
+            
+            if(data.continent == "Europe") {
+                continentText = "a culturally rich part of Europe with many astonishing monuments"
+            } else if (data.continent == "Asia") {
+                continentText = "a vast and diverse region in Asia"
+            } else if (data.continent == "Africa") {
+                continentText = "a vibrant and historic region in Africa with many beautiful sights"
+            } else if (data.continent == "North America") {
+                continentText = "a major area of North America stretching far and wide"
+            } else if (data.continent == "South America") {
+                continentText = "a colorful and energetic part of South America"
+            } else if (data.continent == "Oceania") {
+                continentText = "an island region in Oceania with many different animals worth to see"
+            } else if (data.continent == "Antarctica") {
+                continentText = "an icy region of Antarctica - only adventurers would dare to visit here!"
+            } else {
+                continentText = "a place with an unknown continent that will be difficult to travel too!"
+            }
+
+            document.querySelector("#image-box").innerHTML = `<img src="${data.url}" alt="Picture of ${data.capital}">`
+            document.querySelector("#text-box").innerHTML = `${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.`
+
+    })
     } else {
         return null
     }
     
 }
-
-
 
 async function getAllImages() {
     let addedImages = 0;

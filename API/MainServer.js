@@ -50,11 +50,13 @@ async function handler(request) {
                 const CountryData = await CountryResponse.json()
 
                 if (CountryData.length > 0) {
+                    const countryName = CountryData[0].name.common
                     const capital = CountryData[0].capital[0]
+                    const continent = CountryData[0].continents[0]
                     const PhotoUrl = await getCapitalPhoto(capital)
 
                     if (PhotoUrl) {
-                        return { url: PhotoUrl, countryCapital: capital };
+                        return { url: PhotoUrl, capital: capital, continent: continent, countryName: countryName};
 
                     } else {
                         return null
@@ -175,7 +177,6 @@ async function handler(request) {
 
                 for (let country of CountryData) {
                     if (country.name.common.toLocaleLowerCase().includes(searchfield.toLocaleLowerCase())) {
-                        console.log(country.name.common);
 
                         results.push({ country: country })
                     }
