@@ -94,7 +94,7 @@ class BookingDataLog {
 
     constructor(username, gmail) {
         this.username = username;
-        this.gail = gmail;
+        this.gmail = gmail;
         this.bookingNumber = BookingDataLog.logArray.length++
     }
 

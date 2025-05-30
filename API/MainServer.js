@@ -169,7 +169,7 @@ async function handler(request) {
 
             if (!searchfield) {
                 return new Response(JSON.stringify(
-                    { error: "Searchfield needs to be used or no country matches your" }),
+                    { error: "Searchfield needs to be used or no country matches your input text" }),
                     { headers: headersCORS, status: 400 }
                 )
             }
