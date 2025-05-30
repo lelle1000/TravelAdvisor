@@ -170,6 +170,7 @@ logInButton.addEventListener("click", () => {
             userTrackId = resource.body.id;
             loginMessage.textContent = "Success, you are logged in!";
             loginMessage.style.color = "Green"
+            friendsSearch();
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 loginButton.textContent = "Log out"
@@ -205,6 +206,7 @@ signInButton.addEventListener("click", () => {
             console.log("You have signed in!");
             signinMessage.textContent = "Success, account created!";
             signinMessage.style.color = "Green"
+            friendsSearch();
             setTimeout(() => {
                 loginPopup.style.display = "none";
                 signInPopup.style.display = "none";
@@ -348,7 +350,6 @@ async function friendsSearch() {
 
 }
 
-friendsSearch();
 
 friendsPopupButton.addEventListener("click", () => {
     friendsPopup.style.display = "flex";
@@ -372,16 +373,16 @@ menuButton.addEventListener("click", () => {
 favoriteSubContainer.addEventListener("click", async function () {
     const response = await fetch("http://localhost:8000/favorites", {
         method: "POST",
-        headers: {"Content-Type" : "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userTrackId)
     })
 
     const userData = await response.json()
 
-    if(!response.ok) {
+    if (!response.ok) {
         return null
     }
-    
+
     favoriteContainer.innerHTML = ""
 
     for (let favorite of userData.currentUser.wishlist) {
