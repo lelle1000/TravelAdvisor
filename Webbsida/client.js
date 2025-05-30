@@ -17,6 +17,7 @@ let logoutText = document.querySelector("#logout-p")
 const signInPopupLink = document.querySelector("#signInLink");
 let signInPopup = document.querySelector("#signin-popup");
 
+const infoPageContainer = document.querySelector("#infoPageContainer");
 const UiCardGrid = document.getElementById("grid-place-destination")
 
 const logInButton = document.querySelector("#logInButton");
@@ -32,7 +33,7 @@ const signinMessage = document.querySelector("#signin-error-message");
 
 const SearchButton = document.getElementById("icon-for-search")
 const SearchLocation = document.getElementById("location-search")
-const submenuContainer = document.querySelector(".submenuContainer")
+const submenuContainer = document.querySelector("#submenuContainer")
 
 const searchFriendsInput = document.querySelector("#search-friends-input");
 const friendsDivsFrame = document.querySelector("#grid-friends-page-search");
@@ -48,11 +49,12 @@ const favoriteContainer = document.querySelector("#favoriteContainer")
 
 
 headerLogoContainer.addEventListener("click", () => {
-    submenuContainer.style.display = "none"
+    submenuContainer.classList.add("hide");
+    infoPageContainer.classList.add("hide");
     SearchLocation.value = ""
-    popupContainer.style.display = "none"
-    homePageDisplay.style.display = "flex";
-    friendsPageDisplay.style.display = "none";
+    popupContainer.classList.add("hide");
+    homePageDisplay.classList.remove("hide");
+    friendsPageDisplay.classList.add("hide");
 })
 
 loginContainer.addEventListener("click", () => {
@@ -128,6 +130,9 @@ async function getImages() {
 
             document.querySelector("#image-box").innerHTML = `<img src="${data.url}" alt="Picture of ${data.capital}">`
             document.querySelector("#text-box").innerHTML = `${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.`
+
+            homePageDisplay.classList.add("hide");
+            infoPageContainer.classList.remove("hide");
 
         })
     } else {
@@ -227,7 +232,7 @@ SearchButton.addEventListener("click", async () => {
     const CountriesData = await response.json()
 
     submenuContainer.innerHTML = ""
-    submenuContainer.style.display = "flex"
+    submenuContainer.classList.remove("hide");
     for (let country of CountriesData) {
         const submenuItem = document.createElement("div")
         submenuItem.classList.add("submenuItem")
@@ -272,6 +277,9 @@ SearchButton.addEventListener("click", async () => {
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
             document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.`
 
+            submenuContainer.classList.add("hide");
+            homePageDisplay.classList.add("hide");
+            infoPageContainer.classList.remove("hide");
         })
     }
 
