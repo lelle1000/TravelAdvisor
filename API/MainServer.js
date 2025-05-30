@@ -8,6 +8,7 @@ const informationPageRoute = new URLPattern({ pathname: "/informationpage/logged
 const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
 const friendsListRoute = new URLPattern({ pathname: "/friends/list" })
 const favoritesRoute = new URLPattern({ pathname: "/favorites"})
+const bookingsRoute = new URLPatter({ patname: "/booked/loggedin"})
 
 async function handler(request) {
 
@@ -20,7 +21,8 @@ async function handler(request) {
     const infoPageMatch = informationPageRoute.exec(url);
     const wishListMatch = wishListRoute.exec(url);
     const friendsListMatch = friendsListRoute.exec(url);
-    const favoritesRouteMatch = favoritesRoute.exec(url)
+    const favoritesMatch = favoritesRoute.exec(url)
+    const bookingsMatch = bookingsRoute.exec(url)
 
     const headersCORS = new Headers()
     headersCORS.set("Access-Control-Allow-Origin", "*");
@@ -233,7 +235,7 @@ async function handler(request) {
         }
     }
 
-    if(favoritesRouteMatch) {
+    if(favoritesMatch) {
         if(request.method == "POST") {
             const requestUserTrackId = await request.json()
 

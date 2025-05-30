@@ -270,7 +270,7 @@ SearchButton.addEventListener("click", async () => {
             }
 
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
-            document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.`
+            document.querySelector("#text-box").innerHTML = `<p>${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
 
         })
     }
