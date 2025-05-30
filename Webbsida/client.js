@@ -1,20 +1,13 @@
+let loginStatusGlobal = false;
+let userTrackId = null;
+let userRate = 0;
 
 const homePageDisplay = document.querySelector("#homepageContainer");
 const friendsPageDisplay = document.querySelector("#friendsContainer");
 const submenuFriendsButton = document.querySelector("#friends-button");
 
 const headerLogoContainer = document.getElementById("HeaderLogoContainer")
-headerLogoContainer.addEventListener("click", () => {
-    submenuContainer.style.display = "none"
-    SearchLocation.value = ""
-    popupContainer.style.display = "none"
-    homePageDisplay.style.display = "flex";
-    friendsPageDisplay.style.display = "none";
-})
 
-let loginStatusGlobal = false;
-let userTrackId = null;
-let userRate = 0;
 const loginContainer = document.querySelector("#loginContainer");
 let popupContainer = document.querySelector(".popup-main")
 let loginButton = document.querySelector("#login-button");
@@ -23,6 +16,45 @@ let logoutPopup = document.querySelector("#log-out-popup");
 let logoutText = document.querySelector("#logout-p")
 const signInPopupLink = document.querySelector("#signInLink");
 let signInPopup = document.querySelector("#signin-popup");
+
+const UiCardGrid = document.getElementById("grid-place-destination")
+
+const logInButton = document.querySelector("#logInButton");
+const logInNameInput = document.querySelector("#logInNameInput");
+const logInPasswordInput = document.querySelector("#logInPasswordInput");
+const loginMessage = document.querySelector("#login-error-message");
+
+const signInButton = document.querySelector("#signInButton");
+const signInNameInput = document.querySelector("#signInNameInput");
+const signInPasswordInput = document.querySelector("#signInPasswordInput");
+const signInEmailInput = document.querySelector("#signInEmailInput");
+const signinMessage = document.querySelector("#signin-error-message");
+
+const SearchButton = document.getElementById("icon-for-search")
+const SearchLocation = document.getElementById("location-search")
+const submenuContainer = document.querySelector(".submenuContainer")
+
+const searchFriendsInput = document.querySelector("#search-friends-input");
+const friendsDivsFrame = document.querySelector("#grid-friends-page-search");
+
+const friendsPopupButton = document.querySelector("#add-friends-list");
+const friendsPopup = document.querySelector("#add-friends-popup");
+
+const menuButton = document.querySelector("#mainContainer");
+const menuSubMenu = document.querySelector("#menuSubMenu");
+
+const favoriteSubContainer = document.querySelector("#favoriteSubContainer")
+const favoriteContainer = document.querySelector("#favoriteContainer")
+
+
+headerLogoContainer.addEventListener("click", () => {
+    submenuContainer.style.display = "none"
+    SearchLocation.value = ""
+    popupContainer.style.display = "none"
+    homePageDisplay.style.display = "flex";
+    friendsPageDisplay.style.display = "none";
+})
+
 loginContainer.addEventListener("click", () => {
     if (!loginStatusGlobal) {
         loginPopup.style.display = "flex";
@@ -48,11 +80,7 @@ for (let rate of allRates) {
 }
 
 
-
-
-
 let onlyOneOfSameCountries = [];
-const UiCardGrid = document.getElementById("grid-place-destination")
 
 async function getImages() {
     const response = await fetch("http://localhost:8000/homepage")
@@ -123,15 +151,6 @@ async function getAllImages() {
 getAllImages();
 
 
-
-
-
-
-const logInButton = document.querySelector("#logInButton");
-const logInNameInput = document.querySelector("#logInNameInput");
-const logInPasswordInput = document.querySelector("#logInPasswordInput");
-const loginMessage = document.querySelector("#login-error-message");
-
 logInButton.addEventListener("click", () => {
     async function logIn() {
         const response = await fetch("http://localhost:8000/homepage/loggedin", {
@@ -165,11 +184,6 @@ logInButton.addEventListener("click", () => {
     }
 })
 
-const signInButton = document.querySelector("#signInButton");
-const signInNameInput = document.querySelector("#signInNameInput");
-const signInPasswordInput = document.querySelector("#signInPasswordInput");
-const signInEmailInput = document.querySelector("#signInEmailInput");
-const signinMessage = document.querySelector("#signin-error-message");
 
 signInButton.addEventListener("click", () => {
     async function signIn() {
@@ -206,10 +220,6 @@ signInButton.addEventListener("click", () => {
         }
     }
 })
-
-const SearchButton = document.getElementById("icon-for-search")
-const SearchLocation = document.getElementById("location-search")
-const submenuContainer = document.querySelector(".submenuContainer")
 
 SearchButton.addEventListener("click", async () => {
 
@@ -268,8 +278,6 @@ SearchButton.addEventListener("click", async () => {
 })
 
 
-
-
 async function wishCheck() {
     const wishListStar = document.querySelectorAll(".star-for-imgcard");
     for (let wish of wishListStar) {
@@ -305,11 +313,6 @@ window.addEventListener("scroll", () => {
         NavigationHeader.classList.remove("scrolled");
     }
 })
-
-
-
-const searchFriendsInput = document.querySelector("#search-friends-input");
-const friendsDivsFrame = document.querySelector("#grid-friends-page-search");
 
 async function friendsSearch() {
     const response = await fetch("http://localhost:8000/friends/list")
@@ -347,17 +350,9 @@ async function friendsSearch() {
 
 friendsSearch();
 
-
-const friendsPopupButton = document.querySelector("#add-friends-list");
-const friendsPopup = document.querySelector("#add-friends-popup");
-
 friendsPopupButton.addEventListener("click", () => {
     friendsPopup.style.display = "flex";
 })
-
-
-
-
 
 submenuFriendsButton.addEventListener("click", () => {
     homePageDisplay.style.display = "none";
@@ -365,12 +360,6 @@ submenuFriendsButton.addEventListener("click", () => {
 })
 
 
-
-
-
-
-const menuButton = document.querySelector("#mainContainer");
-const menuSubMenu = document.querySelector("#menuSubMenu");
 menuButton.addEventListener("click", () => {
     if (menuSubMenu.classList.contains("hide")) {
         menuSubMenu.classList.remove("hide");
@@ -379,9 +368,6 @@ menuButton.addEventListener("click", () => {
     }
 })
 
-
-const favoriteSubContainer = document.querySelector("#favoriteSubContainer")
-const favoriteContainer = document.querySelector("#favoriteContainer")
 
 favoriteSubContainer.addEventListener("click", async function () {
     const response = await fetch("http://localhost:8000/favorites", {
