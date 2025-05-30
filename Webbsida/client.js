@@ -65,6 +65,7 @@ headerLogoContainer.addEventListener("click", () => {
     document.querySelectorAll(".popup-main").forEach(popup => popup.classList.add("hide"));
     loginMessage.textContent = "";
     friendsPageDisplay.classList.add("hide");
+    menuSubMenu.classList.add("hide");
 })
 
 loginContainer.addEventListener("click", () => {
