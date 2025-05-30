@@ -8,7 +8,7 @@ const informationPageRoute = new URLPattern({ pathname: "/informationpage/logged
 const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
 const friendsListRoute = new URLPattern({ pathname: "/friends/list" })
 const favoritesRoute = new URLPattern({ pathname: "/favorites"})
-const bookingsRoute = new URLPatter({ patname: "/booked/loggedin"})
+const bookingsRoute = new URLPattern({ patname: "/booked/loggedin"})
 
 async function handler(request) {
 
@@ -253,6 +253,12 @@ async function handler(request) {
             }            
         }
 
+    }
+
+    if(bookingsMatch) {
+        if(request.method == "POST") {
+
+        } 
     }
 
 }
