@@ -88,7 +88,7 @@ export class LogIn {
 // }
 
 // Denna klass kan kanske istället extenda från Login klassen
-class BookingDataLog {
+export class BookingDataLog {
 
     static logArray = [];
 
