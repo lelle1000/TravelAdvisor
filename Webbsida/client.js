@@ -9,7 +9,7 @@ const submenuFriendsButton = document.querySelector("#friends-button");
 const headerLogoContainer = document.getElementById("HeaderLogoContainer")
 
 const loginContainer = document.querySelector("#loginContainer");
-let popupContainer = document.querySelector(".popup-main")
+let popupContainer = document.querySelectorAll(".popup-main")
 let loginButton = document.querySelector("#login-button");
 let loginPopup = document.querySelector("#login-popup");
 let logoutPopup = document.querySelector("#log-out-popup");
@@ -53,12 +53,16 @@ headerLogoContainer.addEventListener("click", () => {
     submenuContainer.classList.add("hide");
     infoPageContainer.classList.add("hide");
     SearchLocation.value = ""
-    popupContainer.classList.add("hide");
+    popupContainer.forEach(popup => popup.classList.add("hide"));
+    loginMessage.textContent = "";
+    signinMessage.textContent = "";
     homePageDisplay.classList.remove("hide");
     friendsPageDisplay.classList.add("hide");
 })
 
 loginContainer.addEventListener("click", () => {
+    signInPopup.classList.add("hide");
+    signinMessage.textContent = "";
     if (!loginStatusGlobal) {
         loginPopup.classList.remove("hide");
     }
@@ -67,8 +71,10 @@ loginContainer.addEventListener("click", () => {
         logoutText.textContent = `You succesfully logged out!`
     }
 })
+
 signInPopupLink.addEventListener("click", () => {
     signInPopup.classList.remove("hide");
+    loginMessage.textContent = "";
 })
 
 const allRates = document.querySelectorAll(".rate")
@@ -420,6 +426,7 @@ friendsPopupButton.addEventListener("click", () => {
 submenuFriendsButton.addEventListener("click", () => {
     homePageDisplay.classList.add("hide"),
     friendsPageDisplay.classList.remove("hide");
+    menuSubMenu.classList.add("hide");
 })
 
 
