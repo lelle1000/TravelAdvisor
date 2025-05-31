@@ -491,12 +491,14 @@ favoriteSubContainer.addEventListener("click", async function () {
         return null
     }
 
-    favoriteContainer.innerHTML = ""
+    const favoriteDestinations = document.querySelector("#favoriteDestinations");
+    favoriteDestinations.innerHTML = ""
 
     for (let favorite of userData.currentUser.wishlist) {
         let favoriteDestinationItem = document.createElement("div")
-        favoriteDestinationItem.innerHTML = `<img id="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div id="favoriteTextBox">Your saved destination is the beautiful capital ${favorite.countryName}</div>`
-        favoriteContainer.append(favoriteDestinationItem)
+        favoriteDestinationItem.classList.add("favoriteItem");
+        favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div class="favoriteTextBox">The beautiful capital ${favorite.countryName}</div>`
+        favoriteDestinations.append(favoriteDestinationItem)
     }
 
 })

@@ -627,7 +627,35 @@ footer #bold {
 
 
 #favoriteContainer {
+    background-color: white;
     margin-top: 50px;
+}
+
+#favoriteContainer h2 {
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+#favoriteDestinations {
+    padding: 30px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.favoriteItem{
+    background-color: rgb(103, 156, 190);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#favoriteDestinations img {
+    width: 100%;
+    height: 200px;
+}
+
+.favoriteTextBox {
+    background-color: #b3ccdd;
+    padding: 10px;
+    border-radius: 5px;
 }
