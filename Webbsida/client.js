@@ -253,6 +253,7 @@ logInButton.addEventListener("click", () => {
             }, 2000);
         } else {
             loginMessage.textContent = resource.body.error
+            loginMessage.style.color = "red";
             console.log("Something went wrong!");
         }
     }
@@ -292,6 +293,7 @@ signInButton.addEventListener("click", () => {
             }, 2000);
         } else {
             signinMessage.textContent = resource.body.error
+            signinMessage.style.color = "red";
             console.log("Something went wrong!");
         }
     }
