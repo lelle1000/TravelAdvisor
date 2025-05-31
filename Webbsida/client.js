@@ -141,7 +141,6 @@ async function getImages() {
             </div>
             <div class="bottom-info">
                 Travel to ${data.capital}
-                <img class="star-for-imgcard" id="${[data.url, data.capital]}" src="Images/star-svgrepo-com.svg">
             </div>`;
         UiCardGrid.append(DestinationCard)
 
@@ -168,8 +167,8 @@ async function getImages() {
             }
 
             document.querySelector("#image-box").innerHTML = `<img src="${data.url}" alt="Picture of ${data.capital}">`
-            document.querySelector("#text-box").innerHTML = `<p>${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
-
+            document.querySelector("#text-box").innerHTML = `<p>${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button> <img class="star-for-imgcard" id="${[data.url, data.capital]}" src="Images/star-svgrepo-com.svg">`
+            wishCheck();
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
                 const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
@@ -202,7 +201,7 @@ async function getAllImages() {
             addedImages++
         }
     }
-    wishCheck();
+
 }
 
 getAllImages();
