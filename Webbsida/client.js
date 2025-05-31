@@ -330,11 +330,9 @@ SearchButton.addEventListener("click", async () => {
                 continentText = "a place with an unknown continent that will be difficult to travel too!"
             }
 
-            const infoPage = document.querySelector("#infoPage");
-            const imageBox = document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
-            const textBox = document.querySelector("#text-box").innerHTML = `<p>${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
-            infoPage.append(imageBox);
-            infoPage.append(textBox);
+            document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
+            document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}. <button class="bookingButton"> Book Now! </button>`
+            
         
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
