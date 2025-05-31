@@ -636,12 +636,8 @@ footer #bold {
     padding-top: 30px;
 }
 
-<<<<<<< Updated upstream
 #favoriteDestinations {
     margin: 0 auto;
-=======
-.favoriteDestinations {
->>>>>>> Stashed changes
     padding: 30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -655,12 +651,8 @@ footer #bold {
     border-radius: 5px;
 }
 
-<<<<<<< Updated upstream
 #favoriteDestinations img {
     object-fit: cover;
-=======
-.favoriteDestinations img {
->>>>>>> Stashed changes
     width: 100%;
     height: 250px;
 }

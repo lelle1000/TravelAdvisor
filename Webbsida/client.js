@@ -12,6 +12,9 @@ const loginContainer = document.querySelector("#loginContainer");
 let popupContainer = document.querySelectorAll(".popup-main")
 let loginButton = document.querySelector("#login-button");
 let loginPopup = document.querySelector("#login-popup");
+
+const logoutContainer = document.querySelector("#logoutContainer");
+let logoutButton = document.querySelector("#logout-button");
 let logoutPopup = document.querySelector("#log-out-popup");
 let logoutText = document.querySelector("#logout-p")
 const signInPopupLink = document.querySelector("#signInLink");
@@ -83,14 +86,17 @@ headerLogoContainer.addEventListener("click", () => {
 
 loginContainer.addEventListener("click", () => {
     signinMessage.textContent = "";
-    if (!loginStatusGlobal) {
-        loginPopup.classList.remove("hide")
-    }
-    else if (loginButton.textContent == "Log out") {
-        logoutPopup.classList.remove("hide")
-        userTrackId = null;
-        logoutText.textContent = `You succesfully logged out!`
-    }
+    loginPopup.classList.remove("hide")
+})
+
+logoutContainer.addEventListener("click", () => {
+    signinMessage.textContent = "";
+    logoutPopup.classList.remove("hide")
+    logoutContainer.classList.add("hide");
+    loginContainer.classList.remove("hide");
+    console.log("HEJ!");
+    userTrackId = null;
+    logoutText.textContent = `You succesfully logged out!`
 })
 
 signInPopupLink.addEventListener("click", () => {
@@ -229,7 +235,8 @@ logInButton.addEventListener("click", () => {
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide")
-                loginButton.textContent = "Log out"
+                loginContainer.classList.add("hide");
+                logoutContainer.classList.remove("hide");
                 logInNameInput.value = "";
                 logInPasswordInput.value = "";
                 loginMessage.textContent = "";
@@ -265,8 +272,8 @@ signInButton.addEventListener("click", () => {
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide"),
-                    signInPopup.classList.add("hide");
-                loginButton.textContent = "Log out"
+                signInPopup.classList.add("hide");
+                logoutContainer.classList.remove("hide");
                 signInNameInput.value = "";
                 signInPasswordInput.value = "";
                 signInEmailInput.value = "";
@@ -331,25 +338,12 @@ SearchButton.addEventListener("click", async () => {
                 continentText = "a place with an unknown continent that will be difficult to travel too!"
             }
 
-<<<<<<< Updated upstream
             
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${capital}">`
             document.querySelector("#text-box").innerHTML = `<p>${capital} is the beautiful capital of ${countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>  <img class="star-for-imgcard" id="${[imgData.imgUrl, capital]}" src="Images/star-svgrepo-com.svg">`
             
             wishCheck();
         
-=======
-            const infoPage = document.querySelector("#infoPage");
-            const imageBox = document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
-            const textBox = document.querySelector("#text-box").innerHTML = `<p>${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
-            infoPage.append(imageBox);
-            infoPage.append(textBox);
-
-            document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
-            document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}. <button class="bookingButton"> Book Now! </button>`
-
-
->>>>>>> Stashed changes
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
                 const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {

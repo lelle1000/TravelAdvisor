@@ -6,9 +6,9 @@
     border: 2px solid black;
     border-radius: 10px;
     position: fixed;
-    /*********************************/
+  
     transform: translate(-50%, -50%);
-    /* Ska hitta bättre och enklare sätt än detta*/
+ 
     top: 50%;
     left: 50%;
     z-index: 1;
