@@ -476,7 +476,7 @@ menuButton.addEventListener("click", () => {
 
 
 favoriteSubContainer.addEventListener("click", async function () {
-    menuSubMenu.classList.add("hide");
+    showCurrentPage(favoriteContainer);
     const response = await fetch("http://localhost:8000/favorites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
