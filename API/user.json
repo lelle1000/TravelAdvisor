@@ -1,2 +1,60 @@
 [
+  {
+    "id": 1,
+    "username": "hasse",
+    "password": "123456789%",
+    "gmail": "hass@",
+    "wishlist": [
+      {
+        "countryName": "San José",
+        "imgurl": "https://images.unsplash.com/photo-1583997052287-71c76c25ddac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxTYW4lMjBKb3MlQzMlQTl8ZW58MHx8fHwxNzQ4NjUyMTk2fDA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "Tallinn",
+        "imgurl": "https://images.unsplash.com/photo-1564951537954-29dd59397b90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxUYWxsaW5ufGVufDB8fHx8MTc0ODcyMTcxNXww&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "Bangkok",
+        "imgurl": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxCYW5na29rfGVufDB8fHx8MTc0ODYyNjc2M3ww&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      }
+    ],
+    "friendsList": []
+  },
+  {
+    "id": 2,
+    "username": "lelle",
+    "password": "123456789%",
+    "gmail": "lelle@",
+    "wishlist": [
+      {
+        "countryName": "Nicosia",
+        "imgurl": "https://images.unsplash.com/photo-1612891128761-453978dd3251?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxOaWNvc2lhfGVufDB8fHx8MTc0ODY1MDE2N3ww&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 2
+      },
+      {
+        "countryName": "Rome",
+        "imgurl": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxSb21lfGVufDB8fHx8MTc0ODcxODM3MHww&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 2
+      },
+      {
+        "countryName": "Chișinău",
+        "imgurl": "https://images.unsplash.com/photo-1629045951640-fb182dba0a33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxDaGklQzglOTlpbiVDNCU4M3V8ZW58MHx8fHwxNzQ4Njk1MjgyfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 2
+      },
+      {
+        "countryName": "Bissau",
+        "imgurl": "https://images.unsplash.com/photo-1623930376524-ead3734be423?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxCaXNzYXV8ZW58MHx8fHwxNzQ4NjQ2NzEzfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 2
+      },
+      {
+        "countryName": "Mariehamn",
+        "imgurl": "https://images.unsplash.com/photo-1656443250286-ec704c646339?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxNYXJpZWhhbW58ZW58MHx8fHwxNzQ4NjQ1ODUwfDA&ixlib=rb-4.1.0&q=85",
+        "userId": 2
+      }
+    ],
+    "friendsList": []
+  }
 ]

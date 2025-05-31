@@ -292,6 +292,11 @@ SearchButton.addEventListener("click", async () => {
 
     const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
     const CountriesData = await response.json()
+    if(response.status == 400) {
+        console.log(CountriesData);
+        submenuContainer.classList.add("hide");
+        return
+    }
 
     submenuContainer.innerHTML = ""
     submenuContainer.classList.remove("hide");
@@ -313,7 +318,7 @@ SearchButton.addEventListener("click", async () => {
             })
 
             const response = await fetch(requestCapital)
-            if (!response.ok) {
+            if (!response.status) {
                 throw new Error(`Couldn't fetch Capital Data`)
             }
 
