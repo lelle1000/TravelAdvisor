@@ -7,7 +7,7 @@ const searchPageRoute = new URLPattern({ pathname: "/searchpage/loggedin" })
 const informationPageRoute = new URLPattern({ pathname: "/informationpage/loggedin" })
 const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
 const friendsListRoute = new URLPattern({ pathname: "/friends/list" })
-const favoritesRoute = new URLPattern({ pathname: "/favorites" })
+const favoritesRoute = new URLPattern({ pathname: "/favorites"})
 const bookingsRoute = new URLPattern({ patname: "/booked/loggedin"})
 
 async function handler(request) {
@@ -62,7 +62,7 @@ async function handler(request) {
                     const PhotoUrl = await getCapitalPhoto(capital)
 
                     if (PhotoUrl) {
-                        return { url: PhotoUrl, capital: capital, continent: continent, countryName: countryName };
+                        return { url: PhotoUrl, capital: capital, continent: continent, countryName: countryName};
 
                     } else {
                         return null
@@ -212,17 +212,6 @@ async function handler(request) {
             const userJson = await Deno.readTextFile("./user.json");
             return new Response(JSON.stringify(userJson), { headers: headersCORS, status: 200 })
         }
-
-        if (request.method == "POST") {
-            const userIds = await request.json();
-            const userJson = await Deno.readTextFile("./user.json");
-            const userArray = JSON.parse(userJson);
-            const currentUserIndex = userArray.findIndex(objekt => objekt.id == userIds.currentUserId);
-            const friendUser = userArray.find(objekt => objekt.id == userIds.friendId)
-            userArray[currentUserIndex].friendsList.push(friendUser);
-            await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-            return new Response(JSON.stringify("User followed Succesfully!"), { status: 200, headers: headersCORS });
-        }
     }
 
 
@@ -230,38 +219,38 @@ async function handler(request) {
 
 
     if (infoPageMatch) {
-        if (request.method == "POST") {
+        if(request.method == "POST") {
             const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
 
             const requestData = await request.json()
             const capitalName = requestData.capital
 
             const response = await fetch(`https://api.unsplash.com/search/photos?query=${capitalName}&client_id=${UnsplashKey}`)
-            if (!response.ok) {
-                return new Response(JSON.stringify({ error: "Failed to fetch image" }), { status: 500, headers: headersCORS })
+            if(!response.ok) {
+                 return new Response(JSON.stringify({ error: "Failed to fetch image" }), { status: 500, headers: headersCORS})
             }
             const imgUrlData = await response.json()
-
-            return new Response(JSON.stringify({ imgUrl: imgUrlData.results[0].urls.full }), { status: 200, headers: headersCORS })
+            
+            return new Response(JSON.stringify({ imgUrl: imgUrlData.results[0].urls.full }), { status: 200, headers: headersCORS})
         }
     }
 
-    if (favoritesMatch) {
-        if (request.method == "POST") {
+    if(favoritesMatch) {
+        if(request.method == "POST") {
             const requestUserTrackId = await request.json()
 
             let UserJson = await Deno.readTextFile("./user.json");
             let UserArray = JSON.parse(UserJson)
 
             let currentUser = UserArray.find(correctId => correctId.id == requestUserTrackId)
-
-            if (!currentUser) {
-                return new Response(JSON.stringify({ error: "User does not exist " }), { status: 409, headers: headersCORS })
+            
+             if (!currentUser) {
+                return new Response(JSON.stringify({ error: "User does not exist "}), {status: 409, headers: headersCORS })
             } else if (currentUser.wishlist.length === 0) {
-                return new Response(JSON.stringify({ error: "Users wishlist is empty" }), { status: 400, headers: headersCORS })
+                return new Response(JSON.stringify({ error: "Users wishlist is empty"}), {status: 400, headers: headersCORS })
             } else {
-                return new Response(JSON.stringify({ currentUser }), { status: 200, headers: headersCORS })
-            }
+                return new Response(JSON.stringify({ currentUser }), {status: 200, headers: headersCORS})
+            }            
         }
 
     }
@@ -280,19 +269,12 @@ async function handler(request) {
                 let parseCheckForBooking = JSON.parse(checkForBooking)
 
                 const userBooking = new BookingDataLog(userInfo.username, userInfo.gmail, userInfo.id, bookingData.destination)
-
         
                 parseCheckForBooking.push(userBooking)
 
                 await Deno.writeTextFile("./bookings.json", JSON.stringify(parseCheckForBooking, null, 2));
                 return new Response("Destination booked!", { status: 200, headers: headersCORS })
             }
-
-        } 
-    }
-
-    if(bookingsMatch) {
-        if(request.method == "POST") {
 
         } 
     }

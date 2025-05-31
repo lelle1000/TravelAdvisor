@@ -250,17 +250,20 @@ SearchButton.addEventListener("click", async () => {
     submenuContainer.innerHTML = ""
     submenuContainer.classList.remove("hide");
     for (let country of CountriesData) {
+        let countryName = country.country.name.common
+        let capital = country.country.capital[0]
+        let continent = country.country.continents[0]
         const submenuItem = document.createElement("div")
         submenuItem.classList.add("submenuItem")
 
-        submenuItem.innerHTML = `<div><span class="BOLD">${country.country.capital[0]}</span> ${country.country.name.common} (${country.country.continents[0]})</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
+        submenuItem.innerHTML = `<div><span class="BOLD">${capital}</span> ${countryName} (${continent})</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
         submenuContainer.append(submenuItem)
 
         submenuItem.addEventListener("click", async function () {
             const requestCapital = new Request(`http://localhost:8000/informationpage/loggedin`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ capital: country.country.capital[0] })
+                body: JSON.stringify({ capital: capital })
             })
 
             const response = await fetch(requestCapital)
@@ -271,6 +274,7 @@ SearchButton.addEventListener("click", async () => {
             const imgData = await response.json()
 
             let continentText = "";
+            let destination = { country: countryName, capital: capital, continent: continent }
 
             if (country.country.continents[0] == "Europe") {
                 continentText = "a culturally rich part of Europe with many astonishing monuments"
@@ -292,6 +296,19 @@ SearchButton.addEventListener("click", async () => {
 
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
             document.querySelector("#text-box").innerHTML = `<p>${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
+
+            bookingButton = document.querySelector(".bookingButton")
+            bookingButton.addEventListener("click", async function () {
+                const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
+                    method: "POST",
+                    headers: { "Content-Type" : "application/json" },
+                    body: JSON.stringify({ userId: userTrackId, destination: destination })
+                })
+
+                if(bookingResponse.status == 200) {
+                    console.log("Destination have been booked!");
+                } 
+            })
 
             submenuContainer.classList.add("hide");
             homePageDisplay.classList.add("hide");
