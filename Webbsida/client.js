@@ -43,6 +43,7 @@ const friendsPopup = document.querySelector("#add-friends-popup");
 const friendsFollowButton = document.querySelector(".profile-button");
 const closeCross = document.querySelector(".close-cross-popup");
 const friendsList = document.querySelector("#grid-for-friends");
+const friendsWishList = document.querySelectorAll(".get-friend-wishlist");
 
 const menuButton = document.querySelector("#mainContainer");
 const menuSubMenu = document.querySelector("#menuSubMenu");
@@ -56,18 +57,18 @@ const profileUsername = document.querySelector("#profileUsername");
 const profileEmail = document.querySelector("#profileEmail");
 const profileCloseButton = document.querySelector("#profileCloseButton");
 
-function showCurrentPage (page) {
+function showCurrentPage(page) {
 
-    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup,  loginPopup, friendsPopup, menuSubMenu, logoutPopup]
+    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup]
 
     allPages.forEach(p => p.classList.add("hide"))
-    
+
     if (allPages.includes(page)) {
         page.classList.remove("hide")
     } else {
         return
     }
-    
+
 }
 
 
@@ -126,7 +127,7 @@ async function getImages() {
     if (data == null) {
         return null;
     }
-    
+
     if (!onlyOneOfSameCountries.includes(data.capital)) {
         onlyOneOfSameCountries.push(data.capital)
 
@@ -181,7 +182,7 @@ async function getImages() {
                 }
             })
 
-            
+
             showCurrentPage(infoPageContainer)
 
         })
@@ -264,7 +265,7 @@ signInButton.addEventListener("click", () => {
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide"),
-                signInPopup.classList.add("hide");
+                    signInPopup.classList.add("hide");
                 loginButton.textContent = "Log out"
                 signInNameInput.value = "";
                 signInPasswordInput.value = "";
@@ -335,18 +336,18 @@ SearchButton.addEventListener("click", async () => {
             const textBox = document.querySelector("#text-box").innerHTML = `<p>${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
             infoPage.append(imageBox);
             infoPage.append(textBox);
-        
+
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
                 const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
                     method: "POST",
-                    headers: { "Content-Type" : "application/json" },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userId: userTrackId, destination: destination })
                 })
 
-                if(bookingResponse.status == 200) {
+                if (bookingResponse.status == 200) {
                     console.log("Destination have been booked!");
-                } 
+                }
             })
 
             showCurrentPage(infoPageContainer)
@@ -414,8 +415,9 @@ async function friendsSearch() {
         console.log(currentArray);
         for (let arr of currentArray) {
             const sharedWishes = currentUserLoggedIn.wishlist.filter(item =>
-                arr.wishlist.includes(item)
+                arr.wishlist.some(friendItem => friendItem.countryName == item.countryName)
             ).length;
+
             console.log(sharedWishes)
             const friendDiv = document.createElement("div");
             friendDiv.classList.add("friend-profiles");
@@ -440,17 +442,43 @@ async function friendsSearch() {
                     friendDiv.remove();
                     newArray = newArray.filter(objekt => objekt.id != arr.id);
                     const friendProfiles = document.createElement("div");
-                    friendProfiles.classList.add("friend-list-profiles");
+                    friendProfiles.classList.add("friend-list-profiles")
+                    friendProfiles.id = `friend-${arr.id}`;
                     friendProfiles.innerHTML = `
                      <img src="Images/WhiteLogin.png">
                     <p>${arr.username}</p>
                     <p>${arr.gmail}</p>
-                    <button>Wishlist</button>
-                    <button>Unfollow</button>
+                    <button class="get-friend-wishlist" id="${arr.id}">Wishlist</button>
+                    <button class="unfollow-friend" id="${arr.id}">Unfollow</button>
                     `
                     friendsList.appendChild(friendProfiles);
+
+
+                    const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
+                    friendsWishList.addEventListener("click", async () => {
+                        const response = fetch("http://localhost:8000/friends/list/User", {
+                            method: "POST",
+                            body: JSON.stringify(friend.id),
+                            headers: { "Content-Type": "application/json" }
+                        })
+                        const wishListResource = response.json();
+                    })
+                    const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
+                    console.log(unfollowFriend)
+                    unfollowFriend.addEventListener("click", async () => {
+                        const response = await fetch("http://localhost:8000/friends/list", {
+                            method: "DELETE",
+                            body: JSON.stringify({ id: unfollowFriend.id }),
+                            headers: { "Content-Type": "application/json" }
+                        })
+                        console.log(response);
+                        if (response.ok) {
+                            document.querySelector(`#friend-${unfollowFriend.id}`).remove();
+                        }
+                    })
                 }
             });
+
         }
     })
 
@@ -506,10 +534,10 @@ favoriteSubContainer.addEventListener("click", async function () {
 profileButtonContainer.addEventListener("click", async function () {
     const profileInfoResponse = await fetch("http://localhost:8000/homepage", {
         method: "POST",
-        headers: { "Content-Type" : "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: userTrackId })
     })
-    if(profileInfoResponse.status == 200) {
+    if (profileInfoResponse.status == 200) {
         const userData = await profileInfoResponse.json()
 
         let username = userData.username
@@ -523,9 +551,9 @@ profileButtonContainer.addEventListener("click", async function () {
             menuSubMenu.classList.remove("hide");
             profileInfoBox.classList.add("hide");
         })
- 
+
     } else {
         console.log("ERROR");
-        
+
     }
 })
