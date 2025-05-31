@@ -574,3 +574,37 @@ footer #bold {
 .friend-profiles img {
     height: 45px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#profileInfoBox {
+    background-color: var(--W);
+    border-left: 2px solid rgb(103, 156, 190);
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    z-index: 500;
+}
+
+#profileInfo {
+    padding: 20px;
+}

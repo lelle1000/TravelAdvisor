@@ -47,10 +47,14 @@ const friendsList = document.querySelector("#grid-for-friends");
 const menuButton = document.querySelector("#mainContainer");
 const menuSubMenu = document.querySelector("#menuSubMenu");
 
-const favoriteSubContainer = document.querySelector("#favoriteSubContainer")
-const favoriteContainer = document.querySelector("#favoriteContainer")
+const favoriteSubContainer = document.querySelector("#favoriteSubContainer");
+const favoriteContainer = document.querySelector("#favoriteContainer");
 
-const profileButtonContainer = document.getElementById("profileButtonContainer")
+const profileButtonContainer = document.getElementById("profileButtonContainer");
+const profileInfoBox = document.querySelector("#profileInfoBox");
+const profileUsername = document.querySelector("#profileUsername");
+const profileEmail = document.querySelector("#profileEmail");
+const profileCloseButton = document.querySelector("#profileCloseButton");
 
 
 headerLogoContainer.addEventListener("click", () => {
@@ -465,6 +469,7 @@ menuButton.addEventListener("click", () => {
 
 
 favoriteSubContainer.addEventListener("click", async function () {
+    menuSubMenu.classList.add("hide");
     const response = await fetch("http://localhost:8000/favorites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -499,22 +504,16 @@ profileButtonContainer.addEventListener("click", async function () {
 
         let username = userData.username
         let gmail = userData.gmail
+        menuSubMenu.classList.add("hide");
+        profileInfoBox.classList.remove("hide");
 
-        menuSubMenu.innerHTML = ""
-        menuSubMenu.style.backgroundColor = "white"
-        menuSubMenu.innerHTML = `
-        <div id="profileInfoBox">
-            <ul>
-                <li>${username}</li>
-                <li>${gmail}</li>
-            </ul>
-        </div>
-        <div id="profileInfoButton">
-            <button id="closeProfileButton">Close</button>
-        </div>
-        `
-
-        
+        profileUsername.textContent = `Username: ${username}`;
+        profileEmail.textContent = `Email: ${gmail}`;
+        profileCloseButton.addEventListener("click", () => {
+            menuSubMenu.classList.remove("hide");
+            profileInfoBox.classList.add("hide");
+        })
+ 
     } else {
         console.log("ERROR");
         
