@@ -338,6 +338,10 @@ h2 {
     border-radius: 15px;
 
 }
+.destination-info-pic:hover {
+    cursor: pointer;
+    box-shadow: 4px 4px 4px black;
+}
 
 .top-image {
     width: 100%;
