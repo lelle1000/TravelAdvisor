@@ -107,6 +107,7 @@ logoutContainer.addEventListener("click", () => {
     userTrackId = null;
     loginStatusGlobal = false;
     logoutText.textContent = `You succesfully logged out!`
+    showCurrentPage(homePageDisplay)
 })
 
 signInPopupLink.addEventListener("click", () => {
@@ -283,7 +284,7 @@ signInButton.addEventListener("click", () => {
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide"),
-                signInPopup.classList.add("hide");
+                    signInPopup.classList.add("hide");
                 logoutContainer.classList.remove("hide");
                 loginContainer.classList.add("hide");
                 signInNameInput.value = "";
@@ -303,7 +304,7 @@ SearchButton.addEventListener("click", async () => {
 
     const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
     const CountriesData = await response.json()
-    if(response.status == 400) {
+    if (response.status == 400) {
         console.log(CountriesData);
         submenuContainer.classList.add("hide");
         return
@@ -481,6 +482,7 @@ async function friendsSearch() {
 
                     const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
                     friendsWishList.addEventListener("click", async () => {
+                        favoriteDestinationsUsers.innerHTML = "";
                         const response = await fetch("http://localhost:8000/friends/list/user", {
                             method: "POST",
                             body: JSON.stringify({ id: friendsWishList.id }),
@@ -528,7 +530,10 @@ friendsPopupButton.addEventListener("click", () => {
 })
 
 submenuFriendsButton.addEventListener("click", () => {
-    showCurrentPage(friendsPageDisplay)
+    if (loginStatusGlobal) {
+        showCurrentPage(friendsPageDisplay)
+    }
+    // Få en popup att poppa upp annars här
 })
 
 
