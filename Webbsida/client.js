@@ -183,7 +183,7 @@ async function getImages() {
             }
 
             document.querySelector("#image-box").innerHTML = `<img src="${data.url}" alt="Picture of ${data.capital}">`
-            document.querySelector("#text-box").innerHTML = `<p>${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button> <img class="star-for-imgcard" id="${[data.url, data.capital]}" src="Images/star-svgrepo-com.svg">`
+            document.querySelector("#text-box").innerHTML = `<p class="descriptionParagraph">${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button> <img class="star-for-imgcard" id="${[data.url, data.capital]}" src="Images/star-svgrepo-com.svg">`
             wishCheck();
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
@@ -358,7 +358,7 @@ SearchButton.addEventListener("click", async () => {
 
 
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${capital}">`
-            document.querySelector("#text-box").innerHTML = `<p>${capital} is the beautiful capital of ${countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>  <img class="star-for-imgcard" id="${[imgData.imgUrl, capital]}" src="Images/star-svgrepo-com.svg">`
+            document.querySelector("#text-box").innerHTML = `<p class="descriptionParagraph">${capital} is the beautiful capital of ${countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>  <img class="star-for-imgcard" id="${[imgData.imgUrl, capital]}" src="Images/star-svgrepo-com.svg">`
 
             wishCheck();
 
