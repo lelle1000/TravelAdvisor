@@ -1,13 +1,16 @@
-#infoPage {
-    display: grid;
-    grid-template-rows: 400px 200px;
+#infoPageContainer {
     background-color: #b3ccdd;
-    border-radius: 20px;
-    margin-top: 100px;
-    padding: 75px;
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    width: 90%;
+    border: 5px solid black;
+    border-radius: 0 0 50px 50px;
+    margin: 100px auto 0;
+    padding: 50px;
 }
 
 #image-box {
+    max-height: 600px;
     border: 2px solid black;
 }
 
@@ -20,5 +23,7 @@
 
 #text-box {
     border: 2px solid black;
+    background-color: rgb(170, 219, 252);
+    border-radius: 0 0 20px 20px;
     padding: 20px;
 }

@@ -442,7 +442,7 @@ h2 {
 
 /* Footer Css 250-X */
 footer {
-    margin: 0 auto;
+    margin: 50px auto;
     display: flex;
     justify-content: space-between;
     gap: 70px;
