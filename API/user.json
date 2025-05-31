@@ -1,2 +1,10 @@
 [
+  {
+    "id": 4,
+    "username": "hasse",
+    "password": "123456789%",
+    "gmail": "hasse@gmail.com",
+    "wishlist": [],
+    "friendsList": []
+  }
 ]

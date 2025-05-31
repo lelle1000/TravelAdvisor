@@ -637,9 +637,11 @@ footer #bold {
 }
 
 #favoriteDestinations {
+    margin: 0 auto;
     padding: 30px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    width: 70%;
     gap: 30px;
 }
 
@@ -650,8 +652,9 @@ footer #bold {
 }
 
 #favoriteDestinations img {
+    object-fit: cover;
     width: 100%;
-    height: 200px;
+    height: 250px;
 }
 
 .favoriteTextBox {
