@@ -12,6 +12,9 @@ const loginContainer = document.querySelector("#loginContainer");
 let popupContainer = document.querySelectorAll(".popup-main")
 let loginButton = document.querySelector("#login-button");
 let loginPopup = document.querySelector("#login-popup");
+
+const logoutContainer = document.querySelector("#logoutContainer");
+let logoutButton = document.querySelector("#logout-button");
 let logoutPopup = document.querySelector("#log-out-popup");
 let logoutText = document.querySelector("#logout-p")
 const signInPopupLink = document.querySelector("#signInLink");
@@ -86,11 +89,16 @@ loginContainer.addEventListener("click", () => {
     if (!loginStatusGlobal) {
         loginPopup.classList.remove("hide")
     }
-    else if (loginButton.textContent == "Log out") {
-        logoutPopup.classList.remove("hide")
-        userTrackId = null;
-        logoutText.textContent = `You succesfully logged out!`
-    }
+})
+
+logoutContainer.addEventListener("click", () => {
+    signinMessage.textContent = "";
+    logoutPopup.classList.remove("hide")
+    logoutContainer.classList.add("hide");
+    loginContainer.classList.remove("hide");
+    console.log("HEJ!");
+    userTrackId = null;
+    logoutText.textContent = `You succesfully logged out!`
 })
 
 signInPopupLink.addEventListener("click", () => {
@@ -229,7 +237,8 @@ logInButton.addEventListener("click", () => {
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide")
-                loginButton.textContent = "Log out"
+                loginContainer.classList.add("hide");
+                logoutContainer.classList.remove("hide");
                 logInNameInput.value = "";
                 logInPasswordInput.value = "";
                 loginMessage.textContent = "";
