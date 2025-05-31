@@ -274,8 +274,8 @@ signInButton.addEventListener("click", () => {
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide"),
-                    signInPopup.classList.add("hide");
-                loginButton.textContent = "Log out"
+                signInPopup.classList.add("hide");
+                logoutContainer.classList.remove("hide");
                 signInNameInput.value = "";
                 signInPasswordInput.value = "";
                 signInEmailInput.value = "";
