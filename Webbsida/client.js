@@ -130,7 +130,20 @@ async function getImages() {
             }
 
             document.querySelector("#image-box").innerHTML = `<img src="${data.url}" alt="Picture of ${data.capital}">`
-            document.querySelector("#text-box").innerHTML = `${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.`
+            document.querySelector("#text-box").innerHTML = `<p>${data.capital} is the beautiful capital of ${data.countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
+
+            bookingButton = document.querySelector(".bookingButton")
+            bookingButton.addEventListener("click", async function () {
+                const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
+                    method: "POST",
+                    headers: { "Content-Type" : "application/json" },
+                    body: JSON.stringify({ userId: userTrackId, destination: data })
+                })
+
+                if(bookingResponse.status == 200) {
+                    console.log("Destination have been booked!");
+                } 
+            })
 
             homePageDisplay.classList.add("hide");
             infoPageContainer.classList.remove("hide");

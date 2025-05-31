@@ -1,4 +1,4 @@
-import { LogIn } from "./Classes.js";
+import { BookingDataLog, LogIn } from "./Classes.js";
 
 const homePageRoute = new URLPattern({ pathname: "/homepage" });
 const homePageSigninRoute = new URLPattern({ pathname: "/homepage/signin" });
@@ -268,6 +268,25 @@ async function handler(request) {
 
     if(bookingsMatch) {
         if(request.method == "POST") {
+            const bookingData = await request.json()
+            if (bookingData.userId == null) {
+                return new Response(JSON.stringify({ error: "User needs to be logged in to book!"}), {status: 400, headers: headersCORS })
+            } else {
+                let UserJson = await Deno.readTextFile("./user.json");
+                let userArray = JSON.parse(UserJson)
+                let userInfo = userArray.find(user => user.id == bookingData.userId)
+                let checkForBooking = await Deno.readTextFile("./bookings.json")
+                
+                let parseCheckForBooking = JSON.parse(checkForBooking)
+
+                const userBooking = new BookingDataLog(userInfo.username, userInfo.gmail, userInfo.id, bookingData.destination)
+
+        
+                parseCheckForBooking.push(userBooking)
+
+                await Deno.writeTextFile("./bookings.json", JSON.stringify(parseCheckForBooking, null, 2));
+                return new Response("Destination booked!", { status: 200, headers: headersCORS })
+            }
 
         } 
     }

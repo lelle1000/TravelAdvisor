@@ -90,12 +90,12 @@ export class LogIn {
 // Denna klass kan kanske istället extenda från Login klassen
 export class BookingDataLog {
 
-    static logArray = [];
-
-    constructor(username, gmail) {
+    constructor(username, gmail, id, destination) {
         this.username = username;
         this.gmail = gmail;
-        this.bookingNumber = BookingDataLog.logArray.length++
+        this.id = id;
+        this.destination = destination
+
     }
 
 }
