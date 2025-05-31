@@ -89,8 +89,19 @@ async function getImages() {
     const response = await fetch("http://localhost:8000/homepage")
     if (!response.ok) {
         // window.history.pushState({}, "", "/homepage/country/photos");
+        return null;
     }
-    const data = await response.json();
+    const text = await response.text();
+    if (text.length === 0) {
+        console.log("body was empty!");
+        return null
+    }
+    const data = JSON.parse(text);
+    console.log(data);
+    if (data == null) {
+        return null;
+    }
+    
     if (!onlyOneOfSameCountries.includes(data.capital)) {
         onlyOneOfSameCountries.push(data.capital)
 
