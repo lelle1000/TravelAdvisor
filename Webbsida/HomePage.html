@@ -51,7 +51,8 @@
     </header>
     <div class="hide" id="menuSubMenu">
         <ul>
-            <li id="profileButtonContainer"><img src="Images/profile-round-1342-svgrepo-com.svg"><a href="#">Profile</a></li>
+            <li id="profileButtonContainer"><img src="Images/profile-round-1342-svgrepo-com.svg"><a href="#">Profile</a>
+            </li>
             <li id="favoriteSubContainer"><img src="Images/star-svgrepo-com.svg"><a href="#">Favorites</a></li>
             <li id="friends-button"><img src="Images/users-group-svgrepo-com.svg"><a href="#">Friends</a></li>
             <li><img src="Images/settings-svgrepo-com(2).svg"><a href="#">Settings</a></li>
@@ -120,6 +121,7 @@
                 <div class="rate" id="5">5</div>
 >>>>>>> Stashed changes
             </div>
+        </div>
 
         <div id="homepageContainer">
             <h1 class="font">Travel Advisor</h1>
@@ -153,7 +155,11 @@
 
         <div class="hide" id="favoriteContainer">
             <h2>Your favorite destinations</h2>
-            <div id="favoriteDestinations"></div>
+            <div class="favoriteDestinations"></div>
+        </div>
+
+        <div id="favoriteDestinationsUsersContainer" class="favoriteContainer hide">
+            <div class="favoriteDestinations" id="favoriteDestinationsUsers"></div>
         </div>
 
         <div class="hide" id="friendsContainer">
@@ -169,12 +175,6 @@
                 <img class="close-cross-popup" src="Images/966928-200.png">
                 <input class="popup-input" id="search-friends-input" placeholder="Username or email">
                 <div id="grid-friends-page-search">
-                    <div class="friend-profiles">
-                        <img src="Images/WhiteLogIn.png">
-                        <p>Philles</p>
-                        <p>Common destinations: 3</p>
-                        <button>Follow</button>
-                    </div>
                 </div>
             </div>
         </div>
