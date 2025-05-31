@@ -1,12 +1,13 @@
 #infoPageContainer {
     background-color: #b3ccdd;
+    border-radius: 0 0 50px 50px;
+    margin-top: 50px;
+    padding: 50px;
+}
+
+#infoPage {
     display: grid;
     grid-template-rows: 3fr 1fr;
-    width: 90%;
-    border: 5px solid black;
-    border-radius: 0 0 50px 50px;
-    margin: 50px auto 0;
-    padding: 50px;
 }
 
 #image-box {
@@ -19,7 +20,6 @@
     width: 100%;
     object-fit: cover;
 }
-
 
 #text-box {
     border: 2px solid black;
