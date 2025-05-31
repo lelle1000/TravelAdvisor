@@ -102,6 +102,7 @@ logoutContainer.addEventListener("click", () => {
     loginContainer.classList.remove("hide");
     console.log("HEJ!");
     userTrackId = null;
+    loginStatusGlobal = false;
     logoutText.textContent = `You succesfully logged out!`
 })
 
