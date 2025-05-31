@@ -227,7 +227,7 @@ logInButton.addEventListener("click", () => {
             loginMessage.style.color = "Green"
             friendsSearch();
             setTimeout(() => {
-                showCurrentPage(loginPopup)
+                loginPopup.classList.add("hide")
                 loginButton.textContent = "Log out"
                 logInNameInput.value = "";
                 logInPasswordInput.value = "";
