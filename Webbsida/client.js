@@ -40,6 +40,7 @@ const friendsDivsFrame = document.querySelector("#grid-friends-page-search");
 
 const friendsPopupButton = document.querySelector("#add-friends-list");
 const friendsPopup = document.querySelector("#add-friends-popup");
+const friendsFollowButton = document.querySelector(".profile-button");
 
 const menuButton = document.querySelector("#mainContainer");
 const menuSubMenu = document.querySelector("#menuSubMenu");
@@ -347,10 +348,28 @@ async function friendsSearch() {
             const friendDiv = document.createElement("div");
             friendDiv.classList.add("friend-profiles");
             friendDiv.innerHTML = `
-            <img src="Images/user-profile-icon-free-vector.jpg">
-            <p>${arr.username},${arr.gmail}</p>Has same destinations in common ${sharedWishes}<p>
+            <img src="Images/WhiteLogin.png">
+            <p>${arr.username},${arr.gmail}</p>
+            <p>Common destinations: ${sharedWishes}</p>
+            <button id="follow-${arr.id}">Follow</button>
             `
             friendsDivsFrame.appendChild(friendDiv);
+
+            const followButton = document.querySelector(`#follow-${arr.id}`);
+            followButton.addEventListener("click", async () => {
+                const res = await fetch("http://localhost:8000/friends/list", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        friendId: arr.id,
+                        currentUserId: userTrackId
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+                const result = await res.json();
+                console.log("Följde användare:", result);
+            });
         }
     })
 

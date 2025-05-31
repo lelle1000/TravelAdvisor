@@ -532,18 +532,26 @@ footer #bold {
     overflow-y: auto;
 }
 
-#grid-friends-page-search div {
-    height: 10px;
-    background-color: #b3ccdd;
-    padding: 20px;
-    border-radius: 10px;
-}
-
 .friend-profiles {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b3ccdd;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+}
 
+.friend-profiles button {
+    position: absolute;
+    right: 50px;
+    top: 115px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #b3ccdd;
 }
 
 .friend-profiles img {
-    height: 25px;
+    height: 45px;
 }
