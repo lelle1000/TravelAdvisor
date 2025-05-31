@@ -1,0 +1,35 @@
+[
+  {
+    "username": "hasse",
+    "gmail": "lelle@gmail.com",
+    "id": 1,
+    "destination": {
+      "url": "https://images.unsplash.com/photo-1574493264149-87880133a2ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxNZXhpY28lMjBDaXR5fGVufDB8fHx8MTc0ODYyNTg1MXww&ixlib=rb-4.1.0&q=80&w=400",
+      "capital": "Mexico City",
+      "continent": "North America",
+      "countryName": "Mexico"
+    }
+  },
+  {
+    "username": "hasse",
+    "gmail": "lelle@gmail.com",
+    "id": 1,
+    "destination": {
+      "url": "https://images.unsplash.com/photo-1577587230708-187fdbef4d91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxMaW1hfGVufDB8fHx8MTc0ODYyNzQzOHww&ixlib=rb-4.1.0&q=80&w=400",
+      "capital": "Lima",
+      "continent": "South America",
+      "countryName": "Peru"
+    }
+  },
+  {
+    "username": "hasse",
+    "gmail": "lelle@gmail.com",
+    "id": 1,
+    "destination": {
+      "url": "https://images.unsplash.com/photo-1433757741270-94a3bcadc2f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxPc2xvfGVufDB8fHx8MTc0ODY0NTgyNHww&ixlib=rb-4.1.0&q=80&w=400",
+      "capital": "Oslo",
+      "continent": "Europe",
+      "countryName": "Norway"
+    }
+  }
+]
