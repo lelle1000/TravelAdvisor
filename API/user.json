@@ -19,6 +19,31 @@
         "countryName": "Suva",
         "imgurl": "https://images.unsplash.com/photo-1731978242605-f35ada228a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxTdXZhfGVufDB8fHx8MTc0ODQ2OTUyNHww&ixlib=rb-4.1.0&q=80&w=400",
         "userId": 1
+      },
+      {
+        "countryName": "Windhoek",
+        "imgurl": "https://images.unsplash.com/photo-1586100810957-e4a1fed8c645?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxXaW5kaG9la3xlbnwwfHx8fDE3NDg2OTUxMTZ8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "South Tarawa",
+        "imgurl": "https://images.unsplash.com/photo-1579377204611-a99b7d1263a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxTb3V0aCUyMFRhcmF3YXxlbnwwfHx8fDE3NDg2MjY3NjV8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "Paris",
+        "imgurl": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxQYXJpc3xlbnwwfHx8fDE3NDg2MjYwNjB8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "Saint John's",
+        "imgurl": "https://images.unsplash.com/photo-1568684736802-43b6e16f38cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxTYWludCUyMEpvaG4lMjdzfGVufDB8fHx8MTc0ODY0NjQxOXww&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
+      },
+      {
+        "countryName": "Banjul",
+        "imgurl": "https://images.unsplash.com/photo-1731246164682-867af4a1a2b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxCYW5qdWx8ZW58MHx8fHwxNzQ4Njk0NTg1fDA&ixlib=rb-4.1.0&q=80&w=400",
+        "userId": 1
       }
     ],
     "friendsList": [
