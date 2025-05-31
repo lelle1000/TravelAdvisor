@@ -90,8 +90,11 @@ headerLogoContainer.addEventListener("click", () => {
 
 loginContainer.addEventListener("click", () => {
     signinMessage.textContent = "";
-    if (!loginStatusGlobal) {
+    if (loginPopup.classList.contains("hide")) {
         loginPopup.classList.remove("hide")
+    } else if (!loginPopup.classList.contains("hide") || !signInPopup.classList.contains("hide")) {
+        loginPopup.classList.add("hide")
+        signInPopup.classList.add("hide")
     }
 })
 
