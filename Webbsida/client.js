@@ -56,32 +56,43 @@ const profileUsername = document.querySelector("#profileUsername");
 const profileEmail = document.querySelector("#profileEmail");
 const profileCloseButton = document.querySelector("#profileCloseButton");
 
+function showCurrentPage (page) {
+
+    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup,  loginPopup, friendsPopup, menuSubMenu, logoutPopup]
+
+    allPages.forEach(p => p.classList.add("hide"))
+    
+    if (allPages.includes(page)) {
+        page.classList.remove("hide")
+    } else {
+        return
+    }
+    
+}
+
 
 headerLogoContainer.addEventListener("click", () => {
-    submenuContainer.classList.add("hide");
-    infoPageContainer.classList.add("hide");
     SearchLocation.value = ""
     popupContainer.forEach(popup => popup.classList.add("hide"));
     loginMessage.textContent = "";
     signinMessage.textContent = "";
-    homePageDisplay.classList.remove("hide");
-    friendsPageDisplay.classList.add("hide");
+
+    showCurrentPage(homePageDisplay)
 })
 
 loginContainer.addEventListener("click", () => {
-    signInPopup.classList.add("hide");
     signinMessage.textContent = "";
     if (!loginStatusGlobal) {
-        loginPopup.classList.remove("hide");
+        loginPopup.classList.remove("hide")
     }
     else if (loginButton.textContent == "Log out") {
-        logoutPopup.classList.remove("hide");
+        logoutPopup.classList.remove("hide")
         logoutText.textContent = `You succesfully logged out!`
     }
 })
 
 signInPopupLink.addEventListener("click", () => {
-    signInPopup.classList.remove("hide");
+    signInPopup.classList.remove("hide")
     loginMessage.textContent = "";
 })
 
@@ -170,8 +181,8 @@ async function getImages() {
                 }
             })
 
-            homePageDisplay.classList.add("hide");
-            infoPageContainer.classList.remove("hide");
+            
+            showCurrentPage(infoPageContainer)
 
         })
     } else {
@@ -216,7 +227,7 @@ logInButton.addEventListener("click", () => {
             loginMessage.style.color = "Green"
             friendsSearch();
             setTimeout(() => {
-                loginPopup.classList.add("hide");
+                showCurrentPage(loginPopup)
                 loginButton.textContent = "Log out"
                 logInNameInput.value = "";
                 logInPasswordInput.value = "";
@@ -335,9 +346,7 @@ SearchButton.addEventListener("click", async () => {
                 } 
             })
 
-            submenuContainer.classList.add("hide");
-            homePageDisplay.classList.add("hide");
-            infoPageContainer.classList.remove("hide");
+            showCurrentPage(infoPageContainer)
         })
     }
 
@@ -453,9 +462,7 @@ friendsPopupButton.addEventListener("click", () => {
 })
 
 submenuFriendsButton.addEventListener("click", () => {
-    homePageDisplay.classList.add("hide"),
-    friendsPageDisplay.classList.remove("hide");
-    menuSubMenu.classList.add("hide");
+    showCurrentPage(friendsPageDisplay)
 })
 
 
