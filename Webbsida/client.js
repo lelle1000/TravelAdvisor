@@ -88,6 +88,7 @@ loginContainer.addEventListener("click", () => {
     }
     else if (loginButton.textContent == "Log out") {
         logoutPopup.classList.remove("hide")
+        userTrackId = null;
         logoutText.textContent = `You succesfully logged out!`
     }
 })
@@ -337,6 +338,10 @@ SearchButton.addEventListener("click", async () => {
             infoPage.append(imageBox);
             infoPage.append(textBox);
 
+            document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
+            document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}. <button class="bookingButton"> Book Now! </button>`
+            
+        
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
                 const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
@@ -520,12 +525,14 @@ favoriteSubContainer.addEventListener("click", async function () {
         return null
     }
 
-    favoriteContainer.innerHTML = ""
+    const favoriteDestinations = document.querySelector("#favoriteDestinations");
+    favoriteDestinations.innerHTML = ""
 
     for (let favorite of userData.currentUser.wishlist) {
         let favoriteDestinationItem = document.createElement("div")
-        favoriteDestinationItem.innerHTML = `<img id="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div id="favoriteTextBox">Your saved destination is the beautiful capital ${favorite.countryName}</div>`
-        favoriteContainer.append(favoriteDestinationItem)
+        favoriteDestinationItem.classList.add("favoriteItem");
+        favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div class="favoriteTextBox">The beautiful capital ${favorite.countryName}</div>`
+        favoriteDestinations.append(favoriteDestinationItem)
     }
 
 })

@@ -2,12 +2,14 @@
     background-color: #b3ccdd;
     border-radius: 0 0 50px 50px;
     margin-top: 50px;
-    padding: 50px;
+    padding: 50px 0px;
 }
 
 #infoPage {
     display: grid;
     grid-template-rows: 3fr 1fr;
+    width: 70%;
+    margin: auto;
 }
 
 #image-box {
