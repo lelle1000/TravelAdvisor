@@ -57,12 +57,9 @@ const profileUsername = document.querySelector("#profileUsername");
 const profileEmail = document.querySelector("#profileEmail");
 const profileCloseButton = document.querySelector("#profileCloseButton");
 
-const favoriteDestinationsUsers = document.querySelector("#favoriteDestinationsUsers");
-const favoriteDestinationsUsersContainer = document.querySelector("#favoriteDestinationsUsersContainer");
-
 function showCurrentPage(page) {
 
-    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup, favoriteDestinationsUsersContainer]
+    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup]
 
     allPages.forEach(p => p.classList.add("hide"))
 
@@ -472,23 +469,12 @@ async function friendsSearch() {
 
                     const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
                     friendsWishList.addEventListener("click", async () => {
-                        const response = await fetch("http://localhost:8000/friends/list/User", {
+                        const response = fetch("http://localhost:8000/friends/list/User", {
                             method: "POST",
-                            body: JSON.stringify({ id: friendsWishList.id }),
+                            body: JSON.stringify(friend.id),
                             headers: { "Content-Type": "application/json" }
                         })
-                        const wishListResource = await response.json();
-                        if (response.ok) {
-                            for (let resource of wishListResource) {
-                                showCurrentPage(favoriteDestinationsUsersContainer);
-                                let favoriteDestinationItem = document.createElement("div")
-                                let userText = document.querySelector("h2");
-                                // userText.textContent`${resource.name.name} favorite destinations`
-                                favoriteDestinationItem.classList.add("favoriteItem");
-                                favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryName}"><div class="favoriteTextBox">The beautiful capital ${resource.countryName}</div>`
-                                favoriteDestinationsUsers.append(favoriteDestinationItem);
-                            }
-                        }
+                        const wishListResource = response.json();
                     })
                     const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
                     console.log(unfollowFriend)
