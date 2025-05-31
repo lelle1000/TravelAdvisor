@@ -626,12 +626,12 @@ footer #bold {
 
 
 
-#favoriteContainer {
+.favoriteContainer {
     background-color: white;
     margin-top: 50px;
 }
 
-#favoriteContainer h2 {
+.favoriteContainer h2 {
     margin: 0 auto;
     padding-top: 30px;
 }
@@ -645,7 +645,7 @@ footer #bold {
     gap: 30px;
 }
 
-.favoriteItem{
+.favoriteItem {
     background-color: rgb(103, 156, 190);
     padding: 10px;
     border-radius: 5px;

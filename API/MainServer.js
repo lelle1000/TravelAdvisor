@@ -9,7 +9,7 @@ const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
 const friendsListRoute = new URLPattern({ pathname: "/friends/list" })
 const favoritesRoute = new URLPattern({ pathname: "/favorites" })
 const bookingsRoute = new URLPattern({ patname: "/booked/loggedin" })
-const friendsUserListRoute = new URLPattern({ pathname: "/list/User" })
+const friendsUserListRoute = new URLPattern({ pathname: "/friends/list/User" })
 
 async function handler(request) {
 
@@ -251,10 +251,11 @@ async function handler(request) {
 
     if (friendsUserListMatch) {
         if (request.method == "POST") {
-            const userId = await request.json();
+            const data = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
-
+            const userObjekt = userArray.find(objekt => objekt.id == data.id);
+            return new Response(JSON.stringify(userObjekt.wishlist), { status: 200, headers: headersCORS });
         }
     }
 
