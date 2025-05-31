@@ -87,6 +87,7 @@ loginContainer.addEventListener("click", () => {
     }
     else if (loginButton.textContent == "Log out") {
         logoutPopup.classList.remove("hide")
+        userTrackId = null;
         logoutText.textContent = `You succesfully logged out!`
     }
 })

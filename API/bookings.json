@@ -1,62 +1,34 @@
 [
   {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
+    "username": "sebbe",
+    "gmail": "sebbe@gmail.com",
+    "id": 1,
+    "destination": {
+      "country": "Northern Mariana Islands",
+      "capital": "Saipan",
+      "continent": "Oceania"
+    }
   },
   {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
+    "username": "sebbe",
+    "gmail": "sebbe@gmail.com",
+    "id": 1,
+    "destination": {
+      "url": "https://images.unsplash.com/photo-1570553206628-c37a229a3758?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxBc2hnYWJhdHxlbnwwfHx8fDE3NDg2NDc1MDh8MA&ixlib=rb-4.1.0&q=80&w=400",
+      "capital": "Ashgabat",
+      "continent": "Asia",
+      "countryName": "Turkmenistan"
+    }
   },
   {
-    "username": "hasse",
+    "username": "linus",
     "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
-  },
-  {
-    "username": "hasse",
-    "gmail": "lelle@gmail.com",
-    "id": 1
+    "id": 2,
+    "destination": {
+      "url": "https://images.unsplash.com/photo-1506795213373-430e921fe2ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxSaXlhZGh8ZW58MHx8fHwxNzQ4NjkzMjg1fDA&ixlib=rb-4.1.0&q=80&w=400",
+      "capital": "Riyadh",
+      "continent": "Asia",
+      "countryName": "Saudi Arabia"
+    }
   }
 ]
