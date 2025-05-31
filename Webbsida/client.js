@@ -52,7 +52,7 @@ const menuButton = document.querySelector("#mainContainer");
 const menuSubMenu = document.querySelector("#menuSubMenu");
 
 const favoriteSubContainer = document.querySelector("#favoriteSubContainer");
-const favoriteContainer = document.querySelector("#favoriteContainer");
+const favoriteContainer = document.querySelector(".favoriteContainer");
 
 const profileButtonContainer = document.getElementById("profileButtonContainer");
 const profileInfoBox = document.querySelector("#profileInfoBox");
@@ -60,9 +60,13 @@ const profileUsername = document.querySelector("#profileUsername");
 const profileEmail = document.querySelector("#profileEmail");
 const profileCloseButton = document.querySelector("#profileCloseButton");
 
+const favoriteDestinationsUsers = document.querySelector("#favoriteDestinationsUsers");
+const favoriteDestinationsUsersContainer = document.querySelector("#favoriteDestinationsUsersContainer");
+const favoriteH2User = document.querySelector("#favoriteH2User");
+
 function showCurrentPage(page) {
 
-    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup]
+    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup, favoriteDestinationsUsersContainer]
 
     allPages.forEach(p => p.classList.add("hide"))
 
@@ -274,7 +278,7 @@ signInButton.addEventListener("click", () => {
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide"),
-                signInPopup.classList.add("hide");
+                    signInPopup.classList.add("hide");
                 logoutContainer.classList.remove("hide");
                 signInNameInput.value = "";
                 signInPasswordInput.value = "";
@@ -345,12 +349,12 @@ SearchButton.addEventListener("click", async () => {
                 continentText = "a place with an unknown continent that will be difficult to travel too!"
             }
 
-            
+
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${capital}">`
             document.querySelector("#text-box").innerHTML = `<p>${capital} is the beautiful capital of ${countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>  <img class="star-for-imgcard" id="${[imgData.imgUrl, capital]}" src="Images/star-svgrepo-com.svg">`
-            
+
             wishCheck();
-        
+
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
                 const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
@@ -470,12 +474,22 @@ async function friendsSearch() {
 
                     const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
                     friendsWishList.addEventListener("click", async () => {
-                        const response = fetch("http://localhost:8000/friends/list/User", {
+                        const response = await fetch("http://localhost:8000/friends/list/user", {
                             method: "POST",
-                            body: JSON.stringify(friend.id),
+                            body: JSON.stringify({ id: friendsWishList.id }),
                             headers: { "Content-Type": "application/json" }
                         })
-                        const wishListResource = response.json();
+                        const wishListResource = await response.json();
+                        if (response.ok) {
+                            favoriteH2User.textContent = `${wishListResource.name}s favorite destinations`
+                            showCurrentPage(favoriteDestinationsUsersContainer);
+                            for (let resource of wishListResource.wishlist) {
+                                let favoriteDestinationItem = document.createElement("div")
+                                favoriteDestinationItem.classList.add("favoriteItem");
+                                favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryName}"><div class="favoriteTextBox">The beautiful capital ${resource.countryName}</div>`
+                                favoriteDestinationsUsers.append(favoriteDestinationItem);
+                            }
+                        }
                     })
                     const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
                     console.log(unfollowFriend)
@@ -534,7 +548,7 @@ favoriteSubContainer.addEventListener("click", async function () {
         return null
     }
 
-    const favoriteDestinations = document.querySelector("#favoriteDestinations");
+    const favoriteDestinations = document.querySelector(".favoriteDestinations");
     favoriteDestinations.innerHTML = ""
 
     for (let favorite of userData.currentUser.wishlist) {

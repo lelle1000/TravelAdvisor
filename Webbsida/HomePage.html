@@ -58,7 +58,8 @@
     </header>
     <div class="hide" id="menuSubMenu">
         <ul>
-            <li id="profileButtonContainer"><img src="Images/profile-round-1342-svgrepo-com.svg"><a href="#">Profile</a></li>
+            <li id="profileButtonContainer"><img src="Images/profile-round-1342-svgrepo-com.svg"><a href="#">Profile</a>
+            </li>
             <li id="favoriteSubContainer"><img src="Images/star-svgrepo-com.svg"><a href="#">Favorites</a></li>
             <li id="friends-button"><img src="Images/users-group-svgrepo-com.svg"><a href="#">Friends</a></li>
             <li><img src="Images/settings-svgrepo-com(2).svg"><a href="#">Settings</a></li>
@@ -74,32 +75,32 @@
     </div>
     <main>
         <div class="popup-main hide" id="login-popup">
-                <p class="logIn">Log into your account</p>
-                <input class="popup-input" id="logInNameInput" placeholder="Username">
-                <input class="popup-input" id="logInPasswordInput" placeholder="Password" type="password">
-                <button class="logIn-button" id="logInButton">Log In</button>
-                <p>No account? Press <a id="signInLink">here</a> to create an acount</p>
-                <p class="error-message" id="login-error-message"></p>
+            <p class="logIn">Log into your account</p>
+            <input class="popup-input" id="logInNameInput" placeholder="Username">
+            <input class="popup-input" id="logInPasswordInput" placeholder="Password" type="password">
+            <button class="logIn-button" id="logInButton">Log In</button>
+            <p>No account? Press <a id="signInLink">here</a> to create an acount</p>
+            <p class="error-message" id="login-error-message"></p>
+        </div>
+        <div class="popup-main hide" id="signin-popup">
+            <p class="logIn">Create an account</p>
+            <input id="signInNameInput" class="popup-input" placeholder="Username">
+            <input id="signInPasswordInput" class="popup-input" placeholder="Password" type="password">
+            <input id="signInEmailInput" class="popup-input" placeholder="Email">
+            <button class="logIn-button" id="signInButton">Sign In</button>
+            <p class="error-message" id="signin-error-message"></p>
+        </div>
+        <div class="popup-main hide" id="log-out-popup">
+            <p class="logIn hide" id="logout-p"></p>
+            <p>Rate your experience on this Travel Advisor here!</p>
+            <div id="rating-divs">
+                <div class="rate" id="1">1</div>
+                <div class="rate" id="2">2</div>
+                <div class="rate" id="3">3</div>
+                <div class="rate" id="4">4</div>
+                <div class="rate" id="5">5</div>
             </div>
-            <div class="popup-main hide" id="signin-popup">
-                <p class="logIn">Create an account</p>
-                <input id="signInNameInput" class="popup-input" placeholder="Username">
-                <input id="signInPasswordInput" class="popup-input" placeholder="Password" type="password">
-                <input id="signInEmailInput" class="popup-input" placeholder="Email">
-                <button class="logIn-button" id="signInButton">Sign In</button>
-                <p class="error-message" id="signin-error-message"></p>
-            </div>
-            <div class="popup-main hide" id="log-out-popup">
-                <p class="logIn hide" id="logout-p"></p>
-                <p>Rate your experience on this Travel Advisor here!</p>
-                <div id="rating-divs">
-                    <div class="rate" id="1">1</div>
-                    <div class="rate" id="2">2</div>
-                    <div class="rate" id="3">3</div>
-                    <div class="rate" id="4">4</div>
-                    <div class="rate" id="5">5</div>
-                </div>
-            </div>
+        </div>
 
         <div id="homepageContainer">
             <h1 class="font">Travel Advisor</h1>
@@ -131,29 +132,26 @@
             </div>
         </div>
 
-        <div class="hide" id="favoriteContainer">
+        <div class="favoriteContainer hide">
             <h2>Your favorite destinations</h2>
-            <div id="favoriteDestinations"></div>
+            <div class="favoriteDestinations"></div>
+        </div>
+
+        <div id="favoriteDestinationsUsersContainer" class="favoriteContainer hide">
+            <h2 id="favoriteH2User"></h2>
+            <div class="favoriteDestinations" id="favoriteDestinationsUsers"></div>
         </div>
 
         <div class="hide" id="friendsContainer">
             <button id="add-friends-list">Add more friends? Click here!</button>
             <h1>Friends page</h1>
             <div id="grid-for-friends">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
             </div>
             <div class="popup-main hide" id="add-friends-popup">
                 <img class="close-cross-popup" src="Images/966928-200.png">
                 <input class="popup-input" id="search-friends-input" placeholder="Username or email">
                 <div id="grid-friends-page-search">
                     <div class="friend-profiles">
-                        <img src="Images/WhiteLogIn.png">
-                        <p>Philles</p>
-                        <p>Common destinations: 3</p>
-                        <button>Follow</button>
                     </div>
                 </div>
             </div>
