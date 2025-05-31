@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "username": "hasse2",
+    "gmail": "hass@",
+    "id": 2,
+    "destination": {
+      "country": "United States Virgin Islands",
+      "capital": "Charlotte Amalie",
+      "continent": "North America"
+    }
+  },
+  {
+    "username": "hasse2",
+    "gmail": "hass@",
+    "id": 2,
+    "destination": {
+      "country": "United States Virgin Islands",
+      "capital": "Charlotte Amalie",
+      "continent": "North America"
+    }
+  },
+  {
+    "username": "hasse2",
+    "gmail": "hass@",
+    "id": 2,
+    "destination": {
+      "country": "United States Virgin Islands",
+      "capital": "Charlotte Amalie",
+      "continent": "North America"
+    }
+  }
+]

@@ -313,33 +313,29 @@ SearchButton.addEventListener("click", async () => {
             let continentText = "";
             let destination = { country: countryName, capital: capital, continent: continent }
 
-            if (country.country.continents[0] == "Europe") {
+            if (continent == "Europe") {
                 continentText = "a culturally rich part of Europe with many astonishing monuments"
-            } else if (country.country.continents[0] == "Asia") {
+            } else if (continent == "Asia") {
                 continentText = "a vast and diverse region in Asia"
-            } else if (country.country.continents[0] == "Africa") {
+            } else if (continent == "Africa") {
                 continentText = "a vibrant and historic region in Africa with many beautiful sights"
-            } else if (country.country.continents[0] == "North America") {
+            } else if (continent == "North America") {
                 continentText = "a major area of North America stretching far and wide"
-            } else if (country.country.continents[0] == "South America") {
+            } else if (continent == "South America") {
                 continentText = "a colorful and energetic part of South America"
-            } else if (country.country.continents[0] == "Oceania") {
+            } else if (continent == "Oceania") {
                 continentText = "an island region in Oceania with many different animals worth to see"
-            } else if (country.country.continents[0] == "Antarctica") {
+            } else if (continent == "Antarctica") {
                 continentText = "an icy region of Antarctica - only adventurers would dare to visit here!"
             } else {
                 continentText = "a place with an unknown continent that will be difficult to travel too!"
             }
 
-            const infoPage = document.querySelector("#infoPage");
-            const imageBox = document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
-            const textBox = document.querySelector("#text-box").innerHTML = `<p>${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>`
-            infoPage.append(imageBox);
-            infoPage.append(textBox);
-
-            document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${country.country.capital[0]}">`
-            document.querySelector("#text-box").innerHTML = `${country.country.capital[0]} is the beautiful capital of ${country.country.name.common}, ${continentText}. <button class="bookingButton"> Book Now! </button>`
             
+            document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${capital}">`
+            document.querySelector("#text-box").innerHTML = `<p>${capital} is the beautiful capital of ${countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>  <img class="star-for-imgcard" id="${[imgData.imgUrl, capital]}" src="Images/star-svgrepo-com.svg">`
+            
+            wishCheck();
         
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
