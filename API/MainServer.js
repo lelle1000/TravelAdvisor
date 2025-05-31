@@ -81,6 +81,19 @@ async function handler(request) {
                 headers: headersCORS,
             });
         }
+
+        if(request.method == "POST") {
+            const userIdData = await request.json()
+            if(userIdData.userId == null) {
+                return new Response(JSON.stringify({ error: "User needs to be logged in to look at profile"}), { status: 400, headers: headersCORS})
+            }
+            const UserInfo = await Deno.readTextFile("./user.json")
+            const UserDataArray = JSON.parse(UserInfo)
+
+            let correctUser = UserDataArray.find(person => person.id === userIdData.userId)
+            
+            return new Response(JSON.stringify(correctUser), { status: 200, headers: headersCORS })
+        }
     }
 
     if (homePageSigninMatch) {

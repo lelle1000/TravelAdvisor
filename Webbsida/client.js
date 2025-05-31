@@ -50,6 +50,8 @@ const menuSubMenu = document.querySelector("#menuSubMenu");
 const favoriteSubContainer = document.querySelector("#favoriteSubContainer")
 const favoriteContainer = document.querySelector("#favoriteContainer")
 
+const profileButtonContainer = document.getElementById("profileButtonContainer")
+
 
 headerLogoContainer.addEventListener("click", () => {
     submenuContainer.classList.add("hide");
@@ -483,4 +485,38 @@ favoriteSubContainer.addEventListener("click", async function () {
         favoriteContainer.append(favoriteDestinationItem)
     }
 
+})
+
+
+profileButtonContainer.addEventListener("click", async function () {
+    const profileInfoResponse = await fetch("http://localhost:8000/homepage", {
+        method: "POST",
+        headers: { "Content-Type" : "application/json" },
+        body: JSON.stringify({ userId: userTrackId })
+    })
+    if(profileInfoResponse.status == 200) {
+        const userData = await profileInfoResponse.json()
+
+        let username = userData.username
+        let gmail = userData.gmail
+
+        menuSubMenu.innerHTML = ""
+        menuSubMenu.style.backgroundColor = "white"
+        menuSubMenu.innerHTML = `
+        <div id="profileInfoBox">
+            <ul>
+                <li>${username}</li>
+                <li>${gmail}</li>
+            </ul>
+        </div>
+        <div id="profileInfoButton">
+            <button id="closeProfileButton">Close</button>
+        </div>
+        `
+
+        
+    } else {
+        console.log("ERROR");
+        
+    }
 })
