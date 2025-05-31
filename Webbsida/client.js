@@ -60,15 +60,15 @@ headerLogoContainer.addEventListener("click", () => {
 
 loginContainer.addEventListener("click", () => {
     if (!loginStatusGlobal) {
-        loginPopup.style.display = "flex";
+        loginPopup.classList.remove("hide");
     }
     else if (loginButton.textContent == "Log out") {
-        logoutPopup.style.display = "flex";
+        logoutPopup.classList.remove("hide");
         logoutText.textContent = `You succesfully logged out!`
     }
 })
 signInPopupLink.addEventListener("click", () => {
-    signInPopup.style.display = "flex";
+    signInPopup.classList.remove("hide");
 })
 
 const allRates = document.querySelectorAll(".rate")
@@ -191,7 +191,7 @@ logInButton.addEventListener("click", () => {
             loginMessage.style.color = "Green"
             friendsSearch();
             setTimeout(() => {
-                loginPopup.style.display = "none";
+                loginPopup.classList.add("hide");
                 loginButton.textContent = "Log out"
                 logInNameInput.value = "";
                 logInPasswordInput.value = "";
@@ -227,8 +227,8 @@ signInButton.addEventListener("click", () => {
             signinMessage.style.color = "Green"
             friendsSearch();
             setTimeout(() => {
-                loginPopup.style.display = "none";
-                signInPopup.style.display = "none";
+                loginPopup.classList.add("hide"),
+                signInPopup.classList.add("hide");
                 loginButton.textContent = "Log out"
                 signInNameInput.value = "";
                 signInPasswordInput.value = "";
@@ -390,8 +390,8 @@ friendsPopupButton.addEventListener("click", () => {
 })
 
 submenuFriendsButton.addEventListener("click", () => {
-    homePageDisplay.style.display = "none";
-    friendsPageDisplay.style.display = "block";
+    homePageDisplay.classList.add("hide"),
+    friendsPageDisplay.classList.remove("hide");
 })
 
 

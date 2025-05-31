@@ -59,7 +59,7 @@
     </div>
     <main>
         <div id="homepageContainer">
-            <div class="popup-main" id="login-popup">
+            <div class="popup-main hide" id="login-popup">
                 <p class="logIn">Log into your account</p>
                 <input class="popup-input" id="logInNameInput" placeholder="Username">
                 <input class="popup-input" id="logInPasswordInput" placeholder="Password" type="password">
@@ -67,7 +67,7 @@
                 <p>No account? Press <a id="signInLink">here</a> to create an acount</p>
                 <p class="error-message" id="login-error-message"></p>
             </div>
-            <div class="popup-main" id="signin-popup">
+            <div class="popup-main hide" id="signin-popup">
                 <p class="logIn">Create an account</p>
                 <input id="signInNameInput" class="popup-input" placeholder="Username">
                 <input id="signInPasswordInput" class="popup-input" placeholder="Password" type="password">
@@ -138,7 +138,7 @@
 
         <div class="hide" id="favoriteContainer"></div>
 
-        <div id="friendsContainer">
+        <div class="hide" id="friendsContainer">
             <button id="add-friends-list">Add more friends? Click here!</button>
             <h1>Friends page</h1>
             <div id="grid-for-friends">
