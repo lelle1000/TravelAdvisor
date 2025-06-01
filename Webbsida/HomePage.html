@@ -80,7 +80,6 @@
             <input class="popup-input" id="logInPasswordInput" placeholder="Password" type="password">
             <button class="logIn-button" id="logInButton">Log In</button>
             <p>No account? Press <a id="signInLink">here</a> to create an acount</p>
-            <p class="error-message" id="login-error-message"></p>
         </div>
         <div class="popup-main hide" id="signin-popup">
             <p class="logIn">Create an account</p>
@@ -88,18 +87,6 @@
             <input id="signInPasswordInput" class="popup-input" placeholder="Password" type="password">
             <input id="signInEmailInput" class="popup-input" placeholder="Email">
             <button class="logIn-button" id="signInButton">Sign In</button>
-            <p class="error-message" id="signin-error-message"></p>
-        </div>
-        <div class="popup-main hide" id="log-out-popup">
-            <p class="logIn hide" id="logout-p"></p>
-            <p>Rate your experience on this Travel Advisor here!</p>
-            <div id="rating-divs">
-                <div class="rate" id="1">1</div>
-                <div class="rate" id="2">2</div>
-                <div class="rate" id="3">3</div>
-                <div class="rate" id="4">4</div>
-                <div class="rate" id="5">5</div>
-            </div>
         </div>
 
         <div id="homepageContainer">
@@ -108,10 +95,6 @@
             <h2 class="font">Common destinations</h2>
             <div id="grid-place-destination"></div>
         </div>
-
-
-
-
 
         <div class="hide" id="searchpageContainer">
             <div id="search-and-field">
@@ -206,7 +189,7 @@
         </footer>
     </main>
 
-    <div class="hide" id="errorPopUp"></div>
+    <div class="hide" id="popUp"></div>
 
     <script src="client.js"></script>
 </body>

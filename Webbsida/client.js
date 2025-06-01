@@ -15,7 +15,6 @@ let loginPopup = document.querySelector("#login-popup");
 
 const logoutContainer = document.querySelector("#logoutContainer");
 let logoutButton = document.querySelector("#logout-button");
-let logoutPopup = document.querySelector("#log-out-popup");
 let logoutText = document.querySelector("#logout-p")
 const signInPopupLink = document.querySelector("#signInLink");
 let signInPopup = document.querySelector("#signin-popup");
@@ -64,12 +63,12 @@ const favoriteDestinationsUsers = document.querySelector("#favoriteDestinationsU
 const favoriteDestinationsUsersContainer = document.querySelector("#favoriteDestinationsUsersContainer");
 const favoriteH2User = document.querySelector("#favoriteH2User");
 
-const errorPopUp = document.querySelector("#errorPopUp");
+const popUp = document.querySelector("#popUp");
 let popUpTimeout;
 
 
 function showCurrentPage(page) {
-    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup, favoriteDestinationsUsersContainer]
+    const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, favoriteDestinationsUsersContainer]
     allPages.forEach(p => p.classList.add("hide"))
     if (allPages.includes(page)) {
         page.classList.remove("hide")
@@ -97,16 +96,20 @@ loginContainer.addEventListener("click", () => {
         signInPopup.classList.add("hide")
     }
 })
-
+ 
 logoutContainer.addEventListener("click", () => {
     signinMessage.textContent = "";
-    logoutPopup.classList.remove("hide")
     logoutContainer.classList.add("hide");
     loginContainer.classList.remove("hide");
-    console.log("HEJ!");
     userTrackId = null;
     loginStatusGlobal = false;
-    logoutText.textContent = `You succesfully logged out!`
+    popUp.classList.add("green");
+    popUp.classList.remove("hide");
+    popUp.textContent = "You succesfully logged out!";
+    clearTimeout(popUpTimeout);
+    popUpTimeout = setTimeout(() => {
+        popUp.classList.add("hide"); 
+    }, 2000);
     showCurrentPage(homePageDisplay)
 })
 
@@ -114,18 +117,6 @@ signInPopupLink.addEventListener("click", () => {
     signInPopup.classList.remove("hide")
     loginMessage.textContent = "";
 })
-
-const allRates = document.querySelectorAll(".rate")
-for (let rate of allRates) {
-    rate.addEventListener("click", () => {
-        userRate = rate.id;
-        console.log(userRate);
-        logoutPopup.style.display = "none";
-        loginButton.textContent = "Log in"
-        loginStatusGlobal = false;
-    })
-}
-
 
 let onlyOneOfSameCountries = [];
 
@@ -236,8 +227,13 @@ logInButton.addEventListener("click", () => {
             console.log(resource.body.id)
             console.log("You have logged in!");
             userTrackId = resource.body.id;
-            loginMessage.textContent = "Success, you are logged in!";
-            loginMessage.style.color = "Green"
+            popUp.classList.add("green");
+            popUp.classList.remove("hide");
+            popUp.textContent = "Success, you logged in!";
+            clearTimeout(popUpTimeout);
+            popUpTimeout = setTimeout(() => {
+                popUp.classList.add("hide"); 
+            }, 2000);
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide")
@@ -248,8 +244,12 @@ logInButton.addEventListener("click", () => {
                 loginMessage.textContent = "";
             }, 2000);
         } else {
-            loginMessage.textContent = resource.body.error
-            loginMessage.style.color = "red";
+            popUp.classList.remove("hide");
+            popUp.textContent = resource.body.error;
+            clearTimeout(popUpTimeout);
+            popUpTimeout = setTimeout(() => {
+                popUp.classList.add("hide"); 
+            }, 4000);
             console.log("Something went wrong!");
         }
     }
@@ -274,12 +274,17 @@ signInButton.addEventListener("click", () => {
             console.log(resource.body.id)
             userTrackId = resource.body.id;
             console.log("You have signed in!");
-            signinMessage.textContent = "Success, account created!";
-            signinMessage.style.color = "Green"
+            popUp.classList.add("green");
+            popUp.classList.remove("hide");
+            popUp.textContent = "Success, account created!";
+            clearTimeout(popUpTimeout);
+            popUpTimeout = setTimeout(() => {
+                popUp.classList.add("hide"); 
+            }, 2000);
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide"),
-                    signInPopup.classList.add("hide");
+                signInPopup.classList.add("hide");
                 logoutContainer.classList.remove("hide");
                 loginContainer.classList.add("hide");
                 signInNameInput.value = "";
@@ -288,8 +293,12 @@ signInButton.addEventListener("click", () => {
                 signinMessage.textContent = "";
             }, 2000);
         } else {
-            signinMessage.textContent = resource.body.error
-            signinMessage.style.color = "red";
+            popUp.classList.remove("hide");
+            popUp.textContent = resource.body.error;
+            clearTimeout(popUpTimeout);
+            popUpTimeout = setTimeout(() => {
+                popUp.classList.add("hide"); 
+            }, 4000);
             console.log("Something went wrong!");
         }
     }
@@ -387,11 +396,11 @@ async function wishCheck() {
                     wish.style.backgroundColor = "yellow";
                     return response.json();
                 } else {
-                    errorPopUp.classList.remove("hide");
-                    errorPopUp.textContent = response.error;
+                    popUp.classList.remove("hide");
+                    popUp.textContent = response.error;
                     clearTimeout(popUpTimeout);
                     popUpTimeout = setTimeout(() => {
-                        errorPopUp.classList.add("hide"); 
+                        popUp.classList.add("hide"); 
                     }, 4000);
                 }
             }).then(response => console.log(response));
@@ -519,11 +528,11 @@ submenuFriendsButton.addEventListener("click", () => {
     if (loginStatusGlobal) {
         showCurrentPage(friendsPageDisplay)
     } else {
-        errorPopUp.classList.remove("hide");
-        errorPopUp.textContent = "User needs to be logged in to look at friends";
+        popUp.classList.remove("hide");
+        popUp.textContent = "User needs to be logged in to look at friends";
         clearTimeout(popUpTimeout);
         popUpTimeout = setTimeout(() => {
-            errorPopUp.classList.add("hide"); 
+            popUp.classList.add("hide"); 
         }, 4000);
     }
 })
@@ -558,11 +567,11 @@ favoriteSubContainer.addEventListener("click", async function () {
             favoriteDestinations.append(favoriteDestinationItem)
         }
     } else {
-        errorPopUp.classList.remove("hide");
-        errorPopUp.textContent = userData.error;
+        popUp.classList.remove("hide");
+        popUp.textContent = userData.error;
         clearTimeout(popUpTimeout);
         popUpTimeout = setTimeout(() => {
-            errorPopUp.classList.add("hide"); 
+            popUp.classList.add("hide"); 
         }, 4000);
     }
 })
@@ -587,11 +596,11 @@ profileButtonContainer.addEventListener("click", async function () {
             profileInfoBox.classList.add("hide");
         })
     } else {
-        errorPopUp.classList.remove("hide");
-        errorPopUp.textContent = userData.error;
+        popUp.classList.remove("hide");
+        popUp.textContent = userData.error;
         clearTimeout(popUpTimeout);
         popUpTimeout = setTimeout(() => {
-            errorPopUp.classList.add("hide"); 
+            popUp.classList.add("hide"); 
         }, 4000);
     }
 })

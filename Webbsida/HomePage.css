@@ -58,36 +58,6 @@
     margin-top: 800px;
 }
 
-.error-message {
-    margin-top: -10px;
-    text-align: center;
-    color: red;
-}
-
-
-
-#log-out-popup {
-    justify-content: space-evenly;
-}
-
-
-#rating-divs {
-    display: flex;
-    justify-content: space-between;
-}
-
-#rating-divs div {
-    border: 1px solid black;
-    border-radius: 50%;
-    padding: 10px;
-}
-
-#rating-divs div:hover {
-    background-color: #b3ccdd;
-    ;
-    cursor: pointer;
-}
-
 .star-for-imgcard {
     width: 18px;
     padding-bottom: 3px;
