@@ -43,9 +43,14 @@ async function handler(request) {
     if (homePageMatch) {
         if (request.method === "GET") {
             const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
-
+        
             async function getCapitalPhoto(capitalName) { // hämtar en bild till staden
                 const response = await fetch(`https://api.unsplash.com/search/photos?query=${capitalName}&client_id=${UnsplashKey}`)
+
+                if (!response.ok) {
+                    return new Response(JSON.stringify({ error: "Failed to fetch data" }), { status: 404, headers: headersCORS})
+                }
+
                 const data = await response.json()
 
                 if (data.results && data.results.length > 0) {
@@ -57,12 +62,24 @@ async function handler(request) {
 
             async function fetchCountryAndPhoto(Country) { // skriver ut staden baserat på land och en url med en bild på staden.
                 const CountryResponse = await fetch(`https://restcountries.com/v3.1/name/${Country}`)
+
+                if (!CountryResponse.ok) {
+                    return new Response(JSON.stringify({ error: "Failed to fetch data" }), { status: 404, headers: headersCORS})
+                }
+
                 const CountryData = await CountryResponse.json()
 
                 if (CountryData.length > 0) {
+
+                    if (!CountryData[0].capital || CountryData[0].capital.length === 0 || !CountryData[0].continents || CountryData[0].continents.length === 0) {
+                        return null
+                    }
+
                     const countryName = CountryData[0].name.common
                     const capital = CountryData[0].capital[0]
                     const continent = CountryData[0].continents[0]
+
+
                     const PhotoUrl = await getCapitalPhoto(capital)
 
                     if (PhotoUrl) {
@@ -77,14 +94,24 @@ async function handler(request) {
             }
             const countriesJson = await Deno.readTextFile("./countries.json");
             const countriesArray = JSON.parse(countriesJson);
+            if(countriesArray.length === 0) {
+                return new Response(JSON.stringify({error: "CountryArray is empty"}), { status: 400, headers: headersCORS })
+            }
 
             let RandomCountry = countriesArray[Math.floor(countriesArray.length * Math.random())]
             const result = await fetchCountryAndPhoto(RandomCountry);
+            if(!result) {
+                return new Response(JSON.stringify({ error: "valid country could not be found"}), { status: 404, headers: headersCORS})
+            }
 
             return new Response(JSON.stringify(result), { status: 201, headers: headersCORS });
         }
 
         if (request.method == "POST") {
+            const contentType = request.headers.get("Content-Type")
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const userIdData = await request.json()
             if (userIdData.userId == null) {
                 return new Response(JSON.stringify({ error: "User needs to be logged in to look at profile" }), { status: 404, headers: headersCORS })
@@ -93,6 +120,9 @@ async function handler(request) {
             const UserDataArray = JSON.parse(UserInfo)
 
             let correctUser = UserDataArray.find(person => person.id === userIdData.userId)
+            if (!correctUser) {
+                return new Response(JSON.stringify({error: "User not found"}), { status: 404, headers: headersCORS })
+            }
 
             return new Response(JSON.stringify(correctUser), { status: 202, headers: headersCORS })
         }
@@ -101,7 +131,9 @@ async function handler(request) {
     if (homePageSigninMatch) {
         if (request.method === "POST") {
             const contentType = request.headers.get("Content-Type");
-            if (contentType === "application/json") {
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
                 const requestData = await request.json();
                 let passwordCharacters = ["%", "!", "/", "€", "#", "&"];
                 if (!requestData.name || !requestData.password || !requestData.email) {
@@ -126,12 +158,12 @@ async function handler(request) {
                     } else if (!passwordCharacters.some(character => requestData.password.includes(character)) || requestData.password.length < 8) {
                         return new Response(JSON.stringify(
                             { error: "Password input is false!" }),
-                            { headers: headersCORS, status: 404 }
+                            { headers: headersCORS, status: 400 }
                         )
                     } else if (!requestData.email.includes("@")) {
                         return new Response(JSON.stringify(
                             { error: "Email input is false!" }),
-                            { headers: headersCORS, status: 404 }
+                            { headers: headersCORS, status: 400 }
                         )
                     }
                     else {
@@ -141,14 +173,15 @@ async function handler(request) {
                         return new Response(JSON.stringify({ id: newUser.id }), { status: 201, headers: headersCORS });
                     }
                 }
-            }
         }
     }
 
     if (homePageLoginMatch) {
         if (request.method === "POST") {
             const contentType = request.headers.get("Content-Type");
-            if (contentType === "application/json") {
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
                 const requestData = await request.json();
                 if (!requestData.name || !requestData.password) {
                     return new Response(JSON.stringify(
@@ -175,12 +208,11 @@ async function handler(request) {
                         )
                     }
                 }
-            }
         }
     }
 
     if (searchPageMatch) {
-        if (request.method == "GET") {
+        if (request.method === "GET") {
             let results = [];
             const searchfield = url.searchParams.get("searchfield")
 
@@ -191,9 +223,12 @@ async function handler(request) {
                 )
             }
 
-            if (searchfield) {
-
                 const CountriesResponse = await fetch("https://restcountries.com/v3.1/all")
+
+                if(!CountriesResponse.ok) {
+                    return new Response(JSON.stringify({ error: "Failed to fetch data" }), { status: 404, headers: headersCORS})
+                }
+
                 const CountryData = await CountriesResponse.json()
 
                 for (let country of CountryData) {
@@ -205,12 +240,15 @@ async function handler(request) {
                 return new Response(JSON.stringify(results),
                     { headers: headersCORS, status: 202 }
                 )
-            }
         }
     }
 
     if (infoPageMatch) {
         if (request.method == "POST") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
 
             const requestData = await request.json()
@@ -228,6 +266,10 @@ async function handler(request) {
 
     if (wishListMatch) {
         if (request.method == "POST") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const requestData = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
@@ -253,6 +295,10 @@ async function handler(request) {
         }
 
         if (request.method == "POST") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const userIds = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
@@ -276,6 +322,10 @@ async function handler(request) {
 
     if (friendsUserListMatch) {
         if (request.method == "POST") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const data = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
@@ -287,6 +337,10 @@ async function handler(request) {
 
     if (favoritesMatch) {
         if (request.method == "POST") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const requestUserTrackId = await request.json()
 
             let UserJson = await Deno.readTextFile("./user.json");
@@ -317,6 +371,10 @@ async function handler(request) {
 
     if (bookingsMatch) {
         if (request.method == "POST") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const bookingData = await request.json()
             if (bookingData.userId == null) {
                 return new Response(JSON.stringify({ error: "User needs to be logged in to book!" }), { status: 400, headers: headersCORS })
