@@ -11,7 +11,6 @@ const friendsUserListRoute = new URLPattern({ pathname: "/friends/list/user" })
 const favoritesRoute = new URLPattern({ pathname: "/favorites" })
 const bookingsRoute = new URLPattern({ patname: "/booked/loggedin" })
 
-
 async function handler(request) {
 
     const url = new URL(request.url)
@@ -35,10 +34,6 @@ async function handler(request) {
     if (request.method === "OPTIONS") {
         return new Response(null, { status: 204, headers: headersCORS })
     }
-
-    console.log("Request received at:", url.pathname);
-
-
 
     if (homePageMatch) {
         if (request.method === "GET") {
@@ -433,6 +428,5 @@ async function handler(request) {
     }
 
 }
-
 
 Deno.serve(handler)
