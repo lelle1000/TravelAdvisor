@@ -1,34 +1,3 @@
 [
-  {
-    "username": "newaccount",
-    "gmail": "fes@",
-    "id": 1,
-    "destination": {
-      "url": "https://images.unsplash.com/photo-1632353913765-9b56b7b4bd55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxUaXJhbmF8ZW58MHx8fHwxNzQ4Nzc0MjA3fDA&ixlib=rb-4.1.0&q=80&w=400",
-      "capital": "Tirana",
-      "continent": "Europe",
-      "countryName": "Albania"
-    }
-  },
-  {
-    "username": "newaccount",
-    "gmail": "fes@",
-    "id": 1,
-    "destination": {
-      "url": "https://images.unsplash.com/photo-1612810413509-cd39cf2d1697?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTM3Njh8MHwxfHNlYXJjaHwxfHxNb2dhZGlzaHV8ZW58MHx8fHwxNzQ4NzgyOTM4fDA&ixlib=rb-4.1.0&q=80&w=400",
-      "capital": "Mogadishu",
-      "continent": "Africa",
-      "countryName": "Somalia"
-    }
-  },
-  {
-    "username": "newaccount",
-    "gmail": "fes@",
-    "id": 1,
-    "destination": {
-      "country": "Sweden",
-      "capital": "Stockholm",
-      "continent": "Europe"
-    }
-  }
+  
 ]

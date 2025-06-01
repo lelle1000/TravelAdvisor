@@ -424,7 +424,7 @@ async function wishCheck() {
                         clearTimeout(popUpTimeout);
                         popUpTimeout = setTimeout(() => {
                             popUp.classList.add("hide");
-                        }, 4000);
+                        }, 2000);
                     } else {
                         popUp.classList.remove("green");
                         popUp.classList.remove("hide");
@@ -432,7 +432,7 @@ async function wishCheck() {
                         clearTimeout(popUpTimeout);
                         popUpTimeout = setTimeout(() => {
                             popUp.classList.add("hide");
-                        }, 4000);
+                        }, 2000);
                     }
                 })
             })
