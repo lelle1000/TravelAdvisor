@@ -396,7 +396,7 @@ async function handler(request) {
                 parseCheckForBooking.push(userBooking)
 
                 await Deno.writeTextFile("./bookings.json", JSON.stringify(parseCheckForBooking, null, 2));
-                return new Response("Destination booked!", { status: 201, headers: headersCORS })
+                return new Response(JSON.stringify({ message: "Destination has been booked!" }), { status: 201, headers: headersCORS })
             }
 
         }
