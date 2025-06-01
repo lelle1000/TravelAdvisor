@@ -7,9 +7,10 @@ const searchPageRoute = new URLPattern({ pathname: "/searchpage/loggedin" })
 const informationPageRoute = new URLPattern({ pathname: "/informationpage/loggedin" })
 const wishListRoute = new URLPattern({ pathname: "/add/destination/wishlist" });
 const friendsListRoute = new URLPattern({ pathname: "/friends/list" })
+const friendsUserListRoute = new URLPattern({ pathname: "/friends/list/user" })
 const favoritesRoute = new URLPattern({ pathname: "/favorites" })
 const bookingsRoute = new URLPattern({ patname: "/booked/loggedin" })
-const friendsUserListRoute = new URLPattern({ pathname: "/friends/list/user" })
+
 
 async function handler(request) {
 
@@ -22,9 +23,10 @@ async function handler(request) {
     const infoPageMatch = informationPageRoute.exec(url);
     const wishListMatch = wishListRoute.exec(url);
     const friendsListMatch = friendsListRoute.exec(url);
+    const friendsUserListMatch = friendsUserListRoute.exec(url);
     const favoritesMatch = favoritesRoute.exec(url)
     const bookingsMatch = bookingsRoute.exec(url)
-    const friendsUserListMatch = friendsUserListRoute.exec(url);
+    
 
     const headersCORS = new Headers()
     headersCORS.set("Access-Control-Allow-Origin", "*");
@@ -209,6 +211,23 @@ async function handler(request) {
         }
     }
 
+    if (infoPageMatch) {
+        if (request.method == "POST") {
+            const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
+
+            const requestData = await request.json()
+            const capitalName = requestData.capital
+
+            const response = await fetch(`https://api.unsplash.com/search/photos?query=${capitalName}&client_id=${UnsplashKey}`)
+            if (!response.ok) {
+                return new Response(JSON.stringify({ error: "Failed to fetch image" }), { status: 500, headers: headersCORS })
+            }
+            const imgUrlData = await response.json()
+
+            return new Response(JSON.stringify({ imgUrl: imgUrlData.results[0].urls.full }), { status: 200, headers: headersCORS })
+        }
+    }
+
     if (wishListMatch) {
         if (request.method == "POST") {
             const requestData = await request.json();
@@ -265,26 +284,6 @@ async function handler(request) {
             const userObject = userArray.find(object => object.id == data.id);
             return new Response(JSON.stringify({ wishlist: userObject.wishlist, name: userObject.username }), { status: 200, headers: headersCORS });
 
-        }
-    }
-
-
-
-
-    if (infoPageMatch) {
-        if (request.method == "POST") {
-            const UnsplashKey = "RXfEp3EulaHn3LgZG-m4BEel7MWwBee2iFESNQ7eLoc"
-
-            const requestData = await request.json()
-            const capitalName = requestData.capital
-
-            const response = await fetch(`https://api.unsplash.com/search/photos?query=${capitalName}&client_id=${UnsplashKey}`)
-            if (!response.ok) {
-                return new Response(JSON.stringify({ error: "Failed to fetch image" }), { status: 500, headers: headersCORS })
-            }
-            const imgUrlData = await response.json()
-
-            return new Response(JSON.stringify({ imgUrl: imgUrlData.results[0].urls.full }), { status: 200, headers: headersCORS })
         }
     }
 
