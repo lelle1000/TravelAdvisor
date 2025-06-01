@@ -1,3 +1,26 @@
 [
-  
+  {
+    "id": 1,
+    "username": "hasse",
+    "password": "123456789%",
+    "gmail": "@@",
+    "wishlist": [],
+    "friendsList": []
+  },
+  {
+    "id": 2,
+    "username": "hasse",
+    "password": "123456789%",
+    "gmail": "@@",
+    "wishlist": [],
+    "friendsList": []
+  },
+  {
+    "id": 3,
+    "username": "hasse",
+    "password": "123456789%",
+    "gmail": "@@",
+    "wishlist": [],
+    "friendsList": []
+  }
 ]

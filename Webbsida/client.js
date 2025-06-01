@@ -176,7 +176,7 @@ async function getImages() {
                     body: JSON.stringify({ userId: userTrackId, destination: data })
                 })
                 const response = await bookingResponse.json();
-                if (bookingResponse.status == 201) { 
+                if (bookingResponse.status == 201) {
                     popUp.classList.add("green");
                     popUp.classList.remove("hide");
                     popUp.textContent = response.message;
@@ -365,7 +365,7 @@ SearchButton.addEventListener("click", async () => {
                     body: JSON.stringify({ userId: userTrackId, destination: destination })
                 })
                 const response = await bookingResponse.json();
-                if (bookingResponse.status == 201) { 
+                if (bookingResponse.status == 201) {
                     popUp.classList.add("green");
                     popUp.classList.remove("hide");
                     popUp.textContent = response.message;
@@ -439,15 +439,14 @@ window.addEventListener("scroll", () => {
 
 
 async function friendsSearch() {
-    friendsList.innerHTML = "";
     const response = await fetch("http://localhost:8000/friends/list")
     const userArray = await response.json();
     const userArrayParse = JSON.parse(userArray);
     const currentUserLoggedIn = userArrayParse.find(objekt => objekt.id == userTrackId);
-    let newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
+    let allStrangersArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
     if (currentUserLoggedIn.friendsList.length > 0) {
         for (let arr of currentUserLoggedIn.friendsList) {
-            newArray = newArray.filter(objekt => objekt.id != arr.id);
+            allStrangersArray = allStrangersArray.filter(objekt => objekt.id != arr.id);
             const friendProfiles = document.createElement("div");
             friendProfiles.classList.add("friend-list-profiles")
             friendProfiles.id = `friend-${arr.id}`;
@@ -490,7 +489,7 @@ async function friendsSearch() {
                 if (response.ok) {
                     document.querySelector(`#friend-${unfollowFriend.id}`).remove();
                     const unfollowedUser = userArrayParse.find(obj => obj.id == unfollowFriend.id);
-                    newArray.push(unfollowedUser);
+                    allStrangersArray.push(unfollowedUser);
                 }
             })
         }
@@ -498,7 +497,7 @@ async function friendsSearch() {
     searchFriendsInput.addEventListener("keydown", async (e) => {
         friendsDivsFrame.innerHTML = "";
         if (e.target.value.length > 0) {
-            const currentArray = newArray.filter(objekt => {
+            const currentArray = allStrangersArray.filter(objekt => {
                 let username = objekt.username.startsWith(e.target.value);
                 return username
             })
@@ -526,7 +525,7 @@ async function friendsSearch() {
                     const result = await response.json();
                     if (response.ok) {
                         friendDiv.remove();
-                        newArray = newArray.filter(objekt => objekt.id != arr.id);
+                        allStrangersArray = allStrangersArray.filter(objekt => objekt.id != arr.id);
                         const friendProfiles = document.createElement("div");
                         friendProfiles.classList.add("friend-list-profiles")
                         friendProfiles.id = `friend-${arr.id}`;
@@ -569,7 +568,7 @@ async function friendsSearch() {
                             if (response.ok) {
                                 document.querySelector(`#friend-${unfollowFriend.id}`).remove();
                                 const unfollowedUser = userArrayParse.find(obj => obj.id == unfollowFriend.id);
-                                newArray.push(unfollowedUser);
+                                allStrangersArray.push(unfollowedUser);
                             }
                         })
                     }
@@ -585,6 +584,8 @@ async function friendsSearch() {
 
 closeCross.addEventListener("click", () => {
     friendsPopup.classList.add("hide");
+    searchFriendsInput.value = "";
+    friendsDivsFrame.innerHTML = "";
 })
 
 friendsPopupButton.addEventListener("click", () => {
