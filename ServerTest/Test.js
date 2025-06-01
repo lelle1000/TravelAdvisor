@@ -99,6 +99,14 @@ async function Test9Post () {
     })
 }
 
+async function Test9Delete () {
+    const response = await fetch(endpoints.favorites, {
+        method: "DELETE",
+        headers: { "Content-Type" : "application/json" },
+        body: JSON.stringify()
+    })
+}
+
 async function Test10Post () {
     const response = await fetch(endpoints.bookedLoggedIn, {
         method: "POST",
