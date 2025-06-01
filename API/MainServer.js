@@ -304,6 +304,9 @@ async function handler(request) {
                 return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
             }
             const userIds = await request.json();
+            if(!userIds.friendId || !userIds.currentUserId) {
+                return new Response(JSON.stringify({ error: "Missin either friendId or currentUserId"}), {status: 404, headers: headersCORS})
+            }
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
             const currentUserIndex = userArray.findIndex(object => object.id == userIds.currentUserId);
