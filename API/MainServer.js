@@ -81,22 +81,20 @@ async function handler(request) {
             let RandomCountry = countriesArray[Math.floor(countriesArray.length * Math.random())]
             const result = await fetchCountryAndPhoto(RandomCountry);
 
-            return new Response(JSON.stringify(result), {
-                headers: headersCORS,
-            });
+            return new Response(JSON.stringify(result), { status: 201, headers: headersCORS });
         }
 
         if (request.method == "POST") {
             const userIdData = await request.json()
             if (userIdData.userId == null) {
-                return new Response(JSON.stringify({ error: "User needs to be logged in to look at profile" }), { status: 400, headers: headersCORS })
+                return new Response(JSON.stringify({ error: "User needs to be logged in to look at profile" }), { status: 404, headers: headersCORS })
             }
             const UserInfo = await Deno.readTextFile("./user.json")
             const UserDataArray = JSON.parse(UserInfo)
 
             let correctUser = UserDataArray.find(person => person.id === userIdData.userId)
 
-            return new Response(JSON.stringify(correctUser), { status: 200, headers: headersCORS })
+            return new Response(JSON.stringify(correctUser), { status: 202, headers: headersCORS })
         }
     }
 
@@ -109,7 +107,7 @@ async function handler(request) {
                 if (!requestData.name || !requestData.password || !requestData.email) {
                     return new Response(JSON.stringify(
                         { error: "Both inputs need to be filled in" }),
-                        { headers: headersCORS, status: 409 }
+                        { headers: headersCORS, status: 400 }
                     )
                 }
                 else {
@@ -128,19 +126,19 @@ async function handler(request) {
                     } else if (!passwordCharacters.some(character => requestData.password.includes(character)) || requestData.password.length < 8) {
                         return new Response(JSON.stringify(
                             { error: "Password input is false!" }),
-                            { headers: headersCORS, status: 409 }
+                            { headers: headersCORS, status: 404 }
                         )
                     } else if (!requestData.email.includes("@")) {
                         return new Response(JSON.stringify(
                             { error: "Email input is false!" }),
-                            { headers: headersCORS, status: 409 }
+                            { headers: headersCORS, status: 404 }
                         )
                     }
                     else {
                         const newUser = new LogIn(requestData.name, requestData.password, requestData.email);
                         userArray.push(newUser);
                         await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-                        return new Response(JSON.stringify({ id: newUser.id }), { headers: headersCORS });
+                        return new Response(JSON.stringify({ id: newUser.id }), { status: 201, headers: headersCORS });
                     }
                 }
             }
@@ -155,25 +153,25 @@ async function handler(request) {
                 if (!requestData.name || !requestData.password) {
                     return new Response(JSON.stringify(
                         { error: "Both inputs need to be filled in" }),
-                        { headers: headersCORS, status: 409 }
+                        { headers: headersCORS, status: 400 }
                     )
                 } else {
                     const userJson = await Deno.readTextFile("./user.json");
                     const userArray = JSON.parse(userJson);
-                    const objektId = userArray.find(objekt => objekt.username == requestData.name);
-                    if (userArray.some(objekt => {
-                        let name = objekt.username == requestData.name;
-                        let pass = objekt.password == requestData.password;
+                    const objectId = userArray.find(object => object.username == requestData.name);
+                    if (userArray.some(object => {
+                        let name = object.username == requestData.name;
+                        let pass = object.password == requestData.password;
                         return name && pass
                     })) {
-                        return new Response(JSON.stringify({ id: objektId.id }), {
-                            status: 200,
+                        return new Response(JSON.stringify({ id: objectId.id }), {
+                            status: 202,
                             headers: headersCORS
                         })
                     } else {
                         return new Response(JSON.stringify(
                             { error: "Wrong input!" }),
-                            { headers: headersCORS, status: 409 }
+                            { headers: headersCORS, status: 404 }
                         )
                     }
                 }
@@ -205,7 +203,7 @@ async function handler(request) {
                     }
                 }
                 return new Response(JSON.stringify(results),
-                    { headers: headersCORS, status: 200 }
+                    { headers: headersCORS, status: 202 }
                 )
             }
         }
@@ -220,7 +218,7 @@ async function handler(request) {
 
             const response = await fetch(`https://api.unsplash.com/search/photos?query=${capitalName}&client_id=${UnsplashKey}`)
             if (!response.ok) {
-                return new Response(JSON.stringify({ error: "Failed to fetch image" }), { status: 500, headers: headersCORS })
+                return new Response(JSON.stringify({ error: "Failed to fetch image" }), { status: 404, headers: headersCORS })
             }
             const imgUrlData = await response.json()
 
@@ -233,7 +231,7 @@ async function handler(request) {
             const requestData = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
-            const userIndex = userArray.findIndex(objekt => objekt.id == requestData.userId);
+            const userIndex = userArray.findIndex(object => object.id == requestData.userId);
 
             let checkSameWish = userArray[userIndex].wishlist.some(wish => wish.countryCapital == requestData.countryCapital)
             
@@ -243,7 +241,7 @@ async function handler(request) {
 
             userArray[userIndex].wishlist.push(requestData);
             await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-            return new Response(JSON.stringify("Wish added in list!"), { status: 200, headers: headersCORS });
+            return new Response(JSON.stringify("Wish added in list!"), { status: 202, headers: headersCORS });
         }
     }
 
@@ -259,10 +257,10 @@ async function handler(request) {
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
             const currentUserIndex = userArray.findIndex(object => object.id == userIds.currentUserId);
-            const friendUser = userArray.find(objekt => objekt.id == userIds.friendId)
+            const friendUser = userArray.find(object => object.id == userIds.friendId)
             userArray[currentUserIndex].friendsList.push(friendUser);
             await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-            return new Response(JSON.stringify("User followed Succesfully!"), { status: 200, headers: headersCORS });
+            return new Response(JSON.stringify("User followed Succesfully!"), { status: 202, headers: headersCORS });
         }
 
         if (request.method == "DELETE") {
@@ -272,7 +270,7 @@ async function handler(request) {
             const userObject = userArray.findIndex(object => object.id == userData.currentUserId)
             userArray[userObject].friendsList = userArray[userObject].friendsList.filter(object => object.id != userData.friendId);
             await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-            return new Response(JSON.stringify("Unfolled Succesfully"), { status: 200, headers: headersCORS })
+            return new Response(JSON.stringify("Unfolled Succesfully"), { status: 202, headers: headersCORS })
         }
     }
 
@@ -282,7 +280,7 @@ async function handler(request) {
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
             const userObject = userArray.find(object => object.id == data.id);
-            return new Response(JSON.stringify({ wishlist: userObject.wishlist, name: userObject.username }), { status: 200, headers: headersCORS });
+            return new Response(JSON.stringify({ wishlist: userObject.wishlist, name: userObject.username }), { status: 202, headers: headersCORS });
 
         }
     }
@@ -297,11 +295,11 @@ async function handler(request) {
             let currentUser = UserArray.find(correctId => correctId.id == requestUserTrackId)
 
             if (!currentUser) {
-                return new Response(JSON.stringify({ error: "User needs to be logged in to view their wishlist" }), { status: 409, headers: headersCORS })
+                return new Response(JSON.stringify({ error: "User needs to be logged in to view their wishlist" }), { status: 400, headers: headersCORS })
             } else if (currentUser.wishlist.length === 0) {
-                return new Response(JSON.stringify({ error: "Users wishlist is empty" }), { status: 400, headers: headersCORS })
+                return new Response(JSON.stringify({ error: "Users wishlist is empty" }), { status: 404, headers: headersCORS })
             } else {
-                return new Response(JSON.stringify({ currentUser }), { status: 200, headers: headersCORS })
+                return new Response(JSON.stringify({ currentUser }), { status: 202, headers: headersCORS })
             }
         }
 
@@ -312,7 +310,7 @@ async function handler(request) {
             const findFavoriteUser = parsedFavoriteUserData.findIndex(user => user.id == favoriteData.userId);
             parsedFavoriteUserData[findFavoriteUser].wishlist = parsedFavoriteUserData[findFavoriteUser].wishlist.filter(favoriteCountry => favoriteCountry.countryCapital !== favoriteData.countryCapital);
             await Deno.writeTextFile("./user.json", JSON.stringify(parsedFavoriteUserData, null, 2));
-            return new Response("Successfully deleted!", { status: 200, headers: headersCORS })
+            return new Response("Successfully deleted!", { status: 202, headers: headersCORS })
         }
 
     }
@@ -335,7 +333,7 @@ async function handler(request) {
                 parseCheckForBooking.push(userBooking)
 
                 await Deno.writeTextFile("./bookings.json", JSON.stringify(parseCheckForBooking, null, 2));
-                return new Response("Destination booked!", { status: 200, headers: headersCORS })
+                return new Response("Destination booked!", { status: 201, headers: headersCORS })
             }
 
         }
