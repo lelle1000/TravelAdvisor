@@ -178,9 +178,23 @@ async function getImages() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userId: userTrackId, destination: data })
                 })
-
-                if (bookingResponse.status == 201) {
-                    console.log("Destination have been booked!");
+                const response = await bookingResponse.json();
+                if (bookingResponse.status == 201) { 
+                    popUp.classList.add("green");
+                    popUp.classList.remove("hide");
+                    popUp.textContent = response.message;
+                    clearTimeout(popUpTimeout);
+                    popUpTimeout = setTimeout(() => {
+                        popUp.classList.add("hide");
+                    }, 2000);
+                } else {
+                    popUp.classList.remove("green");
+                    popUp.classList.remove("hide");
+                    popUp.textContent = response.error;
+                    clearTimeout(popUpTimeout);
+                    popUpTimeout = setTimeout(() => {
+                        popUp.classList.add("hide");
+                    }, 2000);
                 }
             })
             showCurrentPage(infoPageContainer)
@@ -361,8 +375,23 @@ SearchButton.addEventListener("click", async () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userId: userTrackId, destination: destination })
                 })
-                if (bookingResponse.status == 201) {
-                    console.log("Destination have been booked!");
+                const response = await bookingResponse.json();
+                if (bookingResponse.status == 201) { 
+                    popUp.classList.add("green");
+                    popUp.classList.remove("hide");
+                    popUp.textContent = response.message;
+                    clearTimeout(popUpTimeout);
+                    popUpTimeout = setTimeout(() => {
+                        popUp.classList.add("hide");
+                    }, 2000);
+                } else {
+                    popUp.classList.remove("green");
+                    popUp.classList.remove("hide");
+                    popUp.textContent = response.error;
+                    clearTimeout(popUpTimeout);
+                    popUpTimeout = setTimeout(() => {
+                        popUp.classList.add("hide");
+                    }, 2000);
                 }
             })
             showCurrentPage(infoPageContainer)
