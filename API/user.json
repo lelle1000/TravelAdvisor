@@ -6,5 +6,29 @@
     "gmail": "yeye@gmail.com",
     "wishlist": [],
     "friendsList": []
+  },
+  {
+    "id": 1,
+    "username": "hasse",
+    "password": "123456789%",
+    "gmail": "@@@",
+    "wishlist": [],
+    "friendsList": []
+  },
+  {
+    "id": 2,
+    "username": "phille",
+    "password": "123456789%",
+    "gmail": "@@",
+    "wishlist": [],
+    "friendsList": []
+  },
+  {
+    "id": 3,
+    "username": "yehor",
+    "password": "123456789%",
+    "gmail": "@@",
+    "wishlist": [],
+    "friendsList": []
   }
 ]

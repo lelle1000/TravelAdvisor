@@ -92,7 +92,7 @@ loginContainer.addEventListener("click", () => {
         signInPopup.classList.add("hide")
     }
 })
- 
+
 logoutContainer.addEventListener("click", () => {
     logoutContainer.classList.add("hide");
     loginContainer.classList.remove("hide");
@@ -103,7 +103,7 @@ logoutContainer.addEventListener("click", () => {
     popUp.textContent = "You succesfully logged out!";
     clearTimeout(popUpTimeout);
     popUpTimeout = setTimeout(() => {
-        popUp.classList.add("hide"); 
+        popUp.classList.add("hide");
     }, 2000);
     showCurrentPage(homePageDisplay)
 })
@@ -179,7 +179,7 @@ async function getImages() {
                     body: JSON.stringify({ userId: userTrackId, destination: data })
                 })
 
-                if (bookingResponse.status == 200) {
+                if (bookingResponse.status == 201) {
                     console.log("Destination have been booked!");
                 }
             })
@@ -226,7 +226,7 @@ logInButton.addEventListener("click", () => {
             popUp.textContent = "Success, you logged in!";
             clearTimeout(popUpTimeout);
             popUpTimeout = setTimeout(() => {
-                popUp.classList.add("hide"); 
+                popUp.classList.add("hide");
             }, 2000);
             friendsSearch();
             setTimeout(() => {
@@ -242,7 +242,7 @@ logInButton.addEventListener("click", () => {
             popUp.textContent = resource.body.error;
             clearTimeout(popUpTimeout);
             popUpTimeout = setTimeout(() => {
-                popUp.classList.add("hide"); 
+                popUp.classList.add("hide");
             }, 4000);
             console.log("Something went wrong!");
         }
@@ -273,12 +273,12 @@ signInButton.addEventListener("click", () => {
             popUp.textContent = "Success, account created!";
             clearTimeout(popUpTimeout);
             popUpTimeout = setTimeout(() => {
-                popUp.classList.add("hide"); 
+                popUp.classList.add("hide");
             }, 2000);
             friendsSearch();
             setTimeout(() => {
                 loginPopup.classList.add("hide"),
-                signInPopup.classList.add("hide");
+                    signInPopup.classList.add("hide");
                 logoutContainer.classList.remove("hide");
                 loginContainer.classList.add("hide");
                 signInNameInput.value = "";
@@ -291,7 +291,7 @@ signInButton.addEventListener("click", () => {
             popUp.textContent = resource.body.error;
             clearTimeout(popUpTimeout);
             popUpTimeout = setTimeout(() => {
-                popUp.classList.add("hide"); 
+                popUp.classList.add("hide");
             }, 4000);
             console.log("Something went wrong!");
         }
@@ -395,7 +395,7 @@ async function wishCheck() {
                     popUp.textContent = response.error;
                     clearTimeout(popUpTimeout);
                     popUpTimeout = setTimeout(() => {
-                        popUp.classList.add("hide"); 
+                        popUp.classList.add("hide");
                     }, 4000);
                 }
             }).then(response => console.log(response));
@@ -419,94 +419,95 @@ async function friendsSearch() {
         const userArray = await response.json();
         const userArrayParse = JSON.parse(userArray);
         const currentUserLoggedIn = userArrayParse.find(objekt => objekt.id == userTrackId);
-        let newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
+        const newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
         friendsDivsFrame.innerHTML = "";
-        let currentArray = "";
         if (e.target.value.length > 0) {
-            currentArray = newArray.filter(objekt => {
+            const currentArray = newArray.filter(objekt => {
                 let username = objekt.username.includes(e.target.value);
                 let email = objekt.gmail.includes(e.target.value);
                 return username || email
             })
-        } else {
-            friendsDivsFrame.innerHTML = "";
-        }
-        console.log(currentArray);
-        for (let arr of currentArray) {
-            const sharedWishes = currentUserLoggedIn.wishlist.filter(item =>
-                arr.wishlist.some(friendItem => friendItem.countryName == item.countryName)
-            ).length;
 
-            console.log(sharedWishes)
-            const friendDiv = document.createElement("div");
-            friendDiv.classList.add("friend-profiles");
-            friendDiv.innerHTML = `
-            <img src="Images/WhiteLogin.png">
-            <p>${arr.username}</p>
-            <p>Common destinations: ${sharedWishes}</p>
-            <button class="follow-${arr.id}">Follow</button>
-            `
-            friendsDivsFrame.appendChild(friendDiv);
+            console.log(currentArray);
+            for (let arr of currentArray) {
+                const sharedWishes = currentUserLoggedIn.wishlist.filter(item =>
+                    arr.wishlist.some(friendItem => friendItem.countryName == item.countryName)
+                ).length;
 
-            const followButton = document.querySelector(`.follow-${arr.id}`);
-            followButton.addEventListener("click", async () => {
-                const response = await fetch("http://localhost:8000/friends/list", {
-                    method: "POST",
-                    body: JSON.stringify({ friendId: arr.id, currentUserId: userTrackId }),
-                    headers: { "Content-Type": "application/json" }
-                });
-                const result = await response.json();
-                console.log(response);
-                if (response.ok) {
-                    friendDiv.remove();
-                    newArray = newArray.filter(objekt => objekt.id != arr.id);
-                    const friendProfiles = document.createElement("div");
-                    friendProfiles.classList.add("friend-list-profiles")
-                    friendProfiles.id = `friend-${arr.id}`;
-                    friendProfiles.innerHTML = `
+                console.log(sharedWishes)
+                const friendDiv = document.createElement("div");
+                friendDiv.classList.add("friend-profiles");
+                friendDiv.innerHTML = `
+                  <img src="Images/WhiteLogin.png">
+                    <p>${arr.username}</p>
+                    <p>Common destinations: ${sharedWishes}</p>
+                    <button class="follow-${arr.id}">Follow</button>
+                 `
+                friendsDivsFrame.appendChild(friendDiv);
+
+                const followButton = document.querySelector(`.follow-${arr.id}`);
+                followButton.addEventListener("click", async () => {
+                    const response = await fetch("http://localhost:8000/friends/list", {
+                        method: "POST",
+                        body: JSON.stringify({ friendId: arr.id, currentUserId: userTrackId }),
+                        headers: { "Content-Type": "application/json" }
+                    });
+                    const result = await response.json();
+                    console.log(response);
+                    if (response.ok) {
+                        friendDiv.remove();
+                        newArray = newArray.filter(objekt => objekt.id != arr.id);
+                        const friendProfiles = document.createElement("div");
+                        friendProfiles.classList.add("friend-list-profiles")
+                        friendProfiles.id = `friend-${arr.id}`;
+                        friendProfiles.innerHTML = `
                      <img src="Images/WhiteLogin.png">
                     <p>${arr.username}</p>
                     <p>${arr.gmail}</p>
                     <button class="get-friend-wishlist" id="${arr.id}">Wishlist</button>
                     <button class="unfollow-friend" id="${arr.id}">Unfollow</button>
                     `
-                    friendsList.appendChild(friendProfiles);
+                        friendsList.appendChild(friendProfiles);
 
-                    const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
-                    friendsWishList.addEventListener("click", async () => {
-                        favoriteDestinationsUsers.innerHTML = "";
-                        const response = await fetch("http://localhost:8000/friends/list/user", {
-                            method: "POST",
-                            body: JSON.stringify({ id: friendsWishList.id }),
-                            headers: { "Content-Type": "application/json" }
-                        })
-                        const wishListResource = await response.json();
-                        if (response.ok) {
-                            favoriteH2User.textContent = `${wishListResource.name}s favorite destinations`
-                            showCurrentPage(favoriteDestinationsUsersContainer);
-                            for (let resource of wishListResource.wishlist) {
-                                let favoriteDestinationItem = document.createElement("div")
-                                favoriteDestinationItem.classList.add("favoriteItem");
-                                favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryName}"><div class="favoriteTextBox">The beautiful capital ${resource.countryName}</div>`
-                                favoriteDestinationsUsers.append(favoriteDestinationItem);
+                        const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
+                        friendsWishList.addEventListener("click", async () => {
+                            favoriteDestinationsUsers.innerHTML = "";
+                            const response = await fetch("http://localhost:8000/friends/list/user", {
+                                method: "POST",
+                                body: JSON.stringify({ id: friendsWishList.id }),
+                                headers: { "Content-Type": "application/json" }
+                            })
+                            const wishListResource = await response.json();
+                            if (response.ok) {
+                                favoriteH2User.textContent = `${wishListResource.name}s favorite destinations`
+                                showCurrentPage(favoriteDestinationsUsersContainer);
+                                for (let resource of wishListResource.wishlist) {
+                                    let favoriteDestinationItem = document.createElement("div")
+                                    favoriteDestinationItem.classList.add("favoriteItem");
+                                    favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryName}"><div class="favoriteTextBox">The beautiful capital ${resource.countryName}</div>`
+                                    favoriteDestinationsUsers.append(favoriteDestinationItem);
+                                }
                             }
-                        }
-                    })
-                    const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
-                    console.log(unfollowFriend)
-                    unfollowFriend.addEventListener("click", async () => {
-                        const response = await fetch("http://localhost:8000/friends/list", {
-                            method: "DELETE",
-                            body: JSON.stringify({ friendId: unfollowFriend.id, currentUserId: userTrackId }),
-                            headers: { "Content-Type": "application/json" }
                         })
-                        console.log(response);
-                        if (response.ok) {
-                            document.querySelector(`#friend-${unfollowFriend.id}`).remove();
-                        }
-                    })
-                }
-            })
+                        const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
+                        console.log(unfollowFriend)
+                        unfollowFriend.addEventListener("click", async () => {
+                            const response = await fetch("http://localhost:8000/friends/list", {
+                                method: "DELETE",
+                                body: JSON.stringify({ friendId: unfollowFriend.id, currentUserId: userTrackId }),
+                                headers: { "Content-Type": "application/json" }
+                            })
+                            console.log(response);
+                            if (response.ok) {
+                                document.querySelector(`#friend-${unfollowFriend.id}`).remove();
+                            }
+                        })
+                    }
+                })
+            }
+        }
+        else {
+            friendsDivsFrame.innerHTML = "";
         }
     })
 }
@@ -528,7 +529,7 @@ submenuFriendsButton.addEventListener("click", () => {
         popUp.textContent = "User needs to be logged in to look at friends";
         clearTimeout(popUpTimeout);
         popUpTimeout = setTimeout(() => {
-            popUp.classList.add("hide"); 
+            popUp.classList.add("hide");
         }, 4000);
     }
 })
@@ -579,7 +580,7 @@ favoriteSubContainer.addEventListener("click", async function () {
                     popUp.textContent = "Successfully deleted the city!";
                     clearTimeout(popUpTimeout);
                     popUpTimeout = setTimeout(() => {
-                        popUp.classList.add("hide"); 
+                        popUp.classList.add("hide");
                     }, 4000);
                 }
             })
@@ -590,7 +591,7 @@ favoriteSubContainer.addEventListener("click", async function () {
         popUp.textContent = userData.error;
         clearTimeout(popUpTimeout);
         popUpTimeout = setTimeout(() => {
-            popUp.classList.add("hide"); 
+            popUp.classList.add("hide");
         }, 4000);
     }
 })
@@ -603,7 +604,7 @@ profileButtonContainer.addEventListener("click", async function () {
         body: JSON.stringify({ userId: userTrackId })
     })
     const userData = await profileInfoResponse.json()
-    if (profileInfoResponse.status == 200) {
+    if (profileInfoResponse.status == 202) {
         let username = userData.username
         let gmail = userData.gmail
         menuSubMenu.classList.add("hide");
@@ -620,7 +621,7 @@ profileButtonContainer.addEventListener("click", async function () {
         popUp.textContent = userData.error;
         clearTimeout(popUpTimeout);
         popUpTimeout = setTimeout(() => {
-            popUp.classList.add("hide"); 
+            popUp.classList.add("hide");
         }, 4000);
     }
 })
