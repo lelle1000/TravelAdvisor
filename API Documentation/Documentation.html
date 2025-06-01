@@ -15,102 +15,215 @@
         <div id="rightNav" class="navHover"><a  class="noLinkStyle" href="https://github.com/lelle1000/TravelAdvisor/commits/main/" target="_blank">Commits and issues</a></div>
     </div>
     <main id="InformationContainer">
-        <div>
+        <div class="informationdiv">
             <h2>Travel Advisor</h2>
             <p>Book your destination through Travel Advisor! A database featuring every capital city on Earth</p>
         </div>
-        <div>
+        <div class="informationdiv">
             <h2>About this project</h2>
             <p>This project was created to facilitate bookings through a worldwide destination database and help people discover and explore capital cities around the globe.</p>
         </div>
-        <div>
+        <div class="informationdiv">
             <h2>Important information</h2>
             <p>To access this API, the user has to be signed in or logged in</p>
         </div>
-        <div>
+        <div class="informationdiv">
             <h2>Access API</h2>
             <ul>
                 <li>To access this API, users <span class="BOLD">be signed in or logged in.</span></li>
                 <li>Use the correct endpoints listed below for proper functionality.</li>
             </ul>
         </div>
-        <div>
+        <div class="informationdiv">
             <h2>API Endpoints</h2>
 
         </div>
-        <div>
+        <div class="EndPointDiv">
             <h2>/homepage</h2>
             <ul>
-                <li><span class="green">GET</span>: Returns random destination UI cards, including images and capital names, from a local API in JSON format.</li>
-                <li><span class="blue">POST</span>: Accepts a <span class="BOLD">userId</span> and responds with the user's login status in JSON format.</li>
+                <li><span class="green BOLD">GET</span>: Returns random destination UI cards, including images and capital names, from a local API in JSON format.</li>
+                <li><span class="blue BOLD">POST</span>: Accepts a <span class="BOLD">userId</span> and responds with the user's login status in JSON format.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="green BOLD">GET</span> <span class="BOLD">Status Codes:</span></li>
+                <li class="indent">201 Created - Random destination data returned successfully</li>
+                <li class="indent">400 Bad Request - Countries list is empty or invalid</li>
+                <li class="indent">404 Not Found - Valid country or image could not be found</li>
+                <li class="indent">502 Bad Gateway - External API fetch failed</li>
+            </ul>
+
+            <ul>
+                <li><span class="blue BOLD">POST</span> <span class="BOLD">Status Codes:</span></li>
+                <li class="indent">202 Accepted - User data returned successfully</li>
+                <li class="indent">404 Not Found - UserId missing or user not found</li>
+                <li class="indent">401 Unauthorized - User not logged in</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/homepage/signin</h2>
             <ul>
-                <li><span class="blue">POST</span>: Handles user account creation.</li>
+                <li><span class="blue BOLD">POST</span>: Handles user account creation.</li>
                 <li class="indent">Adds the new user to the database.</li>
                 <li class="indent">Returns the newly created account’s unique ID in JSON format.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="blue BOLD">POST</span> <span class="BOLD">Status Codes:</span></li>
+                <li class="indent">201 Created - New user account successfully created</li>
+                <li class="indent">400 Bad Request - Either name, password or email is missing - Password do not contain a special character - Password is less than 8 characters long - Email does not include @</li>
+                <li class="indent">409 Conflict - An account with the same name, password, and email already exists</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/homepage/loggedin</h2>
             <ul>
-                <li><span class="blue">POST</span>: Verifies user credentials (username and password).</li>
+                <li><span class="blue BOLD">POST</span>: Verifies user credentials (username and password).</li>
                 <li class="indent">Checks the database for a match.</li>
                 <li class="indent">Returns the login status in JSON format.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="blue BOLD">POST</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">202 Accepted - Login is successfull. User credentials are valid</li>
+                <li class="indent">400 Bad Request - One or both of the required fields (name, password) are missing</li>
+                <li class="indent">404 Not Found - Username or password incorrect</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/searchpage</h2>
             <ul>
-                <li><span class="green">GET</span>: Returns all available destinations from the database in JSON format.</li>
+                <li><span class="green BOLD">GET</span>: Returns all available destinations from the database in JSON format.</li>
                 <li class="indent">Users can search and read about each destination.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="green BOLD">GET</span> <span class="BOLD">Status Codes:</span></li>
+                <li class="indent">202 Accepted - Request succeeded and matching country results returned</li>
+                <li class="indent">400 Bad Request - serachfield is missing in the query string or is empty</li>
+                <li class="indent">404 Not Found - Fetching country data from external API failed</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/informationpage</h2>
             <ul>
-                <li><span class="blue">POST</span>: Accepts the destination selected by the user.</li>
+                <li><span class="blue BOLD">POST</span>: Accepts the destination selected by the user.</li>
                 <li class="indent">Returns the destination’s image and capital name in JSON format.</li>
                 <li class="indent">Used to display detailed information on a separate page.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="blue BOLD">POST</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">200 OK - Image URL was successfully retrieved and returned</li>
+                <li class="indent">404 Not Found - Fetching the image from Unslpash API failed</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/destination/wishlist</h2>
             <ul>
-                <li><span class="blue">POST</span>: Adds the user’s selected favorite destination to their wishlist in the database.</li>
+                <li><span class="blue BOLD">POST</span>: Adds the user’s selected favorite destination to their wishlist in the database.</li>
                 <li class="indent">Returns a success status in JSON format.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="blue BOLD">POST</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">202 Accepted - The wish was successfully added to the wishlist</li>
+                <li class="indent">409 Conflict - The same wish (same countryCapital) already exists in the user's wishlist</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/friends/list</h2>
             <ul>
-                <li><span class="green">GET</span>: Returns the entire user database in JSON format so users can view and manage friends.</li>
-                <li><span class="blue">POST</span>: Adds a friend to the user’s list and updates the database.</li>
-                <li><span class="red">DELETE</span>: Removes a friend from the user’s list.</li>
+                <li><span class="green BOLD">GET</span>: Returns the entire user database in JSON format so users can view and manage friends.</li>
+                <li><span class="blue BOLD">POST</span>: Adds a friend to the user’s list and updates the database.</li>
+                <li><span class="red BOLD">DELETE</span>: Removes a friend from the user’s list.</li>
                 <li class="indent">All actions return a JSON-formatted status response.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="green BOLD">GET</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">200 OK - Returns the entire user JSON unparsed</li>
+                <li class="indent">404 Not Found - The user list is empty</li>
+            </ul>
+
+            <ul>
+                <li><span class="blue BOLD">POST</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">202 Accepted - Friend successfully added</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+
+            <ul>
+                <li><span class="red BOLD">DELETE</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">202 Accepted - Friend sucessfully removed</li>
+                <li class="indent">404 Not Found - User not found when trying to remove friend</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
+            <h2>/friends/list/user</h2>
+            <ul>
+                <li><span class="blue BOLD">POST</span>: Retrieves the wishlist (favorite cities) of a specific friend based on their username or ID.</li>
+                <li class="indent">Returns the friend’s username and wishlist in JSON format.</li>
+            </ul>
+        </div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="blue BOLD">POST</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">202 Accepted - Successfully returns the user's wishlist and username</li>
+                <li class="indent">400 Bad Request - If the request body is missing the id field</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/favorites</h2>
             <ul>
-                <li><span class="blue">POST</span>: Adds a destination to the user's favorites list in the database.</li>
+                <li><span class="blue BOLD">POST</span>: Adds a destination to the user's favorites list in the database.</li>
                 <li class="indent">Returns a status message in JSON format.</li>
             </ul>
         </div>
-        <div>
+        <div class="StatusCodes">
+            <ul>
+                <li><span class="blue BOLD">POST</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">200 OK - Successfully returned the current user data with wishlist</li>
+                <li class="indent">400 Bad Request - If the user ID is missing or user is not logged in (user not found)</li>
+                <li class="indent">404 Not Found - If the user's wishlist is empty</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+
+            <ul>
+                <li><span class="red BOLD">DELETE</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">200 OK - Successfully deleted the specified favorite from the user's wishlist</li>
+                <li class="indent">404 Not Found - If the user is not found by ID</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
+            </ul>
+        </div>
+        <div class="EndPointDiv">
             <h2>/booked/loggedin</h2>
             <ul>
-                <li><span class="blue">POST</span>: Creates a new booking instance for the logged-in user.</li>
+                <li><span class="blue BOLD">POST</span>: Creates a new booking instance for the logged-in user.</li>
                 <li class="indent">Returns the booking history and a status message in JSON format.</li>
             </ul>
         </div>
-        <div>
-            <h2>/friends/list/user</h2>
+        <div class="StatusCodes">
             <ul>
-                <li><span class="blue">POST</span>: Retrieves the wishlist (favorite cities) of a specific friend based on their username or ID.</li>
-                <li class="indent">Returns the friend’s username and wishlist in JSON format.</li>
+                <li><span class="blue BOLD">POST</span><span class="BOLD"> Status Codes:</li>
+                <li class="indent">201 Created - Destination successfully booked</li>
+                <li class="indent">400 Bad Request - If the user ID is missing or destination data (destination and capital) is missing</li>
+                <li class="indent">404 Not Found - If the user is not found</li>
+                <li class="indent">409 Conflict - If the user tries to book the same destination twice</li>
+                <li class="indent">415 Unsupported Media Type - Content-Type is not application/json</li>
             </ul>
         </div>
     </main>

@@ -39,13 +39,16 @@ body {
 }
 
 #InformationContainer div {
-    padding: 20px;
-    border-bottom: 1px solid gray;
-    border-left: 1px solid gray;
     width: 1000px;
     background-color: rgb(230, 230, 230);
     text-align: left;
     
+}
+
+.EndPointDiv {
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    padding: 20px;
 }
 
 .green {
@@ -66,4 +69,15 @@ body {
 
 .indent {
     margin-left: 20px;
+}
+
+.StatusCodes {
+    border-left: 1px solid gray;
+    padding: 0px 20px 20px 20px;
+}
+
+.informationdiv {
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    padding: 20px;
 }

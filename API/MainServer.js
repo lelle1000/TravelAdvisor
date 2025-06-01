@@ -291,6 +291,10 @@ async function handler(request) {
     if (friendsListMatch) {
         if (request.method == "GET") {
             const userJson = await Deno.readTextFile("./user.json");
+            let userArray = JSON.parse(userJson)
+            if(userArray.length === 0) {
+                return new Response(JSON.stringify({ error: "friendlistArray is empty"}), { status: 404, headers: headersCORS})
+            }
             return new Response(JSON.stringify(userJson), { headers: headersCORS, status: 200 })
         }
 
@@ -310,10 +314,17 @@ async function handler(request) {
         }
 
         if (request.method == "DELETE") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const userData = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
             const userObject = userArray.findIndex(object => object.id == userData.currentUserId)
+            if (userObject === -1) {
+                return new Response(JSON.stringify({ error: "User not found"}), { status: 404, headers: headersCORS })
+            }
             userArray[userObject].friendsList = userArray[userObject].friendsList.filter(object => object.id != userData.friendId);
             await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
             return new Response(JSON.stringify("Unfolled Succesfully"), { status: 202, headers: headersCORS })
@@ -327,6 +338,9 @@ async function handler(request) {
                 return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
             }
             const data = await request.json();
+            if (!data.id) {
+                return new Response(JSON.stringify({ error: "User ID is missing" }), { status: 400, headers: headersCORS })
+            }
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
             const userObject = userArray.find(object => object.id == data.id);
@@ -346,25 +360,32 @@ async function handler(request) {
             let UserJson = await Deno.readTextFile("./user.json");
             let UserArray = JSON.parse(UserJson)
 
-            let currentUser = UserArray.find(correctId => correctId.id == requestUserTrackId)
+            let currentUser = UserArray.find(correctId => correctId.id === requestUserTrackId)
 
             if (!currentUser) {
                 return new Response(JSON.stringify({ error: "User needs to be logged in to view their wishlist" }), { status: 400, headers: headersCORS })
             } else if (currentUser.wishlist.length === 0) {
                 return new Response(JSON.stringify({ error: "Users wishlist is empty" }), { status: 404, headers: headersCORS })
             } else {
-                return new Response(JSON.stringify({ currentUser }), { status: 202, headers: headersCORS })
+                return new Response(JSON.stringify({ currentUser }), { status: 200, headers: headersCORS })
             }
         }
 
         if (request.method === "DELETE") {
+            const contentType = request.headers.get("Content-Type");
+            if (contentType !== "application/json") {
+                return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
+            }
             const favoriteData = await request.json();
             const favoriteUserData = await Deno.readTextFile("./user.json");
             const parsedFavoriteUserData = JSON.parse(favoriteUserData);
-            const findFavoriteUser = parsedFavoriteUserData.findIndex(user => user.id == favoriteData.userId);
+            const findFavoriteUser = parsedFavoriteUserData.findIndex(user => user.id === favoriteData.userId);
+            if(findFavoriteUser === -1) {
+                return new Response(JSON.stringify({ error: "User not found"}), { status: 404, headers: headersCORS })
+            }
             parsedFavoriteUserData[findFavoriteUser].wishlist = parsedFavoriteUserData[findFavoriteUser].wishlist.filter(favoriteCountry => favoriteCountry.countryCapital !== favoriteData.countryCapital);
             await Deno.writeTextFile("./user.json", JSON.stringify(parsedFavoriteUserData, null, 2));
-            return new Response("Successfully deleted!", { status: 202, headers: headersCORS })
+            return new Response(JSON.stringify({ message: "Successfully deleted!"}), { status: 200, headers: headersCORS })
         }
 
     }
@@ -376,12 +397,16 @@ async function handler(request) {
                 return new Response(JSON.stringify({ error: "Content-type must be application/json" }), { status: 415, headers: headersCORS})
             }
             const bookingData = await request.json()
-            if (bookingData.userId == null) {
+            if (!bookingData.userId) {
                 return new Response(JSON.stringify({ error: "User needs to be logged in to book!" }), { status: 400, headers: headersCORS })
             } else {
                 let UserJson = await Deno.readTextFile("./user.json");
                 let userArray = JSON.parse(UserJson)
-                let userInfo = userArray.find(user => user.id == bookingData.userId)
+                let userInfo = userArray.find(user => user.id === bookingData.userId)
+
+                if (!userInfo) {
+                    return new Response(JSON.stringify({ error: "User not found!"}), { status: 404, headers: headersCORS})
+                }
 
                 let checkForBooking = await Deno.readTextFile("./bookings.json")
                 let parseCheckForBooking = JSON.parse(checkForBooking)
