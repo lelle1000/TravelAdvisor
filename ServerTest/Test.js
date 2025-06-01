@@ -12,10 +12,10 @@ const endpoints = {
     bookedLoggedIn: "http://localhost:8000/booked/loggedin" // Test 10
 }
 
-function responseCHECK(divId, color, response) {
+function responseCHECK(divId, color, response, endpoint) {
     const container = document.querySelector(`${divId}`);
     container.style.backgroundColor = color;
-    container.textContent = `${response.status}, ${response.statusText}`
+    container.innerHTML = `${response.status}, ${response.statusText}<br>${endpoint}`;
 }
 
 function catchError(divId, error) {
@@ -30,9 +30,10 @@ async function Test1Get() {
         const response = await fetch(endpoints.homePage)
         console.log(response);
         if (response.ok) {
-            responseCHECK("#test1", "green", response);
+            console.log(endpoints.homePage)
+            responseCHECK("#test1", "green", response, endpoints.homePage);
         } else {
-            responseCHECK("#test1", "red", response)
+            responseCHECK("#test1", "red", response, endpoints.homePage)
         }
     } catch (error) {
         catchError("#test1", error);
@@ -47,9 +48,9 @@ async function Test1Post() {
             body: JSON.stringify({ name: "hasse", password: "123456789%", email: "hasse@gmail.com" })
         })
         if (response.ok) {
-            responseCHECK("#test2", "green", response);
+            responseCHECK("#test2", "green", response, endpoints.homePageSignIn);
         } else {
-            responseCHECK("#test2", "red", response);
+            responseCHECK("#test2", "red", response, endpoints.homePageSignIn);
         }
     } catch (error) {
         catchError("#test2", error);
@@ -64,9 +65,9 @@ async function Test2Post() {
             body: JSON.stringify({ name: "hasse", password: "123456789%" })
         })
         if (response.ok) {
-            responseCHECK("#test3", "green", response);
+            responseCHECK("#test3", "green", response, endpoints.homePageLoggedIn);
         } else {
-            responseCHECK("#test3", "red", response);
+            responseCHECK("#test3", "red", response, endpoints.homePageLoggedIn);
         }
     } catch (error) {
         catchError("#test3", error);
@@ -90,9 +91,9 @@ async function Test3Post() {
                 })
         })
         if (response.ok) {
-            responseCHECK("#test4", "green", response);
+            responseCHECK("#test4", "green", response, endpoints.homePage);
         } else {
-            responseCHECK("#test4", "red", response);
+            responseCHECK("#test4", "red", response, endpoints.homePage);
         }
     } catch (error) {
         catchError("#test4", error);
@@ -103,9 +104,9 @@ async function Test4Get() {
     try {
         const response = await fetch(endpoints.searchPageLoggedIn)
         if (response.ok) {
-            responseCHECK("#test5", "green", response);
+            responseCHECK("#test5", "green", response, endpoints.searchPageLoggedIn);
         } else {
-            responseCHECK("#test5", "red", response);
+            responseCHECK("#test5", "red", response, endpoints.searchPageLoggedIn);
         }
     } catch (error) {
         catchError("#test5", error);
@@ -120,9 +121,9 @@ async function Test5Post() {
             body: JSON.stringify({ capital: "Mogadishu" })
         })
         if (response.ok) {
-            responseCHECK("#test6", "green", response);
+            responseCHECK("#test6", "green", response, endpoints.informationPageLoggedIn);
         } else {
-            responseCHECK("#test6", "red", response);
+            responseCHECK("#test6", "red", response, endpoints.informationPageLoggedIn);
         }
     } catch (error) {
         catchError("#test6", error);
@@ -141,9 +142,9 @@ async function Test6Post() {
             })
         })
         if (response.ok) {
-            responseCHECK("#test7", "green", response);
+            responseCHECK("#test7", "green", response, endpoints.addDestinationWishlist);
         } else {
-            responseCHECK("#test7", "red", response);
+            responseCHECK("#test7", "red", response, endpoints.addDestinationWishlist);
         }
     } catch (error) {
         catchError("#test7", error);
@@ -154,9 +155,9 @@ async function Test7Get() {
     try {
         const response = await fetch(endpoints.friendsList)
         if (response.ok) {
-            responseCHECK("#test8", "green", response);
+            responseCHECK("#test8", "green", response, endpoints.friendsList);
         } else {
-            responseCHECK("#test8", "red", response);
+            responseCHECK("#test8", "red", response, endpoints.friendsList);
         }
     } catch (error) {
         catchError("#test8", error);
@@ -171,9 +172,9 @@ async function Test7Post() {
             body: JSON.stringify({ id: 1 })
         })
         if (response.ok) {
-            responseCHECK("#test9", "green", response);
+            responseCHECK("#test9", "green", response, endpoints.friendsList);
         } else {
-            responseCHECK("#test9", "red", response);
+            responseCHECK("#test9", "red", response, endpoints.friendsList);
         }
     } catch (error) {
         catchError("#test9", error);
@@ -188,9 +189,9 @@ async function Test7Delete() {
             body: JSON.stringify({ friendId: 2, currentUserId: 1 })
         })
         if (response.ok) {
-            responseCHECK("#test10", "green", response);
+            responseCHECK("#test10", "green", response, endpoints.friendsList);
         } else {
-            responseCHECK("#test10", "red", response);
+            responseCHECK("#test10", "red", response, endpoints.friendsList);
         }
     } catch (error) {
         catchError("#test10", error);
@@ -205,9 +206,9 @@ async function Test8Post() {
             body: JSON.stringify({ id: 2 })
         })
         if (response.ok) {
-            responseCHECK("#test11", "green", response);
+            responseCHECK("#test11", "green", response, endpoints.friendsListUser);
         } else {
-            responseCHECK("#test11", "red", response);
+            responseCHECK("#test11", "red", response, endpoints.friendsListUser);
         }
     } catch (error) {
         catchError("#test11", error);
@@ -222,9 +223,9 @@ async function Test9Post() {
             body: JSON.stringify(1)
         })
         if (response.ok) {
-            responseCHECK("#test12", "green", response);
+            responseCHECK("#test12", "green", response, endpoints.favorites);
         } else {
-            responseCHECK("#test12", "red", response);
+            responseCHECK("#test12", "red", response, endpoints.favorites);
         }
     } catch (error) {
         catchError("#test12", error);
@@ -239,9 +240,9 @@ async function Test9Delete() {
             body: JSON.stringify({ userId: 1, countryCapital: "Mogadishu" })
         })
         if (response.ok) {
-            responseCHECK("#test13", "green", response);
+            responseCHECK("#test13", "green", response, endpoints.favorites);
         } else {
-            responseCHECK("#test13", "red", response);
+            responseCHECK("#test13", "red", response, endpoints.favorites);
         }
     } catch (error) {
         catchError("#test13", error);
@@ -256,9 +257,9 @@ async function Test10Post() {
             body: JSON.stringify({ userId: 1, destination: "Mogadishu" })
         })
         if (response.ok) {
-            responseCHECK("#test14", "green", response);
+            responseCHECK("#test14", "green", response, endpoints.bookedLoggedIn);
         } else {
-            responseCHECK("#test14", "red", response);
+            responseCHECK("#test14", "red", response, endpoints.bookedLoggedIn);
         }
     } catch (error) {
         catchError("#test14", error);
