@@ -81,14 +81,10 @@ function showCurrentPage(page) {
 headerLogoContainer.addEventListener("click", () => {
     SearchLocation.value = ""
     popupContainer.forEach(popup => popup.classList.add("hide"));
-    loginMessage.textContent = "";
-    signinMessage.textContent = "";
-
     showCurrentPage(homePageDisplay)
 })
 
 loginContainer.addEventListener("click", () => {
-    signinMessage.textContent = "";
     if (loginPopup.classList.contains("hide")) {
         loginPopup.classList.remove("hide")
     } else if (!loginPopup.classList.contains("hide") || !signInPopup.classList.contains("hide")) {
@@ -98,7 +94,6 @@ loginContainer.addEventListener("click", () => {
 })
  
 logoutContainer.addEventListener("click", () => {
-    signinMessage.textContent = "";
     logoutContainer.classList.add("hide");
     loginContainer.classList.remove("hide");
     userTrackId = null;
@@ -115,7 +110,6 @@ logoutContainer.addEventListener("click", () => {
 
 signInPopupLink.addEventListener("click", () => {
     signInPopup.classList.remove("hide")
-    loginMessage.textContent = "";
 })
 
 let onlyOneOfSameCountries = [];
@@ -241,9 +235,9 @@ logInButton.addEventListener("click", () => {
                 logoutContainer.classList.remove("hide");
                 logInNameInput.value = "";
                 logInPasswordInput.value = "";
-                loginMessage.textContent = "";
             }, 2000);
         } else {
+            popUp.classList.remove("green");
             popUp.classList.remove("hide");
             popUp.textContent = resource.body.error;
             clearTimeout(popUpTimeout);
@@ -290,9 +284,9 @@ signInButton.addEventListener("click", () => {
                 signInNameInput.value = "";
                 signInPasswordInput.value = "";
                 signInEmailInput.value = "";
-                signinMessage.textContent = "";
             }, 2000);
         } else {
+            popUp.classList.remove("green");
             popUp.classList.remove("hide");
             popUp.textContent = resource.body.error;
             clearTimeout(popUpTimeout);
@@ -396,6 +390,7 @@ async function wishCheck() {
                     wish.style.backgroundColor = "yellow";
                     return response.json();
                 } else {
+                    popUp.classList.remove("green");
                     popUp.classList.remove("hide");
                     popUp.textContent = response.error;
                     clearTimeout(popUpTimeout);
@@ -528,6 +523,7 @@ submenuFriendsButton.addEventListener("click", () => {
     if (loginStatusGlobal) {
         showCurrentPage(friendsPageDisplay)
     } else {
+        popUp.classList.remove("green");
         popUp.classList.remove("hide");
         popUp.textContent = "User needs to be logged in to look at friends";
         clearTimeout(popUpTimeout);
@@ -557,7 +553,7 @@ favoriteSubContainer.addEventListener("click", async function () {
     const userData = await response.json()
 
     if (response.ok) {
-       showCurrentPage(favoriteContainer);
+        showCurrentPage(favoriteContainer);
         const favoriteDestinations = document.querySelector(".favoriteDestinations");
         favoriteDestinations.innerHTML = ""
         for (let favorite of userData.currentUser.wishlist) {
@@ -567,6 +563,7 @@ favoriteSubContainer.addEventListener("click", async function () {
             favoriteDestinations.append(favoriteDestinationItem)
         }
     } else {
+        popUp.classList.remove("green");
         popUp.classList.remove("hide");
         popUp.textContent = userData.error;
         clearTimeout(popUpTimeout);
@@ -596,6 +593,7 @@ profileButtonContainer.addEventListener("click", async function () {
             profileInfoBox.classList.add("hide");
         })
     } else {
+        popUp.classList.remove("green");
         popUp.classList.remove("hide");
         popUp.textContent = userData.error;
         clearTimeout(popUpTimeout);
