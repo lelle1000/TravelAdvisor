@@ -113,7 +113,6 @@ signInPopupLink.addEventListener("click", () => {
 })
 
 let onlyOneOfSameCountries = [];
-
 async function getImages() {
     const response = await fetch("http://localhost:8000/homepage")
     if (!response.ok) {
@@ -130,10 +129,8 @@ async function getImages() {
 
     if (!onlyOneOfSameCountries.includes(data.capital)) {
         onlyOneOfSameCountries.push(data.capital)
-
         let DestinationCard = document.createElement("div")
         DestinationCard.classList.add("destination-info-pic")
-
         DestinationCard.innerHTML = `
             <div class="top-image">
                 <img src="${data.url}" alt="Picture of ${data.capital}">
@@ -142,11 +139,8 @@ async function getImages() {
                 Travel to ${data.capital}
             </div>`;
         UiCardGrid.append(DestinationCard)
-
         DestinationCard.addEventListener("click", async function () {
-
             let continentText = "";
-
             if (data.continent == "Europe") {
                 continentText = "a culturally rich part of Europe with many astonishing monuments"
             } else if (data.continent == "Asia") {
@@ -209,11 +203,9 @@ async function getAllImages() {
             addedImages++
         }
     }
-
 }
 
 getAllImages();
-
 
 logInButton.addEventListener("click", () => {
     async function logIn() {
@@ -256,7 +248,6 @@ logInButton.addEventListener("click", () => {
         }
     }
 })
-
 
 signInButton.addEventListener("click", () => {
     async function signIn() {
@@ -436,8 +427,6 @@ window.addEventListener("scroll", () => {
     }
 })
 
-
-
 async function friendsSearch() {
     const response = await fetch("http://localhost:8000/friends/list")
     const userArray = await response.json();
@@ -577,10 +566,6 @@ async function friendsSearch() {
     })
 }
 
-
-
-
-
 closeCross.addEventListener("click", () => {
     friendsPopup.classList.add("hide");
     searchFriendsInput.value = "";
@@ -605,7 +590,6 @@ submenuFriendsButton.addEventListener("click", () => {
     }
 })
 
-
 menuButton.addEventListener("click", () => {
     if (menuSubMenu.classList.contains("hide")) {
         menuSubMenu.classList.remove("hide");
@@ -613,7 +597,6 @@ menuButton.addEventListener("click", () => {
         menuSubMenu.classList.add("hide");
     }
 })
-
 
 favoriteSubContainer.addEventListener("click", async function () {
     const response = await fetch("http://localhost:8000/favorites", {
@@ -666,7 +649,6 @@ favoriteSubContainer.addEventListener("click", async function () {
         }, 4000);
     }
 })
-
 
 profileButtonContainer.addEventListener("click", async function () {
     const profileInfoResponse = await fetch("http://localhost:8000/homepage", {
