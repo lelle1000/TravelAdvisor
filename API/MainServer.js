@@ -387,7 +387,7 @@ async function handler(request) {
                 let parseCheckForBooking = JSON.parse(checkForBooking)
 
                 if (parseCheckForBooking.some(duplicate => duplicate.id === bookingData.userId && duplicate.destination && duplicate.destination.capital === bookingData.destination.capital)){
-                    return new Response("Can't book the same destination twice", { status: 409, headers: headersCORS });
+                    return new Response(JSON.stringify({ error: "Can't book the same destination more than once!" }), { status: 409, headers: headersCORS });
                 }
 
                 
