@@ -332,7 +332,7 @@ SearchButton.addEventListener("click", async () => {
 
             const imgData = await response.json()
             let continentText = "";
-            let data = { country: countryName, capital: capital, continent: continent }
+            let destination = { country: countryName, capital: capital, continent: continent }
 
             if (continent == "Europe") {
                 continentText = "a culturally rich part of Europe with many astonishing monuments"
@@ -359,7 +359,7 @@ SearchButton.addEventListener("click", async () => {
                 const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ userId: userTrackId, destination: data })
+                    body: JSON.stringify({ userId: userTrackId, destination: destination })
                 })
                 if (bookingResponse.status == 201) {
                     console.log("Destination have been booked!");
