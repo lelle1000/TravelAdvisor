@@ -415,19 +415,27 @@ async function wishCheck() {
                 headers: { "Content-Type": "application/json" }
             })
             request.then(response => {
-                if (response.ok) {
-                    wish.style.backgroundColor = "yellow";
-                    return response.json();
-                } else {
-                    popUp.classList.remove("green");
-                    popUp.classList.remove("hide");
-                    popUp.textContent = response.error;
-                    clearTimeout(popUpTimeout);
-                    popUpTimeout = setTimeout(() => {
-                        popUp.classList.add("hide");
-                    }, 4000);
-                }
-            }).then(response => console.log(response));
+                return response.json().then(jsonData => {
+                    if (response.ok) {
+                        wish.style.backgroundColor = "yellow";
+                        popUp.classList.add("green");
+                        popUp.classList.remove("hide");
+                        popUp.textContent = jsonData.message;
+                        clearTimeout(popUpTimeout);
+                        popUpTimeout = setTimeout(() => {
+                            popUp.classList.add("hide");
+                        }, 4000);
+                    } else {
+                        popUp.classList.remove("green");
+                        popUp.classList.remove("hide");
+                        popUp.textContent = jsonData.error;
+                        clearTimeout(popUpTimeout);
+                        popUpTimeout = setTimeout(() => {
+                            popUp.classList.add("hide");
+                        }, 4000);
+                    }
+                })
+            })
         })
     }
 }

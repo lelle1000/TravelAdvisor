@@ -283,7 +283,7 @@ async function handler(request) {
 
             userArray[userIndex].wishlist.push(requestData);
             await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
-            return new Response(JSON.stringify("Wish added in list!"), { status: 202, headers: headersCORS });
+            return new Response(JSON.stringify({ message: "Wish added in list!" }), { status: 202, headers: headersCORS });
         }
     }
 
