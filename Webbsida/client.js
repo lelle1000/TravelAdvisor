@@ -117,7 +117,6 @@ let onlyOneOfSameCountries = [];
 async function getImages() {
     const response = await fetch("http://localhost:8000/homepage")
     if (!response.ok) {
-        // window.history.pushState({}, "", "/homepage/country/photos");
         return null;
     }
     const text = await response.text();
