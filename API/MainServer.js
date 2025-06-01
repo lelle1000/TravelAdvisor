@@ -239,7 +239,7 @@ async function handler(request) {
             const userIds = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
-            const currentUserIndex = userArray.findIndex(objekt => objekt.id == userIds.currentUserId);
+            const currentUserIndex = userArray.findIndex(object => object.id == userIds.currentUserId);
             const friendUser = userArray.find(objekt => objekt.id == userIds.friendId)
             userArray[currentUserIndex].friendsList.push(friendUser);
             await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
@@ -247,11 +247,12 @@ async function handler(request) {
         }
 
         if (request.method == "DELETE") {
-            const userId = await request.json();
+            const userData = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
-            const newUpdatedArray = userArray.filter(objekt => objekt.id != userId.id);
-            await await Deno.writeTextFile("./user.json", JSON.stringify(newUpdatedArray, null, 2));
+            const userObject = userArray.findIndex(object => object.id == userData.currentUserId)
+            userArray[userObject].friendsList = userArray[userObject].friendsList.filter(object => object.id != userData.friendId);
+            await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
             return new Response(JSON.stringify("Unfolled Succesfully"), { status: 200, headers: headersCORS })
         }
     }
@@ -261,8 +262,8 @@ async function handler(request) {
             const data = await request.json();
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
-            const userObjekt = userArray.find(objekt => objekt.id == data.id);
-            return new Response(JSON.stringify({ wishlist: userObjekt.wishlist, name: userObjekt.username }), { status: 200, headers: headersCORS });
+            const userObject = userArray.find(object => object.id == data.id);
+            return new Response(JSON.stringify({ wishlist: userObject.wishlist, name: userObject.username }), { status: 200, headers: headersCORS });
 
         }
     }

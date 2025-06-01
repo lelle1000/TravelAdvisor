@@ -420,13 +420,13 @@ window.addEventListener("scroll", () => {
 })
 
 async function friendsSearch() {
-    const response = await fetch("http://localhost:8000/friends/list")
-    const userArray = await response.json();
-    const userArrayParse = JSON.parse(userArray);
-    const currentUserLoggedIn = userArrayParse.find(objekt => objekt.id == userTrackId);
-    let newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
     //console.log(userArrayParse)
-    searchFriendsInput.addEventListener("keydown", (e) => {
+    searchFriendsInput.addEventListener("keydown", async (e) => {
+        const response = await fetch("http://localhost:8000/friends/list")
+        const userArray = await response.json();
+        const userArrayParse = JSON.parse(userArray);
+        const currentUserLoggedIn = userArrayParse.find(objekt => objekt.id == userTrackId);
+        let newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
         friendsDivsFrame.innerHTML = "";
         let currentArray = "";
         if (e.target.value.length > 0) {
@@ -505,7 +505,7 @@ async function friendsSearch() {
                     unfollowFriend.addEventListener("click", async () => {
                         const response = await fetch("http://localhost:8000/friends/list", {
                             method: "DELETE",
-                            body: JSON.stringify({ id: unfollowFriend.id }),
+                            body: JSON.stringify({ friendId: unfollowFriend.id, currentUserId: userTrackId }),
                             headers: { "Content-Type": "application/json" }
                         })
                         console.log(response);
