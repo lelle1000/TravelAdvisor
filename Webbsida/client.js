@@ -64,6 +64,9 @@ const favoriteDestinationsUsers = document.querySelector("#favoriteDestinationsU
 const favoriteDestinationsUsersContainer = document.querySelector("#favoriteDestinationsUsersContainer");
 const favoriteH2User = document.querySelector("#favoriteH2User");
 
+const errorPopUp = document.querySelector("#errorPopUp");
+let popUpTimeout;
+
 function showCurrentPage(page) {
 
     const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup, favoriteDestinationsUsersContainer]
@@ -402,7 +405,12 @@ async function wishCheck() {
                     wish.style.backgroundColor = "yellow";
                     return response.json();
                 } else {
-                    console.log("Wish did not go through! Can't add the same wish!");
+                    errorPopUp.classList.remove("hide");
+                    errorPopUp.textContent = response.error;
+                    clearTimeout(popUpTimeout);
+                    popUpTimeout = setTimeout(() => {
+                        errorPopUp.classList.add("hide"); 
+                    }, 4000);
                 }
             }).then(response => console.log(response));
 
@@ -579,9 +587,8 @@ profileButtonContainer.addEventListener("click", async function () {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: userTrackId })
     })
+    const userData = await profileInfoResponse.json()
     if (profileInfoResponse.status == 200) {
-        const userData = await profileInfoResponse.json()
-
         let username = userData.username
         let gmail = userData.gmail
         menuSubMenu.classList.add("hide");
@@ -595,7 +602,13 @@ profileButtonContainer.addEventListener("click", async function () {
         })
 
     } else {
-        console.log("ERROR");
+        console.log("errorPopUp:", errorPopUp);
+        errorPopUp.classList.remove("hide");
+        errorPopUp.textContent = userData.error;
+        clearTimeout(popUpTimeout);
+        popUpTimeout = setTimeout(() => {
+            errorPopUp.classList.add("hide"); 
+        }, 4000);
 
     }
 })
