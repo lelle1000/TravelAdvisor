@@ -122,11 +122,9 @@ async function getImages() {
     }
     const text = await response.text();
     if (text.length === 0) {
-        console.log("body was empty!");
         return null
     }
     const data = JSON.parse(text);
-    console.log(data);
     if (data == null) {
         return null;
     }
@@ -232,8 +230,6 @@ logInButton.addEventListener("click", () => {
     function logInCheck(resource) {
         if (resource.ok) {
             loginStatusGlobal = true;
-            console.log(resource.body.id)
-            console.log("You have logged in!");
             userTrackId = resource.body.id;
             popUp.classList.add("green");
             popUp.classList.remove("hide");
@@ -258,7 +254,6 @@ logInButton.addEventListener("click", () => {
             popUpTimeout = setTimeout(() => {
                 popUp.classList.add("hide");
             }, 4000);
-            console.log("Something went wrong!");
         }
     }
 })
@@ -278,10 +273,7 @@ signInButton.addEventListener("click", () => {
     function signInCheck(resource) {
         if (resource.ok) {
             loginStatusGlobal = true;
-            console.log(resource);
-            console.log(resource.body.id)
             userTrackId = resource.body.id;
-            console.log("You have signed in!");
             popUp.classList.add("green");
             popUp.classList.remove("hide");
             popUp.textContent = "Success, account created!";
@@ -307,7 +299,6 @@ signInButton.addEventListener("click", () => {
             popUpTimeout = setTimeout(() => {
                 popUp.classList.add("hide");
             }, 4000);
-            console.log("Something went wrong!");
         }
     }
 })
@@ -316,7 +307,6 @@ SearchButton.addEventListener("click", async () => {
     const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
     const CountriesData = await response.json()
     if (response.status == 400) {
-        console.log(CountriesData);
         submenuContainer.classList.add("hide");
         return
     }
@@ -407,8 +397,6 @@ async function wishCheck() {
             const idSplit = wish.id.split(",");
             const countryCapital = idSplit[1];
             const countryUrl = idSplit[0];
-            console.log(countryCapital)
-            console.log(countryUrl)
             const request = fetch("http://localhost:8000/add/destination/wishlist", {
                 method: "POST",
                 body: JSON.stringify({ countryCapital: countryCapital, imgurl: countryUrl, userId: userTrackId }),
@@ -494,14 +482,12 @@ async function friendsSearch() {
                 }
             })
             const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
-            console.log(unfollowFriend)
             unfollowFriend.addEventListener("click", async () => {
                 const response = await fetch("http://localhost:8000/friends/list", {
                     method: "DELETE",
                     body: JSON.stringify({ friendId: unfollowFriend.id, currentUserId: userTrackId }),
                     headers: { "Content-Type": "application/json" }
                 })
-                console.log(response);
                 if (response.ok) {
                     document.querySelector(`#friend-${unfollowFriend.id}`).remove();
                     const unfollowedUser = userArrayParse.find(obj => obj.id == unfollowFriend.id);
@@ -510,7 +496,6 @@ async function friendsSearch() {
             })
         }
     }
-    //console.log(userArrayParse)
     searchFriendsInput.addEventListener("keydown", async (e) => {
         friendsDivsFrame.innerHTML = "";
         if (e.target.value.length > 0) {
@@ -518,14 +503,10 @@ async function friendsSearch() {
                 let username = objekt.username.startsWith(e.target.value);
                 return username
             })
-
-            console.log(currentArray);
             for (let arr of currentArray) {
                 const sharedWishes = currentUserLoggedIn.wishlist.filter(item =>
                     arr.wishlist.some(friendItem => friendItem.countryName == item.countryName)
                 ).length;
-
-                console.log(sharedWishes)
                 const friendDiv = document.createElement("div");
                 friendDiv.classList.add("friend-profiles");
                 friendDiv.innerHTML = `
@@ -544,7 +525,6 @@ async function friendsSearch() {
                         headers: { "Content-Type": "application/json" }
                     });
                     const result = await response.json();
-                    console.log(response);
                     if (response.ok) {
                         friendDiv.remove();
                         newArray = newArray.filter(objekt => objekt.id != arr.id);
@@ -581,14 +561,12 @@ async function friendsSearch() {
                             }
                         })
                         const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
-                        console.log(unfollowFriend)
                         unfollowFriend.addEventListener("click", async () => {
                             const response = await fetch("http://localhost:8000/friends/list", {
                                 method: "DELETE",
                                 body: JSON.stringify({ friendId: unfollowFriend.id, currentUserId: userTrackId }),
                                 headers: { "Content-Type": "application/json" }
                             })
-                            console.log(response);
                             if (response.ok) {
                                 document.querySelector(`#friend-${unfollowFriend.id}`).remove();
                                 const unfollowedUser = userArrayParse.find(obj => obj.id == unfollowFriend.id);
