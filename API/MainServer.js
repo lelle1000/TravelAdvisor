@@ -298,7 +298,7 @@ async function handler(request) {
             let currentUser = UserArray.find(correctId => correctId.id == requestUserTrackId)
 
             if (!currentUser) {
-                return new Response(JSON.stringify({ error: "User does not exist " }), { status: 409, headers: headersCORS })
+                return new Response(JSON.stringify({ error: "User needs to be logged in to view their wishlist" }), { status: 409, headers: headersCORS })
             } else if (currentUser.wishlist.length === 0) {
                 return new Response(JSON.stringify({ error: "Users wishlist is empty" }), { status: 400, headers: headersCORS })
             } else {
