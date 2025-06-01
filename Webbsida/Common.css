@@ -684,7 +684,7 @@ footer #bold {
 
 
 
-#errorPopUp {
+#popUp {
     position: fixed;
     top: 100px;
     right: 50px;
@@ -696,4 +696,8 @@ footer #bold {
     font-family: sans-serif;
     font-size: 14px;
     z-index: 1000;
+}
+
+.green {
+    background-color: green !important;
 }
