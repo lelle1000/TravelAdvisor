@@ -67,18 +67,15 @@ const favoriteH2User = document.querySelector("#favoriteH2User");
 const errorPopUp = document.querySelector("#errorPopUp");
 let popUpTimeout;
 
+
 function showCurrentPage(page) {
-
     const allPages = [homePageDisplay, friendsPageDisplay, infoPageContainer, favoriteContainer, submenuContainer, signInPopup, loginPopup, friendsPopup, menuSubMenu, logoutPopup, favoriteDestinationsUsersContainer]
-
     allPages.forEach(p => p.classList.add("hide"))
-
     if (allPages.includes(page)) {
         page.classList.remove("hide")
     } else {
         return
     }
-
 }
 
 
@@ -201,20 +198,15 @@ async function getImages() {
                     console.log("Destination have been booked!");
                 }
             })
-
-
             showCurrentPage(infoPageContainer)
-
         })
     } else {
         return null
     }
-
 }
 
 async function getAllImages() {
     let addedImages = 0;
-
     while (addedImages < 12) {
         const result = await getImages()
         if (result !== null) {
@@ -304,7 +296,6 @@ signInButton.addEventListener("click", () => {
 })
 
 SearchButton.addEventListener("click", async () => {
-
     const response = await fetch(`http://localhost:8000/searchpage/loggedin?searchfield=${SearchLocation.value}`)
     const CountriesData = await response.json()
     if (response.status == 400) {
@@ -321,7 +312,6 @@ SearchButton.addEventListener("click", async () => {
         let continent = country.country.continents[0]
         const submenuItem = document.createElement("div")
         submenuItem.classList.add("submenuItem")
-
         submenuItem.innerHTML = `<div><span class="BOLD">${capital}</span> ${countryName} (${continent})</div> <img class="submenuImg" src="Images/icons8-search-50.png">`
         submenuContainer.append(submenuItem)
 
@@ -338,7 +328,6 @@ SearchButton.addEventListener("click", async () => {
             }
 
             const imgData = await response.json()
-
             let continentText = "";
             let destination = { country: countryName, capital: capital, continent: continent }
 
@@ -359,13 +348,9 @@ SearchButton.addEventListener("click", async () => {
             } else {
                 continentText = "a place with an unknown continent that will be difficult to travel too!"
             }
-
-
             document.querySelector("#image-box").innerHTML = `<img src="${imgData.imgUrl}" alt="Picture of ${capital}">`
             document.querySelector("#text-box").innerHTML = `<p class="descriptionParagraph">${capital} is the beautiful capital of ${countryName}, ${continentText}.</p> <button class="bookingButton"> Book Now! </button>  <img class="star-for-imgcard" id="${[imgData.imgUrl, capital]}" src="Images/star-svgrepo-com.svg">`
-
             wishCheck();
-
             bookingButton = document.querySelector(".bookingButton")
             bookingButton.addEventListener("click", async function () {
                 const bookingResponse = await fetch("http://localhost:8000/booked/loggedin", {
@@ -373,16 +358,13 @@ SearchButton.addEventListener("click", async () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userId: userTrackId, destination: destination })
                 })
-
                 if (bookingResponse.status == 200) {
                     console.log("Destination have been booked!");
                 }
             })
-
             showCurrentPage(infoPageContainer)
         })
     }
-
 })
 
 
@@ -413,7 +395,6 @@ async function wishCheck() {
                     }, 4000);
                 }
             }).then(response => console.log(response));
-
         })
     }
 }
@@ -487,7 +468,6 @@ async function friendsSearch() {
                     `
                     friendsList.appendChild(friendProfiles);
 
-
                     const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
                     friendsWishList.addEventListener("click", async () => {
                         favoriteDestinationsUsers.innerHTML = "";
@@ -522,11 +502,9 @@ async function friendsSearch() {
                         }
                     })
                 }
-            });
-
+            })
         }
     })
-
 }
 
 closeCross.addEventListener("click", () => {
@@ -540,8 +518,14 @@ friendsPopupButton.addEventListener("click", () => {
 submenuFriendsButton.addEventListener("click", () => {
     if (loginStatusGlobal) {
         showCurrentPage(friendsPageDisplay)
+    } else {
+        errorPopUp.classList.remove("hide");
+        errorPopUp.textContent = "User needs to be logged in to look at friends";
+        clearTimeout(popUpTimeout);
+        popUpTimeout = setTimeout(() => {
+            errorPopUp.classList.add("hide"); 
+        }, 4000);
     }
-    // Få en popup att poppa upp annars här
 })
 
 
@@ -555,7 +539,6 @@ menuButton.addEventListener("click", () => {
 
 
 favoriteSubContainer.addEventListener("click", async function () {
-    showCurrentPage(favoriteContainer);
     const response = await fetch("http://localhost:8000/favorites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -564,20 +547,24 @@ favoriteSubContainer.addEventListener("click", async function () {
 
     const userData = await response.json()
 
-    if (!response.ok) {
-        return null
+    if (response.ok) {
+       showCurrentPage(favoriteContainer);
+        const favoriteDestinations = document.querySelector(".favoriteDestinations");
+        favoriteDestinations.innerHTML = ""
+        for (let favorite of userData.currentUser.wishlist) {
+            let favoriteDestinationItem = document.createElement("div")
+            favoriteDestinationItem.classList.add("favoriteItem");
+            favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div class="favoriteTextBox">The beautiful capital ${favorite.countryName}</div>`
+            favoriteDestinations.append(favoriteDestinationItem)
+        }
+    } else {
+        errorPopUp.classList.remove("hide");
+        errorPopUp.textContent = userData.error;
+        clearTimeout(popUpTimeout);
+        popUpTimeout = setTimeout(() => {
+            errorPopUp.classList.add("hide"); 
+        }, 4000);
     }
-
-    const favoriteDestinations = document.querySelector(".favoriteDestinations");
-    favoriteDestinations.innerHTML = ""
-
-    for (let favorite of userData.currentUser.wishlist) {
-        let favoriteDestinationItem = document.createElement("div")
-        favoriteDestinationItem.classList.add("favoriteItem");
-        favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div class="favoriteTextBox">The beautiful capital ${favorite.countryName}</div>`
-        favoriteDestinations.append(favoriteDestinationItem)
-    }
-
 })
 
 
@@ -593,22 +580,18 @@ profileButtonContainer.addEventListener("click", async function () {
         let gmail = userData.gmail
         menuSubMenu.classList.add("hide");
         profileInfoBox.classList.remove("hide");
-
         profileUsername.textContent = `Username: ${username}`;
         profileEmail.textContent = `Email: ${gmail}`;
         profileCloseButton.addEventListener("click", () => {
             menuSubMenu.classList.remove("hide");
             profileInfoBox.classList.add("hide");
         })
-
     } else {
-        console.log("errorPopUp:", errorPopUp);
         errorPopUp.classList.remove("hide");
         errorPopUp.textContent = userData.error;
         clearTimeout(popUpTimeout);
         popUpTimeout = setTimeout(() => {
             errorPopUp.classList.add("hide"); 
         }, 4000);
-
     }
 })
