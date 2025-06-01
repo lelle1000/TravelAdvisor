@@ -7,7 +7,7 @@ body {
     display: flex;
     gap: 20px;
     align-items: center;
-    padding: 30px 0px;
+    padding: 0px 0px 30px 0px;
     background-color: gainsboro;
 
     font-size: 20px;
@@ -23,12 +23,12 @@ body {
     padding: 0px 20px;
 }
 
-#middleNav:hover {
-    cursor: pointer;
-    color: rgb(99, 99, 99);
+.noLinkStyle {
+    color: black;
+    text-decoration: none;    
 }
 
-#rightNav:hover {
+.navHover:hover a {
     cursor: pointer;
     color: rgb(99, 99, 99);
 }
