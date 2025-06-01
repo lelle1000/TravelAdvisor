@@ -423,9 +423,8 @@ async function friendsSearch() {
         friendsDivsFrame.innerHTML = "";
         if (e.target.value.length > 0) {
             const currentArray = newArray.filter(objekt => {
-                let username = objekt.username.includes(e.target.value);
-                let email = objekt.gmail.includes(e.target.value);
-                return username || email
+                let username = objekt.username.startsWith(e.target.value);
+                return username
             })
 
             console.log(currentArray);
