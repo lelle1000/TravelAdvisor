@@ -17,92 +17,101 @@
     <main id="InformationContainer">
         <div>
             <h2>Travel Advisor</h2>
-            <p>Book your destination through Travel Advisor! Plenty of popular destinations that you can find here!</p>
+            <p>Book your destination through Travel Advisor! A database featuring every capital city on Earth</p>
         </div>
         <div>
             <h2>About this project</h2>
-            <p>This project was created to facilitate bookings and help people find their dream destinations! We are
-                happy to help and find the peoples favorite destinations!</p>
+            <p>This project was created to facilitate bookings through a worldwide destination database and help people discover and explore capital cities around the globe.</p>
         </div>
         <div>
             <h2>Important information</h2>
-            <p>To access this API user has to be signed in or logged in!</p>
+            <p>To access this API, the user has to be signed in or logged in</p>
         </div>
         <div>
             <h2>Access API</h2>
-            <p>To access API correct endpoints should be used!</p>
+            <ul>
+                <li>To access this API, users <span class="BOLD">be signed in or logged in.</span></li>
+                <li>Use the correct endpoints listed below for proper functionality.</li>
+            </ul>
         </div>
         <div>
             <h2>API Endpoints</h2>
 
         </div>
         <div>
-            <h2>http://localhost:8000/homepage</h2>
-            <p>This endpoint consists of <span>GET</span> and <span>POST</span> request. The <span>GET</span> reqeust if
-                fetched gives
-                the user random
-                destinations of images and capital name of an extern API in Json format. The <span>POST</span> request
-                is used to give
-                the user a
-                status in Json format if user is logged in or not with userId.</p>
+            <h2>/homepage</h2>
+            <ul>
+                <li><span class="green">GET</span>: Returns random destination UI cards, including images and capital names, from a local API in JSON format.</li>
+                <li><span class="blue">POST</span>: Accepts a <span class="BOLD">userId</span> and responds with the user's login status in JSON format.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/homepage/signin</h2>
-            <p>This endpoint has one <span>POST</span> request that handles the data when user is creating an account.
-                The endpoint handles the database for all the users and adds an user if signed in. It later returns the
-                new created accounts unique id in json format.</p>
+            <h2>/homepage/signin</h2>
+            <ul>
+                <li><span class="blue">POST</span>: Handles user account creation.</li>
+                <li class="indent">Adds the new user to the database.</li>
+                <li class="indent">Returns the newly created account’s unique ID in JSON format.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/homepage/loggedin</h2>
-            <p>This endpoint also consists of one request, <span>POST</span> there it handles the users password and
-                username. The endpoint check the databse if the correct user is given through input and returns a Json
-                formated status text.</p>
+            <h2>/homepage/loggedin</h2>
+            <ul>
+                <li><span class="blue">POST</span>: Verifies user credentials (username and password).</li>
+                <li class="indent">Checks the database for a match.</li>
+                <li class="indent">Returns the login status in JSON format.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/searchpage</h2>
-            <p>This endpoint take an <span>GET</span> request there it gives the user all of the destinations from
-                databse in Json format. Therefore the user can search the desired destination and read more.</p>
+            <h2>/searchpage</h2>
+            <ul>
+                <li><span class="green">GET</span>: Returns all available destinations from the database in JSON format.</li>
+                <li class="indent">Users can search and read about each destination.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/informationpage</h2>
-            <p>This endpoint takes an <span>POST</span> there it take the given user input of the destination that is
-                clicked. It returns the Json formated destination image and captial name that is used in a seperate
-                page.</p>
+            <h2>/informationpage</h2>
+            <ul>
+                <li><span class="blue">POST</span>: Accepts the destination selected by the user.</li>
+                <li class="indent">Returns the destination’s image and capital name in JSON format.</li>
+                <li class="indent">Used to display detailed information on a separate page.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/destination/wishlist</h2>
-            <p>This endpoint takes an <span>POST</span> and through the <span>POST</span> request it adds the users
-                desired favorite destination to the database and gives a status in Json format back if success </p>
+            <h2>/destination/wishlist</h2>
+            <ul>
+                <li><span class="blue">POST</span>: Adds the user’s selected favorite destination to their wishlist in the database.</li>
+                <li class="indent">Returns a success status in JSON format.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000//friends/list</h2>
-            <p>This endpoint takes <span>GET</span>, <span>POST</span> and <span>DELETE</span> as requests. The
-                <span>GET</span> request gives the user the whole databse of users in Json format where friends list can
-                be accessed.
-                The <span>POST</span> request gives the option to add a friend where the databse is uppdated through
-                <span>POST</span>. By using the <span>DELETE</span> request, the user can delete a friend through the
-                database. The user is informed with a Json formated status after request.
-
-            </p>
+            <h2>/friends/list</h2>
+            <ul>
+                <li><span class="green">GET</span>: Returns the entire user database in JSON format so users can view and manage friends.</li>
+                <li><span class="blue">POST</span>: Adds a friend to the user’s list and updates the database.</li>
+                <li><span class="red">DELETE</span>: Removes a friend from the user’s list.</li>
+                <li class="indent">All actions return a JSON-formatted status response.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/favorites</h2>
-            <p>This endpoint takes only a <span>POST</span> request were the user can add favorite destinations to a
-                list on the
-                database. The <span>POST</span> updates the list for the user.</p>
+            <h2>/favorites</h2>
+            <ul>
+                <li><span class="blue">POST</span>: Adds a destination to the user's favorites list in the database.</li>
+                <li class="indent">Returns a status message in JSON format.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/booked/loggedin</h2>
-            <p>This endpoint takes a <span>POST</span> request there it gives the user a new instance of class in Json
-                format so
-                users has a history of all the bookings that has been placed. This is returned with a Json formated
-                status text.</p>
+            <h2>/booked/loggedin</h2>
+            <ul>
+                <li><span class="blue">POST</span>: Creates a new booking instance for the logged-in user.</li>
+                <li class="indent">Returns the booking history and a status message in JSON format.</li>
+            </ul>
         </div>
         <div>
-            <h2>http://localhost:8000/friends/list/user</h2>
-            <p>This endpoint also only takes an <span>POST</span> request and uses that to get the loggedin users
-                friends wishlist by the friends information. The <span>POST</span> returns the users wishlist and
-                username in a Json format.</p>
+            <h2>/friends/list/user</h2>
+            <ul>
+                <li><span class="blue">POST</span>: Retrieves the wishlist (favorite cities) of a specific friend based on their username or ID.</li>
+                <li class="indent">Returns the friend’s username and wishlist in JSON format.</li>
+            </ul>
         </div>
     </main>
 </body>

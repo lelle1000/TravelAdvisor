@@ -39,14 +39,31 @@ body {
 }
 
 #InformationContainer div {
-    padding: 10px;
+    padding: 20px;
     border-bottom: 1px solid gray;
     border-left: 1px solid gray;
-    width: 900px;
-    background-color: white;
-    text-align: center;
+    width: 1000px;
+    background-color: rgb(230, 230, 230);
+    text-align: left;
+    
 }
 
-span {
-    color: blue;
+.green {
+    color: rgb(38, 170, 38);
+}
+
+.blue {
+    color: rgb(42, 42, 255);
+}
+
+.red {
+    color: rgb(255, 38, 38);
+}
+
+.BOLD {
+    font-weight: bolder;
+}
+
+.indent {
+    margin-left: 20px;
 }
