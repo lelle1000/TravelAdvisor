@@ -324,10 +324,15 @@ async function handler(request) {
                 let UserJson = await Deno.readTextFile("./user.json");
                 let userArray = JSON.parse(UserJson)
                 let userInfo = userArray.find(user => user.id == bookingData.userId)
-                let checkForBooking = await Deno.readTextFile("./bookings.json")
 
+                let checkForBooking = await Deno.readTextFile("./bookings.json")
                 let parseCheckForBooking = JSON.parse(checkForBooking)
 
+                if (parseCheckForBooking.some(duplicate => duplicate.id === bookingData.userId && duplicate.destination && duplicate.destination.capital === bookingData.destination.capital)){
+                    return new Response("Can't book the same destination twice", { status: 409, headers: headersCORS });
+                }
+
+                
                 const userBooking = new BookingDataLog(userInfo.username, userInfo.gmail, userInfo.id, bookingData.destination)
 
                 parseCheckForBooking.push(userBooking)
