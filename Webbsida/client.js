@@ -488,7 +488,7 @@ async function friendsSearch() {
                     for (let resource of wishListResource.wishlist) {
                         let favoriteDestinationItem = document.createElement("div")
                         favoriteDestinationItem.classList.add("favoriteItem");
-                        favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryName}"><div class="favoriteTextBox">The beautiful capital ${resource.countryName}</div>`
+                        favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryCapital}"><div class="favoriteTextBox">The beautiful capital ${resource.countryCapital}</div>`
                         favoriteDestinationsUsers.append(favoriteDestinationItem);
                     }
                 }
