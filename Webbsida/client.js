@@ -412,14 +412,69 @@ window.addEventListener("scroll", () => {
     }
 })
 
+
+
 async function friendsSearch() {
+    friendsList.innerHTML = "";
+    const response = await fetch("http://localhost:8000/friends/list")
+    const userArray = await response.json();
+    const userArrayParse = JSON.parse(userArray);
+    const currentUserLoggedIn = userArrayParse.find(objekt => objekt.id == userTrackId);
+    let newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
+    if (currentUserLoggedIn.friendsList.length > 0) {
+        for (let arr of currentUserLoggedIn.friendsList) {
+            newArray = newArray.filter(objekt => objekt.id != arr.id);
+            const friendProfiles = document.createElement("div");
+            friendProfiles.classList.add("friend-list-profiles")
+            friendProfiles.id = `friend-${arr.id}`;
+            friendProfiles.innerHTML = `
+             <img src="Images/WhiteLogin.png">
+             <p>${arr.username}</p>
+              <p>${arr.gmail}</p>
+                <button class="get-friend-wishlist" id="${arr.id}">Wishlist</button>
+              <button class="unfollow-friend" id="${arr.id}">Unfollow</button>
+             `
+            friendsList.appendChild(friendProfiles);
+
+            const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
+            friendsWishList.addEventListener("click", async () => {
+                favoriteDestinationsUsers.innerHTML = "";
+                const response = await fetch("http://localhost:8000/friends/list/user", {
+                    method: "POST",
+                    body: JSON.stringify({ id: friendsWishList.id }),
+                    headers: { "Content-Type": "application/json" }
+                })
+                const wishListResource = await response.json();
+                if (response.ok) {
+                    favoriteH2User.textContent = `${wishListResource.name}s favorite destinations`
+                    showCurrentPage(favoriteDestinationsUsersContainer);
+                    for (let resource of wishListResource.wishlist) {
+                        let favoriteDestinationItem = document.createElement("div")
+                        favoriteDestinationItem.classList.add("favoriteItem");
+                        favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryName}"><div class="favoriteTextBox">The beautiful capital ${resource.countryName}</div>`
+                        favoriteDestinationsUsers.append(favoriteDestinationItem);
+                    }
+                }
+            })
+            const unfollowFriend = friendProfiles.querySelector(".unfollow-friend");
+            console.log(unfollowFriend)
+            unfollowFriend.addEventListener("click", async () => {
+                const response = await fetch("http://localhost:8000/friends/list", {
+                    method: "DELETE",
+                    body: JSON.stringify({ friendId: unfollowFriend.id, currentUserId: userTrackId }),
+                    headers: { "Content-Type": "application/json" }
+                })
+                console.log(response);
+                if (response.ok) {
+                    document.querySelector(`#friend-${unfollowFriend.id}`).remove();
+                    const unfollowedUser = userArrayParse.find(obj => obj.id == unfollowFriend.id);
+                    newArray.push(unfollowedUser);
+                }
+            })
+        }
+    }
     //console.log(userArrayParse)
     searchFriendsInput.addEventListener("keydown", async (e) => {
-        const response = await fetch("http://localhost:8000/friends/list")
-        const userArray = await response.json();
-        const userArrayParse = JSON.parse(userArray);
-        const currentUserLoggedIn = userArrayParse.find(objekt => objekt.id == userTrackId);
-        let newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
         friendsDivsFrame.innerHTML = "";
         if (e.target.value.length > 0) {
             const currentArray = newArray.filter(objekt => {
@@ -460,12 +515,12 @@ async function friendsSearch() {
                         friendProfiles.classList.add("friend-list-profiles")
                         friendProfiles.id = `friend-${arr.id}`;
                         friendProfiles.innerHTML = `
-                     <img src="Images/WhiteLogin.png">
-                    <p>${arr.username}</p>
-                    <p>${arr.gmail}</p>
-                    <button class="get-friend-wishlist" id="${arr.id}">Wishlist</button>
-                    <button class="unfollow-friend" id="${arr.id}">Unfollow</button>
-                    `
+                        <img src="Images/WhiteLogin.png">
+                        <p>${arr.username}</p>
+                         <p>${arr.gmail}</p>
+                         <button class="get-friend-wishlist" id="${arr.id}">Wishlist</button>
+                        <button class="unfollow-friend" id="${arr.id}">Unfollow</button>
+                        `
                         friendsList.appendChild(friendProfiles);
 
                         const friendsWishList = friendProfiles.querySelector(".get-friend-wishlist");
@@ -499,17 +554,20 @@ async function friendsSearch() {
                             console.log(response);
                             if (response.ok) {
                                 document.querySelector(`#friend-${unfollowFriend.id}`).remove();
+                                const unfollowedUser = userArrayParse.find(obj => obj.id == unfollowFriend.id);
+                                newArray.push(unfollowedUser);
                             }
                         })
                     }
                 })
             }
         }
-        else {
-            friendsDivsFrame.innerHTML = "";
-        }
     })
 }
+
+
+
+
 
 closeCross.addEventListener("click", () => {
     friendsPopup.classList.add("hide");
