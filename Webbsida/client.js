@@ -541,7 +541,7 @@ async function friendsSearch() {
                                 for (let resource of wishListResource.wishlist) {
                                     let favoriteDestinationItem = document.createElement("div")
                                     favoriteDestinationItem.classList.add("favoriteItem");
-                                    favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryName}"><div class="favoriteTextBox">The beautiful capital ${resource.countryName}</div>`
+                                    favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${resource.imgurl}" alt="Picture of ${resource.countryCapital}"><div class="favoriteTextBox">The beautiful capital ${resource.countryCapital}</div>`
                                     favoriteDestinationsUsers.append(favoriteDestinationItem);
                                 }
                             }
@@ -614,7 +614,7 @@ favoriteSubContainer.addEventListener("click", async function () {
         for (let favorite of userData.currentUser.wishlist) {
             let favoriteDestinationItem = document.createElement("div")
             favoriteDestinationItem.classList.add("favoriteItem");
-            favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div class="favoriteTextBox">The beautiful capital ${favorite.countryName}</div>`
+            favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryCapital}"><div class="favoriteTextBox">The beautiful capital ${favorite.countryCapital}</div>`
             favoriteDestinations.append(favoriteDestinationItem)
 
             const deleteFavoriteButton = document.createElement("button");
