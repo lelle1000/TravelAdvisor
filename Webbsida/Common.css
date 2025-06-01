@@ -666,6 +666,19 @@ footer #bold {
     border-radius: 5px;
 }
 
+.deleteDestinationButton {
+    background-color: var(--W);
+    border: 1px solid var(--B);
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.deleteDestinationButton:hover {
+    background-color: #b3ccdd;
+    cursor: pointer;
+}
+
 
 
 

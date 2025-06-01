@@ -561,6 +561,28 @@ favoriteSubContainer.addEventListener("click", async function () {
             favoriteDestinationItem.classList.add("favoriteItem");
             favoriteDestinationItem.innerHTML = `<img class="favoriteImgBox" src="${favorite.imgurl}" alt="Picture of ${favorite.countryName}"><div class="favoriteTextBox">The beautiful capital ${favorite.countryName}</div>`
             favoriteDestinations.append(favoriteDestinationItem)
+
+            const deleteFavoriteButton = document.createElement("button");
+            deleteFavoriteButton.classList.add("deleteDestinationButton");
+            deleteFavoriteButton.textContent = "Remove";
+            favoriteDestinationItem.append(deleteFavoriteButton);
+            deleteFavoriteButton.addEventListener("click", async () => {
+                const response = await fetch("http://localhost:8000/favorites", {
+                    method: "DELETE",
+                    headers: { "content-Type": "application/json" },
+                    body: JSON.stringify({ userId: userTrackId, countryCapital: favorite.countryCapital })
+                })
+                if (response.ok) {
+                    favoriteDestinationItem.remove();
+                    popUp.classList.add("green");
+                    popUp.classList.remove("hide");
+                    popUp.textContent = "Successfully deleted the city!";
+                    clearTimeout(popUpTimeout);
+                    popUpTimeout = setTimeout(() => {
+                        popUp.classList.add("hide"); 
+                    }, 4000);
+                }
+            })
         }
     } else {
         popUp.classList.remove("green");

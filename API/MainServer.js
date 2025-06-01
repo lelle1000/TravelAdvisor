@@ -305,6 +305,16 @@ async function handler(request) {
             }
         }
 
+        if (request.method === "DELETE") {
+            const favoriteData = await request.json();
+            const favoriteUserData = await Deno.readTextFile("./user.json");
+            const parsedFavoriteUserData = JSON.parse(favoriteUserData);
+            const findFavoriteUser = parsedFavoriteUserData.findIndex(user => user.id == favoriteData.userId);
+            parsedFavoriteUserData[findFavoriteUser].wishlist = parsedFavoriteUserData[findFavoriteUser].wishlist.filter(favoriteCountry => favoriteCountry.countryCapital !== favoriteData.countryCapital);
+            await Deno.writeTextFile("./user.json", JSON.stringify(parsedFavoriteUserData, null, 2));
+            return new Response("Successfully deleted!", { status: 200, headers: headersCORS })
+        }
+
     }
 
     if (bookingsMatch) {
