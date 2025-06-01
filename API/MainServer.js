@@ -215,6 +215,13 @@ async function handler(request) {
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
             const userIndex = userArray.findIndex(objekt => objekt.id == requestData.userId);
+
+            let checkSameWish = userArray[userIndex].wishlist.some(wish => wish.countryCapital == requestData.countryCapital)
+            
+            if(checkSameWish) {
+                return new Response(JSON.stringify({ error: "Can't add the same wish to your wishlist!" }), {status: 409, headers: headersCORS })
+            }
+
             userArray[userIndex].wishlist.push(requestData);
             await Deno.writeTextFile("./user.json", JSON.stringify(userArray, null, 2));
             return new Response(JSON.stringify("Wish added in list!"), { status: 200, headers: headersCORS });

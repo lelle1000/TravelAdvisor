@@ -388,13 +388,13 @@ async function wishCheck() {
     for (let wish of wishListStar) {
         wish.addEventListener("click", () => {
             const idSplit = wish.id.split(",");
-            const countryName = idSplit[1];
+            const countryCapital = idSplit[1];
             const countryUrl = idSplit[0];
-            console.log(countryName)
+            console.log(countryCapital)
             console.log(countryUrl)
             const request = fetch("http://localhost:8000/add/destination/wishlist", {
                 method: "POST",
-                body: JSON.stringify({ countryName: countryName, imgurl: countryUrl, userId: userTrackId }),
+                body: JSON.stringify({ countryCapital: countryCapital, imgurl: countryUrl, userId: userTrackId }),
                 headers: { "Content-Type": "application/json" }
             })
             request.then(response => {
@@ -402,7 +402,7 @@ async function wishCheck() {
                     wish.style.backgroundColor = "yellow";
                     return response.json();
                 } else {
-                    console.log("Wish went wrong!");
+                    console.log("Wish did not go through! Can't add the same wish!");
                 }
             }).then(response => console.log(response));
 
