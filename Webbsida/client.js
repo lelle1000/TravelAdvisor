@@ -511,7 +511,6 @@ async function friendsSearch() {
                 friendDiv.innerHTML = `
                   <img src="Images/WhiteLogin.png">
                     <p>${arr.username}</p>
-                    <p>Common destinations: ${sharedWishes}</p>
                     <button class="follow-${arr.id}">Follow</button>
                  `
                 friendsDivsFrame.appendChild(friendDiv);
