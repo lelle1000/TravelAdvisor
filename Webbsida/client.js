@@ -419,7 +419,7 @@ async function friendsSearch() {
         const userArray = await response.json();
         const userArrayParse = JSON.parse(userArray);
         const currentUserLoggedIn = userArrayParse.find(objekt => objekt.id == userTrackId);
-        const newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
+        let newArray = userArrayParse.filter(objekt => objekt.id != userTrackId);
         friendsDivsFrame.innerHTML = "";
         if (e.target.value.length > 0) {
             const currentArray = newArray.filter(objekt => {

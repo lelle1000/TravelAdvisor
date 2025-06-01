@@ -1,25 +1,22 @@
 #friendsContainer {
     background-color: #b3ccdd;
     margin-top: 50px;
-    padding: 50px 200px 50px;
-    border-radius: 15px;
     text-align: center;
+    padding: 50px 0;
 }
 
 #grid-for-friends {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 50px;
+    padding: 50px;
 }
 
 .friend-list-profiles {
-    width: 100%;
-    height: 80px;
-    background-color: rgb(12, 26, 79);
+    color: white;
+    background-color: rgb(170, 219, 252);
+    padding: 30px;
     border-radius: 20px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
 }
 
 .friend-list-profiles img {
@@ -27,17 +24,22 @@
 }
 
 .friend-list-profiles button {
-    height: 20px;
+    text-align: center;
+    width: 70px;
+    padding: 5px 10px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 10px;
 }
-
 
 #add-friends-list {
     display: block;
-    margin-left: auto;
+    margin: 0 auto;
     border-radius: 10px;
     background-color: white;
     border: none;
     cursor: pointer;
+    padding: 10px;
 }
 
 #add-friends-popup {
@@ -80,9 +82,4 @@
 
 .friend-profiles img {
     height: 45px;
-}
-
-
-#add-friends-list {
-    padding: 10px;
 }
