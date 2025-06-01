@@ -347,8 +347,10 @@ async function handler(request) {
             const userJson = await Deno.readTextFile("./user.json");
             const userArray = JSON.parse(userJson);
             const userObject = userArray.find(object => object.id == data.id);
+            if(!userObject) {
+                return new Response(JSON.stringify({ error: "Friend object is missing" }), { status: 404, headers: headersCORS })
+            }
             return new Response(JSON.stringify({ wishlist: userObject.wishlist, name: userObject.username }), { status: 202, headers: headersCORS });
-
         }
     }
 
